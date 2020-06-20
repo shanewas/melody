@@ -1,11 +1,12 @@
 import Paper from "@material-ui/core/Paper";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
-import ReactPlayer from "react-player";
 
 import { Grid } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import React from "react";
+
+import VideoPlayer from "./VideoPlayer";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -66,11 +67,7 @@ export default function SimplePaper() {
           </Grid>
         </Grid>
         <Grid item lg={8} xm={12}>
-          <ReactPlayer
-            url="https://www.youtube.com/watch?v=JxPj3GAYYZ0"
-            width="auto"
-            height="400px"
-          />
+            <VideoPlayer/>
         </Grid>
       </Grid>
     </Paper>
