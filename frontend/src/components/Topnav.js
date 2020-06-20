@@ -9,47 +9,57 @@ import MenuIcon from "@material-ui/icons/Menu";
 import PersonIcon from "@material-ui/icons/Person";
 import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
 import "../theme";
+import CardMedia from "@material-ui/core/CardMedia";
 
 const useStyles = makeStyles((theme) => ({
-	root: {
-		flexGrow: 1,
-	},
-	menuButton: {
-		marginRight: theme.spacing(2),
-	},
-	title: {
-		flexGrow: 1,
-	},
+  root: {
+    flexGrow: 1,
+  },
+  menuButton: {
+    marginRight: theme.spacing(2),
+  },
+  title: {
+    flexGrow: 1,
+  },
+  media: {
+    height: 0,
+    paddingTop: '0%', // 16:9
+  },
 }));
 
 export default function ButtonAppBar() {
-	const classes = useStyles();
+  const classes = useStyles();
 
-	return (
-		<div className={classes.root}>
-			<AppBar position='static' color='primary'>
-				<Toolbar>
-					<IconButton
-						edge='start'
-						className={classes.menuButton}
-						color='inherit'
-						aria-label='menu'
-					>
-						<MenuIcon />
-					</IconButton>
-					<Typography variant='h6' className={classes.title}>
-						News
+  return (
+    <div className={classes.root}>
+      <AppBar position="static" color="primary">
+        <Toolbar>
+          <IconButton
+            edge="start"
+            className={classes.menuButton}
+            color="inherit"
+            aria-label="menu"
+          >
+            <MenuIcon />
+          </IconButton>
+          <Typography variant='h6' className={classes.title}>
+						MethodMelody
 					</Typography>
-					<ShoppingCartIcon fontSize='small' />
-					<Button color='inherit'>
-						<Typography variant='body2'>Cart</Typography>
-					</Button>
-					<PersonIcon fontSize='small' />
-					<Button color='inherit'>
-						<Typography variant='body2'>Login</Typography>
-					</Button>
-				</Toolbar>
-			</AppBar>
-		</div>
-	);
+          {/* <CardMedia
+            className={classes.media}
+            image="https://www.nokia.com/sites/default/files/styles/large/public/2020-03/M75_MWC_en_int_desktop%402x.jpg?h=7afba369"
+            title="Paella dish"
+          /> */}
+          <ShoppingCartIcon fontSize="small" />
+          <Button color="inherit">
+            <Typography variant="body2">Cart</Typography>
+          </Button>
+          <PersonIcon fontSize="small" />
+          <Button color="inherit">
+            <Typography variant="body2">Login</Typography>
+          </Button>
+        </Toolbar>
+      </AppBar>
+    </div>
+  );
 }
