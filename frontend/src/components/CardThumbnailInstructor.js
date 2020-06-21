@@ -6,7 +6,7 @@ import theme from "../theme";
 
 const useStyles = makeStyles({
   root: {
-    maxWidth: 345,
+    maxWidth: 355,
   },
   media: {
     height: 150,
@@ -19,7 +19,7 @@ export default function CardThumbnailInstructor() {
     <Card className={classes.root}>
       <CardMedia
         className={classes.media}
-        image="https://opend-licklibrary-com.akamaized.net/images/tutors/thumbnails/hero-tutor_Danny_Gill.jpg"
+        image="https://opend-licklibrary-com.akamaized.net/images/tutors/thumbnails/hero-tutor_Jamie_Humphries.jpg"
         title="Contemplative Reptile"
         width="auto"
         height="100px"

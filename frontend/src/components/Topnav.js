@@ -64,7 +64,7 @@ export default function ButtonAppBar() {
 
   return (
     <div className={classes.root}>
-      <AppBar position="static" color="primary">
+      <AppBar position="fixed" color="primary">
         <Toolbar>
           <Button color="inherit">
             <Typography variant="body2">Learn</Typography>
@@ -75,7 +75,7 @@ export default function ButtonAppBar() {
           </Button>
           <ExpandMore />
 
-          <Search className={classes.searchIcon} fontSize="medium"/>
+          <Search className={classes.searchIcon} fontSize="medium" />
 
           <InputBase
             placeholder="Search…"

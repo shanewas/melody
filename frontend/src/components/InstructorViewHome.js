@@ -13,9 +13,9 @@ const useStyles = makeStyles((theme) => ({
   title: {
     fontSize: 18,
   },
-  paper: {
-    background: "#242322",
-  },
+//   paper: {
+//     background: "#242322",
+//   },
   arrow: {
     marginTop: theme.spacing(1),
   },
