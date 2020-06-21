@@ -15,6 +15,7 @@ function App() {
         <Grid item>
           <PrimarySearchAppBar />
         </Grid>
+        <br/>
         <Grid item>
           <TopViewHome />
         </Grid>

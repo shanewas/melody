@@ -41,13 +41,7 @@ export default function CoursesViewHome() {
             Over 350 in-depth courses for you to pick from
           </Typography>
         </Grid>
-        <Grid
-          container
-          direction="row"
-          alignItems="center"
-          justify="center"
-          spacing={1}
-        >
+        <Grid container direction="row" alignItems="center" spacing={3}>
           <Grid item lg={2} md={3} sm={4} xs={6}>
             <CardThumbnail />
           </Grid>

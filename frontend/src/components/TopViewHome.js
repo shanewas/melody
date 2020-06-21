@@ -18,6 +18,9 @@ const useStyles = makeStyles((theme) => ({
     color: "rgba(255,255,255,.87)",
     marginTop:theme.spacing(6)
   },
+  Typography: {
+    fontSize: 50
+  }
 }));
 
 export default function SimplePaper() {
@@ -38,7 +41,7 @@ export default function SimplePaper() {
                 variant="H1"
                 component="H1"
                 align="Left"
-                color="secondary"
+                className={classes.Typography}
               >
                 TODAY'S <br/> 
                 THE DAY
@@ -49,7 +52,6 @@ export default function SimplePaper() {
                 variant="p"
                 component="p"
                 align="Left"
-                color="secondary"
               >
                 Learn from 10+ <br /> of Bangladesh’s most acclaimed Musicians
                 !!

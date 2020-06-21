@@ -13,9 +13,9 @@ const useStyles = makeStyles((theme) => ({
   title: {
     fontSize: 18,
   },
-//   paper: {
-//     background: "#242322",
-//   },
+  //   paper: {
+  //     background: "#242322",
+  //   },
   arrow: {
     marginTop: theme.spacing(1),
   },
@@ -41,13 +41,7 @@ export default function InstructorViewHome() {
             Learn from the Best of the Best, anytime
           </Typography>
         </Grid>
-        <Grid
-          container
-          direction="row"
-          spacing={1}
-          alignItems="center"
-          jusstify="center"
-        >
+        <Grid container direction="row" spacing={3} alignItems="center">
           <Grid item lg={3} md={4} sm={4} xs={6}>
             <CardThumbnail />
           </Grid>
