@@ -48,34 +48,34 @@ export default function CoursesViewHome() {
           justify="center"
           spacing={1}
         >
-          <Grid item lg={2} sm={4} xs={6}>
+          <Grid item lg={2} md={3} sm={4} xs={6}>
             <CardThumbnail />
           </Grid>
-          <Grid item lg={2} sm={4} xs={6}>
+          <Grid item lg={2} md={3} sm={4} xs={6}>
             <CardThumbnail />
           </Grid>
-          <Grid item lg={2} sm={4} xs={6}>
+          <Grid item lg={2} md={3} sm={4} xs={6}>
             <CardThumbnail />
           </Grid>
-          <Grid item lg={2} sm={4} xs={6}>
+          <Grid item lg={2} md={3} sm={4} xs={6}>
             <CardThumbnail />
           </Grid>
-          <Grid item lg={2} sm={4} xs={6}>
+          <Grid item lg={2} md={3} sm={4} xs={6}>
             <CardThumbnail />
           </Grid>
-          <Grid item lg={2} sm={4} xs={6}>
+          <Grid item lg={2} md={3} sm={4} xs={6}>
             <CardThumbnail />
           </Grid>
-          <Grid item lg={2} sm={4} xs={6}>
+          <Grid item lg={2} md={3} sm={4} xs={6}>
             <CardThumbnail />
           </Grid>
-          <Grid item lg={2} sm={4} xs={6}>
+          <Grid item lg={2} md={3} sm={4} xs={6}>
             <CardThumbnail />
           </Grid>
-          <Grid item lg={2} sm={4} xs={6}>
+          <Grid item lg={2} md={3} sm={4} xs={6}>
             <CardThumbnail />
           </Grid>
-          <Grid item lg={2} sm={4} xs={6}>
+          <Grid item lg={2} md={3} sm={4} xs={6}>
             <CardThumbnail />
           </Grid>
         </Grid>

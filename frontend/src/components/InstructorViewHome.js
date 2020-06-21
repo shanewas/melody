@@ -48,22 +48,22 @@ export default function InstructorViewHome() {
           alignItems="center"
           jusstify="center"
         >
-          <Grid item lg={3} sm={6} xs={6}>
+          <Grid item lg={3} md={4} sm={4} xs={6}>
             <CardThumbnail />
           </Grid>
-          <Grid item lg={3} sm={6} xs={6}>
+          <Grid item lg={3} md={4} sm={4} xs={6}>
             <CardThumbnail />
           </Grid>
-          <Grid item lg={3} sm={6} xs={6}>
+          <Grid item lg={3} md={4} sm={4} xs={6}>
             <CardThumbnail />
           </Grid>
-          <Grid item lg={3} sm={6} xs={6}>
+          <Grid item lg={3} md={4} sm={4} xs={6}>
             <CardThumbnail />
           </Grid>
-          <Grid item lg={3} sm={6} xs={6}>
+          <Grid item lg={3} md={4} sm={4} xs={6}>
             <CardThumbnail />
           </Grid>
-          <Grid item lg={3} sm={6} xs={6}>
+          <Grid item lg={3} md={4} sm={4} xs={6}>
             <CardThumbnail />
           </Grid>
         </Grid>

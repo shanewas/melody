@@ -31,7 +31,7 @@ export default function SimplePaper() {
         justify="space-evenly"
         alignItems="center"
       >
-        <Grid item lg={4} xm={12} className={classes.root}>
+        <Grid item lg={4} md={6} xs={12} className={classes.root}>
           <Grid container direction="column" spacing={3}>
             <Grid item>
               <Typography
@@ -68,7 +68,7 @@ export default function SimplePaper() {
             </Grid>
           </Grid>
         </Grid>
-        <Grid item lg={8} xm={12}>
+        <Grid item lg={8} md={6} xs={12}>
             <VideoPlayer/>
         </Grid>
       </Grid>

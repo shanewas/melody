@@ -8,8 +8,6 @@ import CourseViewHome from "./components/CoursesViewHome";
 import InstructorViewHome from "./components/InstructorViewHome";
 import VideoPlayer from "./components/VideoPlayer";
 
-import Album from "./components/Album";
-
 function App() {
   return (
     <div className="App">
@@ -29,9 +27,6 @@ function App() {
         <Grid item>
           <InstructorViewHome />
         </Grid>
-        {/* <Grid item>
-          <Album />
-        </Grid> */}
       </Grid>
     </div>
   );
