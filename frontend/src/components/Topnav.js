@@ -1,13 +1,22 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import AppBar from "@material-ui/core/AppBar";
-import Toolbar from "@material-ui/core/Toolbar";
-import Typography from "@material-ui/core/Typography";
-import Button from "@material-ui/core/Button";
-import IconButton from "@material-ui/core/IconButton";
-import MenuIcon from "@material-ui/icons/Menu";
-import PersonIcon from "@material-ui/icons/Person";
-import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
+import {
+  AppBar,
+  Toolbar,
+  Typography,
+  Button,
+  IconButton,
+  InputBase,
+} from "@material-ui/core";
+
+import {
+  Menu,
+  Person,
+  ExpandMore,
+  ShoppingCart,
+  Search,
+} from "@material-ui/icons";
+
 import "../theme";
 import CardMedia from "@material-ui/core/CardMedia";
 
@@ -23,7 +32,30 @@ const useStyles = makeStyles((theme) => ({
   },
   media: {
     height: 0,
-    paddingTop: '0%', // 16:9
+    paddingTop: "0%", // 16:9
+  },
+  searchIcon: {
+    padding: theme.spacing(0, 2),
+    height: "100%",
+    pointerEvents: "none",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  inputRoot: {
+    color: "inherit",
+  },
+  inputInput: {
+    // vertical padding + font size from searchIcon
+    // paddingLeft: `calc(1em + ${theme.spacing(1)}px)`,
+    transition: theme.transitions.create("width"),
+    width: "100%",
+    [theme.breakpoints.up("sm")]: {
+      width: "12ch",
+      "&:focus": {
+        width: "20ch",
+      },
+    },
   },
 }));
 
@@ -34,27 +66,38 @@ export default function ButtonAppBar() {
     <div className={classes.root}>
       <AppBar position="static" color="primary">
         <Toolbar>
-          <IconButton
-            edge="start"
-            className={classes.menuButton}
-            color="inherit"
-            aria-label="menu"
-          >
-            <MenuIcon />
-          </IconButton>
-          <Typography variant='h6' className={classes.title}>
-						MethodMelody
-					</Typography>
+          <Button color="inherit">
+            <Typography variant="body2">Learn</Typography>
+          </Button>
+          <ExpandMore />
+          <Button color="inherit">
+            <Typography variant="body2">Teach</Typography>
+          </Button>
+          <ExpandMore />
+
+          <Search className={classes.searchIcon} fontSize="medium"/>
+
+          <InputBase
+            placeholder="Search…"
+            classes={{
+              root: classes.inputRoot,
+              input: classes.inputInput,
+            }}
+            inputProps={{ "aria-label": "search" }}
+          />
+          <Typography variant="h6" className={classes.title}>
+            MethodMelody
+          </Typography>
           {/* <CardMedia
             className={classes.media}
             image="https://www.nokia.com/sites/default/files/styles/large/public/2020-03/M75_MWC_en_int_desktop%402x.jpg?h=7afba369"
             title="Paella dish"
           /> */}
-          <ShoppingCartIcon fontSize="small" />
+          <ShoppingCart fontSize="small" />
           <Button color="inherit">
             <Typography variant="body2">Cart</Typography>
           </Button>
-          <PersonIcon fontSize="small" />
+          <Person fontSize="small" />
           <Button color="inherit">
             <Typography variant="body2">Login</Typography>
           </Button>

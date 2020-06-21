@@ -24,7 +24,7 @@ export default function SimplePaper() {
   const classes = useStyles();
 
   return (
-    <Paper>
+    <Paper square>
       <Grid
         container
         direction="row"
@@ -40,7 +40,8 @@ export default function SimplePaper() {
                 align="Left"
                 color="secondary"
               >
-                TODAY'S THE DAY
+                TODAY'S <br/> 
+                THE DAY
               </Typography>
             </Grid>
             <Grid item>
@@ -58,6 +59,7 @@ export default function SimplePaper() {
               <Button
                 variant="contained"
                 fullWidth="true"
+                size="large"
                 href="#contained-buttons"
                 className={classes.button}
               >

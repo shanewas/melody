@@ -2,7 +2,11 @@ import React from "react";
 import "./App.css";
 import PrimarySearchAppBar from "./components/Topnav";
 import { Grid } from "@material-ui/core";
+
 import TopViewHome from "./components/TopViewHome";
+import CourseViewHome from "./components/CoursesViewHome";
+import InstructorViewHome from "./components/InstructorViewHome";
+import VideoPlayer from "./components/VideoPlayer";
 
 function App() {
   return (
@@ -13,6 +17,15 @@ function App() {
         </Grid>
         <Grid item>
           <TopViewHome />
+        </Grid>
+        <Grid item>
+          <CourseViewHome />
+        </Grid>
+        <Grid item>
+          <VideoPlayer />
+        </Grid>
+        <Grid item>
+          <InstructorViewHome />
         </Grid>
       </Grid>
     </div>
