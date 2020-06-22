@@ -1,6 +1,7 @@
 import React from "react";
 import "./App.css";
 import PrimarySearchAppBar from "./components/Topnav";
+import FAQView from "./components/FAQView";
 import { Grid } from "@material-ui/core";
 
 import TopViewHome from "./components/TopViewHome";
@@ -15,7 +16,7 @@ function App() {
         <Grid item>
           <PrimarySearchAppBar />
         </Grid>
-        <br/>
+        <br />
         <Grid item>
           <TopViewHome />
         </Grid>
@@ -27,6 +28,9 @@ function App() {
         </Grid>
         <Grid item>
           <InstructorViewHome />
+        </Grid>
+        <Grid item>
+          <FAQView />
         </Grid>
       </Grid>
     </div>

@@ -10,8 +10,8 @@ const useStyles = makeStyles((theme) => ({
     marginTop: theme.spacing(5),
     marginBottom: theme.spacing(5),
   },
-  title: {
-    fontSize: 18,
+  Title: {
+    fontSize: 24,
   },
   // paper: {
   //   background: "#242322",
@@ -34,8 +34,8 @@ export default function CoursesViewHome() {
         <Grid item className={classes.root}>
           <Typography
             className={classes.title}
-            variant="H1"
-            component="H1"
+            variant="H2"
+            component="H2"
             align="Left"
           >
             Over 350 in-depth courses for you to pick from

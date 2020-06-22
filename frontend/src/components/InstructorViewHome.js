@@ -10,8 +10,8 @@ const useStyles = makeStyles((theme) => ({
     marginTop: theme.spacing(5),
     marginBottom: theme.spacing(5),
   },
-  title: {
-    fontSize: 18,
+  Title: {
+    fontSize: 24,
   },
   //   paper: {
   //     background: "#242322",
@@ -33,7 +33,7 @@ export default function InstructorViewHome() {
       >
         <Grid item className={classes.root}>
           <Typography
-            className={classes.title}
+            className={classes.Title}
             variant="H1"
             component="H1"
             align="Left"
