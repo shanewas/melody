@@ -3,7 +3,7 @@ import Carousel from "./components/Carousel";
 import "./App.css";
 import PrimarySearchAppBar from "./components/Topnav";
 import FAQView from "./components/FAQView";
-import { Grid, Paper, Divider } from "@material-ui/core";
+import { Grid, Paper, Divider, CardMedia } from "@material-ui/core";
 
 import TopViewHome from "./components/TopViewHome";
 import InstructorViewHome from "./components/InstructorViewHome";
@@ -29,7 +29,6 @@ function App() {
 				<Grid>
 					<VideoPlayer />
 				</Grid>
-
 				<Grid item>
 					<InstructorViewHome />
 				</Grid>
