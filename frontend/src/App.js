@@ -1,4 +1,5 @@
 import React from "react";
+import Carousel from "./components/Carousel";
 import "./App.css";
 import PrimarySearchAppBar from "./components/Topnav";
 import FAQView from "./components/FAQView";
@@ -36,7 +37,10 @@ function App() {
 					<FAQView />
 				</Grid>
 				<Grid item>
-					<Divider  />
+					<Carousel />
+				</Grid>
+				<Grid item>
+					<Divider />
 				</Grid>
 				<Grid item>
 					<Footer />
