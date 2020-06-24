@@ -23,7 +23,7 @@ export default function FAQView() {
         container
         direction="column"
         justify="center"
-        alignItems="center"
+        alignContent="center"
         className={classes.root}
       >
         <Grid item>
@@ -33,7 +33,7 @@ export default function FAQView() {
         </Grid>
 
         <Grid item>
-          <Typography className={classes.Typography}>
+          <Typography className={classes.Typography} align="left">
             General
           </Typography>
         </Grid>
@@ -71,7 +71,7 @@ export default function FAQView() {
           />
         </Grid>
         <Grid>
-          <Typography variant="P" component="P" className={classes.Typography}>
+          <Typography variant="P" component="P" className={classes.Typography} align="left">
             Pricing & Payment
           </Typography>
         </Grid>
