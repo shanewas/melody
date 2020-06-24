@@ -5,12 +5,10 @@ import {
   Toolbar,
   Typography,
   Button,
-  IconButton,
   InputBase,
 } from "@material-ui/core";
 
 import {
-  Menu,
   Person,
   ExpandMore,
   ShoppingCart,
@@ -18,7 +16,6 @@ import {
 } from "@material-ui/icons";
 
 import "../theme";
-import CardMedia from "@material-ui/core/CardMedia";
 
 const useStyles = makeStyles((theme) => ({
   root: {

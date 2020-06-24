@@ -24,12 +24,6 @@ const theme = createMuiTheme({
 			paper: "#000",
 			default: "#242322",
 		},
-		text: {
-			primary: "rgba(255, 255, 255, 0.87)",
-			secondary: "rgba(255, 255, 255, 0.54)",
-			disabled: "gba(255, 255, 255, 0.38)",
-			hint: "rgba(255, 255, 255, 0.38)",
-		},
 	},
 	typography: {
 		fontFamily: [

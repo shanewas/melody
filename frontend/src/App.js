@@ -1,5 +1,4 @@
 import React from "react";
-import SignIn from "./components/SignIn";
 import "./App.css";
 import PrimarySearchAppBar from "./components/Topnav";
 import FAQView from "./components/FAQView";
@@ -11,31 +10,29 @@ import InstructorViewHome from "./components/InstructorViewHome";
 import VideoPlayer from "./components/VideoPlayer";
 
 function App() {
-  return (
-    <div className="App">
-      <Grid container direction="column">
-        <Grid item>
-          <PrimarySearchAppBar />
-        </Grid>
-        <br />
-        <Grid item>
-          <TopViewHome />
-        </Grid>
-        <Grid item>
-          <CourseViewHome />
-        </Grid>
-        <Grid item>
-          <VideoPlayer />
-        </Grid>
-        <Grid item>
-          <InstructorViewHome />
-        </Grid>
-        <Grid item>
-          <FAQView />
-        </Grid>
-      </Grid>
-    </div>
-  );
+	return (
+		<Grid container className='App' direction='column'>
+			<Grid item>
+				<PrimarySearchAppBar />
+			</Grid>
+			<br />
+			<Grid item>
+				<TopViewHome />
+			</Grid>
+			<Grid item>
+				<CourseViewHome />
+			</Grid>
+			<Grid item>
+				<VideoPlayer />
+			</Grid>
+			<Grid item>
+				<InstructorViewHome />
+			</Grid>
+			<Grid item>
+				<FAQView />
+			</Grid>
+		</Grid>
+	);
 }
 
 export default App;
