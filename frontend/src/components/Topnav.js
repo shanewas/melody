@@ -194,8 +194,6 @@ export default function ButtonAppBar() {
           <Typography variant="h6" className={classes.title}>
             MethodMelody
           </Typography>
-          <CardMedia image="assets/logo.png" 
-          height="0"/>
           <Button
             aria-controls="customized-menu"
             aria-haspopup="true"
