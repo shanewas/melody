@@ -2,12 +2,14 @@ import React from "react";
 import "./App.css";
 import PrimarySearchAppBar from "./components/Topnav";
 import FAQView from "./components/FAQView";
-import { Grid } from "@material-ui/core";
+import { Grid, Paper, Divider } from "@material-ui/core";
 
 import TopViewHome from "./components/TopViewHome";
-import CourseViewHome from "./components/CoursesViewHome";
 import InstructorViewHome from "./components/InstructorViewHome";
 import VideoPlayer from "./components/VideoPlayer";
+import Album from "./components/Album";
+
+import Footer from "./components/footer";
 
 function App() {
   return (
@@ -21,16 +23,23 @@ function App() {
           <TopViewHome />
         </Grid>
         <Grid item>
-          <CourseViewHome />
+          <Album />
         </Grid>
-        <Grid item>
+        <Grid>
           <VideoPlayer />
         </Grid>
+
         <Grid item>
           <InstructorViewHome />
         </Grid>
         <Grid item>
           <FAQView />
+        </Grid>
+        <Grid item>
+          <Divider light />
+        </Grid>
+        <Grid item>
+          <Footer />
         </Grid>
       </Grid>
     </div>
