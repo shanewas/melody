@@ -6,7 +6,14 @@ import {
   Typography,
   Button,
   InputBase,
+  Menu,
+  MenuItem,
+  withStyles,
+  ListItemIcon,
+  ListItemText,
+  CardMedia,
 } from "@material-ui/core";
+import { ArrowForwardIos } from "@material-ui/icons";
 
 import { Person, ExpandMore, ShoppingCart, Search } from "@material-ui/icons";
 
@@ -51,33 +58,128 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+const StyledMenu = withStyles({
+  paper: {
+    background: "#191c21",
+  },
+})((props) => (
+  <Menu
+    elevation={0}
+    getContentAnchorEl={null}
+    anchorOrigin={{
+      vertical: "bottom",
+      horizontal: "center",
+    }}
+    transformOrigin={{
+      vertical: "top",
+      horizontal: "center",
+    }}
+    {...props}
+  />
+));
+
+const StyledMenuItem = withStyles((theme) => ({
+  root: {
+    "&:focus": {
+      backgroundColor: theme.palette.primary.main,
+      "& .MuiListItemIcon-root, & .MuiListItemText-primary": {
+        color: theme.palette.common.white,
+      },
+    },
+  },
+}))(MenuItem);
+
 export default function ButtonAppBar() {
   const classes = useStyles();
+  const [anchorEl, setAnchorEl] = React.useState(null);
 
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
   return (
     <div className={classes.root}>
       <AppBar position="fixed" color="primary">
         <Toolbar>
-          <Button
-            aria-controls="customized-menu"
-            aria-haspopup="true"
-            color="inherit"
-            variant="text"
-            endIcon={<ExpandMore />}
-            // onClick={handleClick}
-          >
-            Learn
-          </Button>
-
-          <Button
-            aria-controls="customized-menu"
-            aria-haspopup="true"
-            color="inherit"
-            variant="text"
-            endIcon={<ExpandMore />}
-          >
-            Teach
-          </Button>
+          <div>
+            <Button
+              aria-controls="customized-menu"
+              aria-haspopup="true"
+              color="inherit"
+              variant="text"
+              endIcon={<ExpandMore />}
+              onClick={handleClick}
+            >
+              Learn
+            </Button>
+            <StyledMenu
+              id="customized-menu"
+              anchorEl={anchorEl}
+              keepMounted
+              open={Boolean(anchorEl)}
+              onClose={handleClose}
+            >
+              <StyledMenuItem>
+                <ListItemIcon>
+                  <ArrowForwardIos fontSize="small" />
+                </ListItemIcon>
+                <ListItemText primary="Sent mail" />
+              </StyledMenuItem>
+              <StyledMenuItem>
+                <ListItemIcon>
+                  <ArrowForwardIos fontSize="small" />
+                </ListItemIcon>
+                <ListItemText primary="Drafts" />
+              </StyledMenuItem>
+              <StyledMenuItem>
+                <ListItemIcon>
+                  <ArrowForwardIos fontSize="small" />
+                </ListItemIcon>
+                <ListItemText primary="Inbox" />
+              </StyledMenuItem>
+            </StyledMenu>
+          </div>
+          <div>
+            <Button
+              aria-controls="customized-menu"
+              aria-haspopup="true"
+              color="inherit"
+              variant="text"
+              endIcon={<ExpandMore />}
+              onClick={handleClick}
+            >
+              Teach
+            </Button>
+            <StyledMenu
+              id="customized-menu"
+              anchorEl={anchorEl}
+              keepMounted
+              open={Boolean(anchorEl)}
+              onClose={handleClose}
+            >
+              <StyledMenuItem>
+                <ListItemIcon>
+                  <ArrowForwardIos fontSize="small" />
+                </ListItemIcon>
+                <ListItemText primary="Sent mail" />
+              </StyledMenuItem>
+              <StyledMenuItem>
+                <ListItemIcon>
+                  <ArrowForwardIos fontSize="small" />
+                </ListItemIcon>
+                <ListItemText primary="Drafts" />
+              </StyledMenuItem>
+              <StyledMenuItem>
+                <ListItemIcon>
+                  <ArrowForwardIos fontSize="small" />
+                </ListItemIcon>
+                <ListItemText primary="Inbox" />
+              </StyledMenuItem>
+            </StyledMenu>
+          </div>
 
           <Search className={classes.searchIcon} fontSize="medium" />
 
@@ -91,20 +193,26 @@ export default function ButtonAppBar() {
           />
           <Typography variant="h6" className={classes.title}>
             MethodMelody
-          </Typography>     
-          <Button  aria-controls="customized-menu"
+          </Typography>
+          <CardMedia image="assets/logo.png" 
+          height="0"/>
+          <Button
+            aria-controls="customized-menu"
             aria-haspopup="true"
             color="inherit"
             variant="text"
-            startIcon={<ShoppingCart />}>
+            startIcon={<ShoppingCart />}
+          >
             Cart
           </Button>
-          <Button color="inherit"
-           aria-controls="customized-menu"
-           aria-haspopup="true"
-           color="inherit"
-           variant="text"
-           startIcon={<Person />}>
+          <Button
+            color="inherit"
+            aria-controls="customized-menu"
+            aria-haspopup="true"
+            color="inherit"
+            variant="text"
+            startIcon={<Person />}
+          >
             Login
           </Button>
         </Toolbar>
