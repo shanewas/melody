@@ -1,88 +1,224 @@
-/*eslint-disable*/
 import React from "react";
-// nodejs library to set properties for components
-import PropTypes from "prop-types";
-// nodejs library that concatenates classes
-import classNames from "classnames";
-// material-ui core components
-import { List, ListItem } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
+import { Grid, Typography, Link } from "@material-ui/core";
 
-// @material-ui/icons
-import Favorite from "@material-ui/icons/Favorite";
+import {
+	Twitter,
+	Instagram,
+	Facebook,
+	YouTube,
+	LinkedIn,
+} from "@material-ui/icons";
 
-import styles from "../assets/footerStyle.js";
+import "../theme";
 
-const useStyles = makeStyles(styles);
+const useStyles = makeStyles((theme) => ({
+	root: {
+		flexGrow: 1,
+		padding: theme.spacing(10),
+	},
+	typography: {
+		marginLeft: theme.spacing(1),
+	},
+}));
 
-export default function Footer(props) {
-  const classes = useStyles();
-  const { whiteFont } = props;
-  const footerClasses = classNames({
-    [classes.footer]: true,
-    [classes.footerWhiteFont]: whiteFont,
-  });
-  const aClasses = classNames({
-    [classes.a]: true,
-    [classes.footerWhiteFont]: whiteFont,
-  });
-  return (
-    <footer className={footerClasses}>
-      <div className={classes.container}>
-        <div className={classes.left}>
-          <List className={classes.list}>
-            <ListItem className={classes.inlineBlock}>
-              <a
-                href="https://www.creative-tim.com/?ref=mkr-footer"
-                className={classes.block}
-                target="_blank"
-              >
-                MethodMelody
-              </a>
-            </ListItem>
-            <ListItem className={classes.inlineBlock}>
-              <a
-                href="https://www.creative-tim.com/presentation?ref=mkr-footer"
-                className={classes.block}
-                target="_blank"
-              >
-                About us
-              </a>
-            </ListItem>
-            <ListItem className={classes.inlineBlock}>
-              <a
-                href="http://blog.creative-tim.com/?ref=mkr-footer"
-                className={classes.block}
-                target="_blank"
-              >
-                Blog
-              </a>
-            </ListItem>
-            <ListItem className={classes.inlineBlock}>
-              <a
-                href="https://www.creative-tim.com/license?ref=mkr-footer"
-                className={classes.block}
-                target="_blank"
-              >
-                Licenses
-              </a>
-            </ListItem>
-          </List>
-        </div>
-        <div className={classes.right}>
-          &copy; {1900 + new Date().getYear()} by {" "} {" "}
-          <a
-            className={aClasses}
-            target="_blank"
-          >
-            MethodMelody
-          </a>
-        </div>
-      </div>
-    </footer>
-  );
+export default function ButtonAppBar() {
+	const classes = useStyles();
+
+	return (
+		<Grid
+			container
+			direction='row'
+			justify='center'
+			alignItems='center'
+			className={classes.root}
+		>
+			<Grid item lg={4} md={4} xs={12}>
+				<Grid container direction='column' spacing={3} alignContent='center'>
+					<Grid item>
+						<Typography variant='subtitle2' align='left'>
+							Explore
+						</Typography>
+					</Grid>
+					<Grid item>
+						<Grid
+							container
+							direction='row'
+							justify='flex-start'
+							alignItems='center'
+						>
+							<Link color='inherit' size='small'>
+								<Typography variant='body2'>Classes</Typography>
+							</Link>
+						</Grid>
+					</Grid>
+					<Grid item>
+						<Grid
+							container
+							direction='row'
+							justify='flex-start'
+							alignItems='center'
+						>
+							<Link color='inherit' size='small'>
+								<Typography variant='body2'>Metholdmelody Live</Typography>
+							</Link>
+						</Grid>
+					</Grid>
+					<Grid item>
+						<Grid
+							container
+							direction='row'
+							justify='flex-start'
+							alignItems='center'
+						>
+							<Link color='inherit' size='small'>
+								<Typography variant='body2'>Articles</Typography>
+							</Link>
+						</Grid>
+					</Grid>
+					<Grid item>
+						<Grid
+							container
+							direction='row'
+							justify='flex-start'
+							alignItems='center'
+						>
+							<Link color='inherit' size='small'>
+								<Typography variant='body2'>Sitemap</Typography>
+							</Link>
+						</Grid>
+					</Grid>
+				</Grid>
+			</Grid>
+
+			<Grid item lg={4} md={4} xs={12}>
+				<Grid container direction='column' spacing={3} alignContent='center'>
+					<Grid item>
+						<Typography variant='subtitle2' align='left'>
+							Explore
+						</Typography>
+					</Grid>
+					<Grid item>
+						<Grid
+							container
+							direction='row'
+							justify='flex-start'
+							alignItems='center'
+						>
+							<Link color='inherit' size='small'>
+								<Typography variant='body2'>
+									Diversity, Equity and Inclusion
+								</Typography>
+							</Link>
+						</Grid>
+					</Grid>
+					<Grid item>
+						<Grid
+							container
+							direction='row'
+							justify='flex-start'
+							alignItems='center'
+						>
+							<Link color='inherit' size='small'>
+								<Typography variant='body2'>Privacy</Typography>
+							</Link>
+						</Grid>
+					</Grid>
+					<Grid item>
+						<Grid
+							container
+							direction='row'
+							justify='flex-start'
+							alignItems='center'
+						>
+							<Link color='inherit' size='small'>
+								<Typography variant='body2'>Terms</Typography>
+							</Link>
+						</Grid>
+					</Grid>
+					<Grid item>
+						<Grid
+							container
+							direction='row'
+							justify='flex-start'
+							alignItems='center'
+						>
+							<Link color='inherit' size='small'>
+								<Typography variant='body2'>Support</Typography>
+							</Link>
+						</Grid>
+					</Grid>
+				</Grid>
+			</Grid>
+			<Grid item lg={4} md={4} xs={12}>
+				<Grid container direction='column' spacing={3} alignContent='center'>
+					<Grid item>
+						<Typography variant='subtitle2' align='left'>
+							Social
+						</Typography>
+					</Grid>
+					<Grid item>
+						<Grid
+							container
+							direction='row'
+							justify='flex-start'
+							alignItems='center'
+						>
+							<Twitter fontSize='small' />
+							<Link color='inherit' size='small'>
+								<Typography variant='body2' className={classes.typography}>
+									Twitter
+								</Typography>
+							</Link>
+						</Grid>
+					</Grid>
+					<Grid item>
+						<Grid
+							container
+							direction='row'
+							justify='flex-start'
+							alignItems='center'
+						>
+							<Instagram fontSize='small' />
+							<Link color='inherit' size='small'>
+								<Typography variant='body2' className={classes.typography}>
+									Instagram
+								</Typography>
+							</Link>
+						</Grid>
+					</Grid>
+					<Grid item>
+						<Grid
+							container
+							direction='row'
+							justify='flex-start'
+							alignItems='center'
+						>
+							<Facebook fontSize='small' />
+							<Link color='inherit' size='small'>
+								<Typography variant='body2' className={classes.typography}>
+									Facebook
+								</Typography>
+							</Link>
+						</Grid>
+					</Grid>
+					<Grid item>
+						<Grid
+							container
+							direction='row'
+							justify='flex-start'
+							alignItems='center'
+						>
+							<LinkedIn fontSize='small' />
+							<Link color='inherit' size='small'>
+								<Typography variant='body2' className={classes.typography}>
+									LinkedIn
+								</Typography>
+							</Link>
+						</Grid>
+					</Grid>
+				</Grid>
+			</Grid>
+		</Grid>
+	);
 }
-
-Footer.propTypes = {
-  whiteFont: PropTypes.bool,
-};

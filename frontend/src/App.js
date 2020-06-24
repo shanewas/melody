@@ -9,41 +9,41 @@ import InstructorViewHome from "./components/InstructorViewHome";
 import VideoPlayer from "./components/VideoPlayer";
 import Album from "./components/Album";
 
-import Footer from "./components/footer";
+import Footer from "./components/Footer";
 
 function App() {
-  return (
-    <div className="App">
-      <Grid container direction="column">
-        <Grid item>
-          <PrimarySearchAppBar />
-        </Grid>
-        <br />
-        <Grid item>
-          <TopViewHome />
-        </Grid>
-        <Grid item>
-          <Album />
-        </Grid>
-        <Grid>
-          <VideoPlayer />
-        </Grid>
+	return (
+		<div className='App'>
+			<Grid container direction='column'>
+				<Grid item>
+					<PrimarySearchAppBar />
+				</Grid>
+				<br />
+				<Grid item>
+					<TopViewHome />
+				</Grid>
+				<Grid item>
+					<Album />
+				</Grid>
+				<Grid>
+					<VideoPlayer />
+				</Grid>
 
-        <Grid item>
-          <InstructorViewHome />
-        </Grid>
-        <Grid item>
-          <FAQView />
-        </Grid>
-        <Grid item>
-          <Divider light />
-        </Grid>
-        <Grid item>
-          <Footer />
-        </Grid>
-      </Grid>
-    </div>
-  );
+				<Grid item>
+					<InstructorViewHome />
+				</Grid>
+				<Grid item>
+					<FAQView />
+				</Grid>
+				<Grid item>
+					<Divider  />
+				</Grid>
+				<Grid item>
+					<Footer />
+				</Grid>
+			</Grid>
+		</div>
+	);
 }
 
 export default App;
