@@ -8,12 +8,7 @@ import {
   InputBase,
 } from "@material-ui/core";
 
-import {
-  Person,
-  ExpandMore,
-  ShoppingCart,
-  Search,
-} from "@material-ui/icons";
+import { Person, ExpandMore, ShoppingCart, Search } from "@material-ui/icons";
 
 import "../theme";
 
@@ -63,14 +58,26 @@ export default function ButtonAppBar() {
     <div className={classes.root}>
       <AppBar position="fixed" color="primary">
         <Toolbar>
-          <Button color="inherit">
-            <Typography variant="body2">Learn</Typography>
+          <Button
+            aria-controls="customized-menu"
+            aria-haspopup="true"
+            color="inherit"
+            variant="text"
+            endIcon={<ExpandMore />}
+            // onClick={handleClick}
+          >
+            Learn
           </Button>
-          <ExpandMore />
-          <Button color="inherit">
-            <Typography variant="body2">Teach</Typography>
+
+          <Button
+            aria-controls="customized-menu"
+            aria-haspopup="true"
+            color="inherit"
+            variant="text"
+            endIcon={<ExpandMore />}
+          >
+            Teach
           </Button>
-          <ExpandMore />
 
           <Search className={classes.searchIcon} fontSize="medium" />
 
@@ -84,19 +91,21 @@ export default function ButtonAppBar() {
           />
           <Typography variant="h6" className={classes.title}>
             MethodMelody
-          </Typography>
-          {/* <CardMedia
-            className={classes.media}
-            image="https://www.nokia.com/sites/default/files/styles/large/public/2020-03/M75_MWC_en_int_desktop%402x.jpg?h=7afba369"
-            title="Paella dish"
-          /> */}
-          <ShoppingCart fontSize="small" />
-          <Button color="inherit">
-            <Typography variant="body2">Cart</Typography>
+          </Typography>     
+          <Button  aria-controls="customized-menu"
+            aria-haspopup="true"
+            color="inherit"
+            variant="text"
+            startIcon={<ShoppingCart />}>
+            Cart
           </Button>
-          <Person fontSize="small" />
-          <Button color="inherit">
-            <Typography variant="body2">Login</Typography>
+          <Button color="inherit"
+           aria-controls="customized-menu"
+           aria-haspopup="true"
+           color="inherit"
+           variant="text"
+           startIcon={<Person />}>
+            Login
           </Button>
         </Toolbar>
       </AppBar>
