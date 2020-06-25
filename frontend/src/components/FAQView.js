@@ -10,10 +10,6 @@ const useStyles = makeStyles((theme) => ({
   Typography: {
     marginTop: theme.spacing(10),
   },
-  Title: {
-    fontSize: 24,
-    marginTop: theme.spacing(10),
-  },
 }));
 
 export default function FAQView() {
@@ -27,7 +23,7 @@ export default function FAQView() {
         className={classes.root}
       >
         <Grid item>
-          <Typography variant="H2" component="H2" className={classes.Title}>
+          <Typography variant="h4" component="h4" className={classes.Typography}>
             Frequently asked questions
           </Typography>
         </Grid>

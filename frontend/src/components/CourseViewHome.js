@@ -26,6 +26,10 @@ const useStyles = makeStyles((theme) => ({
   Button: {
     marginTop: theme.spacing(10),
     background: "rgba(225, 7, 18, .87)",
+    "&:hover": {
+      //you want this to be the same as the backgroundColor above
+      backgroundColor: theme.palette.primary.light,
+    },
   },
 }));
 

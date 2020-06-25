@@ -9,12 +9,16 @@ import {
   CardMedia,
   makeStyles,
 } from "@material-ui/core";
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme) => ({
   media: {
     height: 140,
     width: 50,
   },
-});
+  Typography: {
+	marginBottom: theme.spacing(10),
+	marginTop: theme.spacing(10),
+  },
+}));
 export default function ControlledCarousel() {
   const [index, setIndex] = React.useState(0);
 
@@ -24,9 +28,11 @@ export default function ControlledCarousel() {
   const classes = useStyles();
 
   return (
-    <Grid container direction="column" spacing={4}>
+    <Grid container direction="column">
       <Grid item>
-        <Typography>What Students are Saying</Typography>
+        <Typography variant="h4" component="h4" className={classes.Typography}>
+          What Students are Saying
+        </Typography>
       </Grid>
       <Grid item>
         <Carousel onSelect={handleSelect}>
