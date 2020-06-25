@@ -23,7 +23,7 @@ function App() {
   const classes = useStyles();
   return (
     <div className="App">
-      <Grid container direction="column" >
+      <Grid container direction="column">
         <Grid item>
           <PrimarySearchAppBar />
         </Grid>
@@ -34,8 +34,10 @@ function App() {
         <Grid item>
           <Album />
         </Grid>
-        <Grid item lg={6}>
-          <VideoPlayer />
+        <Grid container justify="center">
+          <Grid item lg={6}>
+            <VideoPlayer />
+          </Grid>
         </Grid>
         <Grid item>
           <InstructorViewHome />

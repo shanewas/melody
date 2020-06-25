@@ -15,9 +15,16 @@ const useStyles = makeStyles((theme) => ({
     width: 50,
   },
   Typography: {
-	marginBottom: theme.spacing(10),
-	marginTop: theme.spacing(10),
+    marginBottom: theme.spacing(10),
+    marginTop: theme.spacing(10),
   },
+  Card: {
+    background: "rgba(25, 28, 33, .75)",
+  },
+  CarouselImage: {
+	  paddingLeft: theme.spacing(10),
+	  paddingRight: theme.spacing(10)
+  }
 }));
 export default function ControlledCarousel() {
   const [index, setIndex] = React.useState(0);
@@ -28,49 +35,57 @@ export default function ControlledCarousel() {
   const classes = useStyles();
 
   return (
-    <Grid container direction="column">
-      <Grid item>
+    <Grid container direction="row" justify="center">
+      <Grid item lg={12}>
         <Typography variant="h4" component="h4" className={classes.Typography}>
           What Students are Saying
         </Typography>
       </Grid>
-      <Grid item>
+      <Grid item lg={4} justify="flex-end">
         <Carousel onSelect={handleSelect}>
-          <Carousel.Item>
+          <Carousel.Item className={classes.CarouselImage}>
             <img
               className="d-block w-100"
               src="https://upload.wikimedia.org/wikipedia/commons/a/ab/Patates.jpg"
               alt="Second slide"
             />
             <Carousel.Caption>
-              <h3>First slide label</h3>
-              <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
+              <Card className={classes.Card}>
+                <CardContent>
+                  <Typography>John Doe</Typography>
+                  <Typography>Lorem ipsum dolor!!</Typography>
+                </CardContent>
+              </Card>
             </Carousel.Caption>
           </Carousel.Item>
-          <Carousel.Item>
+          <Carousel.Item className={classes.CarouselImage}>
             <img
               className="d-block w-100"
               src="https://upload.wikimedia.org/wikipedia/commons/a/ab/Patates.jpg"
               alt="Second slide"
             />
-
             <Carousel.Caption>
-              <h3>Second slide label</h3>
-              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+              <Card className={classes.Card}>
+                <CardContent>
+                  <Typography>John Doe</Typography>
+                  <Typography>Lorem ipsum dolor!!</Typography>
+                </CardContent>
+              </Card>
             </Carousel.Caption>
           </Carousel.Item>
-          <Carousel.Item>
+          <Carousel.Item className={classes.CarouselImage}>
             <img
               className="d-block w-100"
               src="https://upload.wikimedia.org/wikipedia/commons/a/ab/Patates.jpg"
-              alt="Third slide"
+              alt="Second slide"
             />
-
             <Carousel.Caption>
-              <h3>Third slide label</h3>
-              <p>
-                Praesent commodo cursus magna, vel scelerisque nisl consectetur.
-              </p>
+              <Card className={classes.Card}>
+                <CardContent>
+                  <Typography>John Doe</Typography>
+                  <Typography>Lorem ipsum dolor!!</Typography>
+                </CardContent>
+              </Card>
             </Carousel.Caption>
           </Carousel.Item>
         </Carousel>
