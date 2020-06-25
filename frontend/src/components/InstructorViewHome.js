@@ -1,78 +1,72 @@
 import React from "react";
-import CardThumbnail from "./CardThumbnailInstructor";
-import { Grid, Typography } from "@material-ui/core";
-import Paper from "@material-ui/core/Paper";
-import { makeStyles } from "@material-ui/core/styles";
-import ChevronRightIcon from "@material-ui/icons/ChevronRight";
+import {
+  CssBaseline,
+  Grid,
+  Typography,
+  Container,
+  makeStyles,
+  Button,
+} from "@material-ui/core";
+import Link from "@material-ui/core/Link";
+import CardThumbnailInstructor from "./CardThumbnailInstructor";
+import { ChevronRight } from "@material-ui/icons";
 
 const useStyles = makeStyles((theme) => ({
-  root: {
-    marginTop: theme.spacing(5),
-    marginBottom: theme.spacing(5),
+  cardGrid: {
+    paddingTop: theme.spacing(10),
   },
-  Title: {
-    fontSize: 24,
+  card: {
+    height: "100%",
+    display: "flex",
+    flexDirection: "column",
   },
-  //   paper: {
-  //     background: "#242322",
-  //   },
-  arrow: {
-    marginTop: theme.spacing(1),
+  Typography: {
+    marginBottom: theme.spacing(8),
+  },
+  Button: {
+    marginTop: theme.spacing(10),
+    background: "rgba(225, 7, 18, .87)",
   },
 }));
 
-export default function InstructorViewHome() {
-  const classes = useStyles();
-  return (
-    <Paper className={classes.paper} square>
-      <Grid
-        container
-        direction="column"
-        alignItems="center"
-        justify="space-evenly"
-      >
-        <Grid item className={classes.root}>
-          <Typography
-            className={classes.Title}
-            variant="H1"
-            component="H1"
-            align="Left"
-          >
-            Learn from the Best of the Best, anytime
-          </Typography>
-        </Grid>
-        <Grid container direction="row" spacing={3} alignItems="center">
-          <Grid item lg={3} md={4} sm={4} xs={6}>
-            <CardThumbnail />
-          </Grid>
-          <Grid item lg={3} md={4} sm={4} xs={6}>
-            <CardThumbnail />
-          </Grid>
-          <Grid item lg={3} md={4} sm={4} xs={6}>
-            <CardThumbnail />
-          </Grid>
-          <Grid item lg={3} md={4} sm={4} xs={6}>
-            <CardThumbnail />
-          </Grid>
-          <Grid item lg={3} md={4} sm={4} xs={6}>
-            <CardThumbnail />
-          </Grid>
-          <Grid item lg={3} md={4} sm={4} xs={6}>
-            <CardThumbnail />
-          </Grid>
-        </Grid>
+const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
-        <Grid container direction="row" alignItems="center" justify="center">
-          <Grid item className={classes.root}>
-            <Typography className={classes.title} variant="p" component="p">
-              View all instructors
-            </Typography>
+export default function Album() {
+  const classes = useStyles();
+
+  return (
+    <React.Fragment>
+      <CssBaseline />
+      <main>
+        <Container className={classes.cardGrid}>
+          {/* End hero unit */}
+          <Typography
+            variant="h4"
+            component="h4"
+            className={classes.Typography}
+          >
+            Learn from the Best of the Best
+          </Typography>
+          <Grid container spacing={4}>
+            {cards.map((card) => (
+              <Grid item key={card} xs={12} sm={6} md={4} lg={3}>
+                <CardThumbnailInstructor />
+              </Grid>
+            ))}
           </Grid>
-          <Grid item>
-            <ChevronRightIcon className={classes.arrow} fontSize="large" />
-          </Grid>
-        </Grid>
-      </Grid>
-    </Paper>
+        </Container>
+        <Button
+          aria-controls="customized-menu"
+          aria-haspopup="true"
+          color="inherit"
+          variant="contained"
+          endIcon={<ChevronRight />}
+          className={classes.Button}
+          size="large"
+        >
+          View All Instructors
+        </Button>
+      </main>
+    </React.Fragment>
   );
 }

@@ -1,7 +1,5 @@
 import React from "react";
 import {
-  AppBar,
-  Button,
   Card,
   CardActions,
   CardContent,
@@ -9,12 +7,14 @@ import {
   Typography,
   makeStyles,
 } from "@material-ui/core";
+import theme from "../theme";
 
 const useStyles = makeStyles({
   card: {
     height: "100%",
     display: "flex",
     flexDirection: "column",
+    background: theme.palette.primary.light,
   },
   cardMedia: {
     paddingTop: "56.25%", // 16:9
@@ -38,7 +38,7 @@ export default function CardThumbnailCourse() {
         title="Image title"
       />
       <CardContent className={classes.cardContent}>
-        <Typography gutterBottom variant="h5" component="h2">
+        <Typography variant="h5" component="h2">
           Heading
         </Typography>
         <Typography>

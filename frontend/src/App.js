@@ -7,7 +7,7 @@ import { Grid, Paper, Divider, CardMedia, makeStyles } from "@material-ui/core";
 import TopViewHome from "./components/TopViewHome";
 import InstructorViewHome from "./components/InstructorViewHome";
 import VideoPlayer from "./components/VideoPlayer";
-import Album from "./components/Album";
+import Album from "./components/CourseViewHome";
 
 import Footer from "./components/Footer";
 
