@@ -5,16 +5,15 @@ import {
   Typography,
   Container,
   makeStyles,
+  Button,
 } from "@material-ui/core";
 import Link from "@material-ui/core/Link";
 import CardThumbnailCourse from "./CardThumbnailCourse";
 import { ChevronRight } from "@material-ui/icons";
 
-
 const useStyles = makeStyles((theme) => ({
   cardGrid: {
-    paddingTop: theme.spacing(8),
-    paddingBottom: theme.spacing(4),
+    paddingTop: theme.spacing(10),
   },
   card: {
     height: "100%",
@@ -24,9 +23,17 @@ const useStyles = makeStyles((theme) => ({
   Typography: {
     marginBottom: theme.spacing(8),
   },
+  Button: {
+    marginTop: theme.spacing(10),
+    background: "rgba(225, 7, 18, .87)",
+    "&:hover": {
+      //you want this to be the same as the backgroundColor above
+      backgroundColor: theme.palette.primary.light,
+    },
+  },
 }));
 
-const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
 export default function Album() {
   const classes = useStyles();
@@ -42,7 +49,7 @@ export default function Album() {
             component="h4"
             className={classes.Typography}
           >
-            Over 35 in-depth courses for you to pick from
+            Over 350 in-depth courses for you to pick from
           </Typography>
           <Grid container spacing={4}>
             {cards.map((card) => (
@@ -50,20 +57,20 @@ export default function Album() {
                 <CardThumbnailCourse />
               </Grid>
             ))}
-          </Grid>          
+          </Grid>
         </Container>
-        <Grid container direction="row" justify="center" className={classes.Typography}>
-          <Grid item>
-            <Typography variant="h6" component="h6">
-              View all courses
-            </Typography>
-          </Grid>
-          <Grid item>
-            <ChevronRight className={classes.arrow} fontSize="large" />
-          </Grid>
-        </Grid>
+        <Button
+          aria-controls="customized-menu"
+          aria-haspopup="true"
+          color="inherit"
+          variant="contained"
+          endIcon={<ChevronRight />}
+          className={classes.Button}
+          size="large"
+        >
+          View All Courses
+        </Button>
       </main>
-      
     </React.Fragment>
   );
 }

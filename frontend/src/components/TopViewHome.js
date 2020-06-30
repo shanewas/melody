@@ -61,7 +61,7 @@ export default function SimplePaper() {
           </Grid>
         </Grid>
       </Grid>
-      <Grid item lg={6} md={6} xs={12} className={classes.VideoPlayer}>
+      <Grid item lg={6} md={6} xs={12}>
         <VideoPlayer />
       </Grid>
     </Grid>

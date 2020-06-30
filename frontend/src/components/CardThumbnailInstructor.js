@@ -1,48 +1,53 @@
 import React from "react";
-import { makeStyles } from "@material-ui/core/styles";
-import Card from "@material-ui/core/Card";
-import CardMedia from "@material-ui/core/CardMedia";
+
 import theme from "../theme";
-import { Grid, Typography } from "@material-ui/core";
+import {
+  Typography,
+  CardContent,
+  CardMedia,
+  Card,
+  CardActions,
+  makeStyles,
+} from "@material-ui/core";
 
 const useStyles = makeStyles({
-  root: {
-    background: "#191c21",
+  card: {
+    height: "100%",
+    display: "flex",
+    flexDirection: "column",
+    background: theme.palette.primary.light,
   },
-  media: {
-    height: 120,
+  cardMedia: {
+    paddingTop: "56.25%", // 16:9
   },
-  Typography: {
-    fontSize: 18,
-    padding: theme.spacing(1, 0, 0, 2),
+  cardContent: {
+    flexGrow: 1,
+  },
+  button: {
+    background: "rgba(225, 7, 18, .87)",
+    color: "rgba(255,255,255,.87)",
   },
 });
 
 export default function CardThumbnailInstructor() {
   const classes = useStyles();
   return (
-    <Card className={classes.root}>
-      <Grid container direction="row" alignItems="center" justify="center">
-        <Grid item lg={4} md={4} sm={4} xs={12}>
-          <CardMedia
-            className={classes.media}
-            image="https://opend-licklibrary-com.akamaized.net/images/tutors/thumbnails/hero-tutor_Jamie_Humphries.jpg"
-            title="Contemplative Reptile"
-          />
-        </Grid>
-        <Grid container direction="column" lg={8} md={6} sm={8} xs={12}>
-          <Grid item>
-            <Typography align="left" className={classes.Typography}>
-              John Doe
-            </Typography>
-          </Grid>
-          <Grid item>
-            <Typography align="left" className={classes.Typography}>
-              Teaches the Art and Soul of Guitar
-            </Typography>
-          </Grid>
-        </Grid>
-      </Grid>
-    </Card>
+    <div>
+      <Card className={classes.card}>
+        <CardMedia
+          className={classes.cardMedia}
+          image="https://opend-licklibrary-com.akamaized.net/images/tutors/hero-tutor_Michael_Casswell.jpg"
+          title="Image title"
+        />
+      </Card>
+      <Card>
+        <CardContent className={classes.cardContent}>
+          <Typography variant="h5" component="h2">
+            Michael Casswell
+          </Typography>
+          <Typography>12 lessons</Typography>
+        </CardContent>
+      </Card>
+    </div>
   );
 }

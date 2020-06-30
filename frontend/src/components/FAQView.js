@@ -8,32 +8,28 @@ const useStyles = makeStyles((theme) => ({
     flexGrow: 1,
   },
   Typography: {
-    marginTop: theme.spacing(2),
-  },
-  Title: {
-    fontSize: 24,
+    marginTop: theme.spacing(10),
   },
 }));
 
 export default function FAQView() {
   const classes = useStyles();
   return (
-    <Paper>
       <Grid
         container
         direction="column"
         justify="center"
-        alignItems="center"
+        alignContent="center"
         className={classes.root}
       >
         <Grid item>
-          <Typography variant="H1" component="H1" className={classes.Title}>
+          <Typography variant="h4" component="h4" className={classes.Typography}>
             Frequently asked questions
           </Typography>
         </Grid>
 
         <Grid item>
-          <Typography className={classes.Typography}>
+          <Typography className={classes.Typography} align="left" component="h6" variant="h6">
             General
           </Typography>
         </Grid>
@@ -71,7 +67,12 @@ export default function FAQView() {
           />
         </Grid>
         <Grid>
-          <Typography variant="P" component="P" className={classes.Typography}>
+          <Typography
+            variant="h6"
+            component="h6"
+            className={classes.Typography}
+            align="left"
+          >
             Pricing & Payment
           </Typography>
         </Grid>
@@ -98,6 +99,5 @@ MethodMelody memberships include access to our mobile and TV apps, high-definiti
           />
         </Grid>
       </Grid>
-    </Paper>
   );
 }
