@@ -12,6 +12,8 @@ import Album from "./CourseViewHome";
 
 import Footer from "./Footer";
 
+import Youtube from "../youtube/Youtube";
+
 const useStyles = makeStyles((theme) => ({
   Divider: {
     background: theme.palette.primary.light,
@@ -47,6 +49,9 @@ function App() {
         </Grid>
         <Grid item>
           <Carousel />
+        </Grid>
+        <Grid>
+          <Youtube />
         </Grid>
         <Grid item className={classes.Divider}>
           <Divider />

@@ -215,7 +215,6 @@ export default function ButtonAppBar() {
             color="inherit"
             aria-controls="customized-menu"
             aria-haspopup="true"
-            color="inherit"
             variant="text"
             startIcon={<Person />}
             onClick={navigateTo}
