@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 
 import {
   Typography,
@@ -8,7 +8,6 @@ import {
   makeStyles,
   Divider,
   Grid,
-  Paper,
   ListItemIcon,
   ListItemText,
   Menu,
@@ -21,6 +20,10 @@ import YoutubePlayer from "react-youtube";
 
 import InstructorView from "./InstructorView";
 import CoursePlayList from "./CoursePlayList";
+import Youtube from "../api/Youtube";
+import Footer from "./Footer";
+
+import Axios from "axios";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -77,6 +80,10 @@ const useStyles = makeStyles((theme) => ({
     background: theme.palette.primary.light,
     marginTop: theme.spacing(0),
   },
+  FooterDivider: {
+    background: theme.palette.primary.light,
+    marginTop: theme.spacing(10),
+  },
   Container: {
     paddingTop: theme.spacing(5),
     marginLeft: theme.spacing(30),
@@ -91,11 +98,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const StyledMenu = withStyles({
-  paper: {
-    background: "#191c21",
-  },
-})((props) => (
+const StyledMenu = withStyles({})((props) => (
   <Menu
     elevation={0}
     getContentAnchorEl={null}
@@ -125,6 +128,9 @@ export default function CourseVIew() {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState(null);
 
+  // useState hooks for updating videoId
+  const [videoid, setVideoid] = useState("");
+
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
@@ -137,6 +143,26 @@ export default function CourseVIew() {
   function navigateTo() {
     history.push("/login");
   }
+
+  useEffect(() => {
+    Axios.get(
+      "https://www.googleapis.com/youtube/v3/search?key=AIzaSyBnuki5-aJBYxwv17HKL31LcYDLW6T3p9k&channelId=UCnRI0ay61tY-fKYzzB3fCnw&maxResults=5"
+    ).then(({ data }) => {
+      console.log(data.items[0].id.videoId);
+      const vid = data.items[0].id.videoId;
+      setVideoid(vid);
+    });
+  });
+
+  // React Player Option Customization
+  const opts = {
+    playerVars: {
+      // https://developers.google.com/youtube/player_parameters
+      autoplay: 0,
+      controls: 0,
+      rel: 0,
+    },
+  };
 
   return (
     <div className={classes.root}>
@@ -204,7 +230,7 @@ export default function CourseVIew() {
             direction="row"
             lg={4}
             sm={12}
-            className={classes.courseGetStart}
+            className={classes.courseGetStart}           
           >
             <Grid
               item
@@ -212,16 +238,16 @@ export default function CourseVIew() {
               direction="column"
               lg={6}
               alignItems="center"
-              justify="center"
+              justify="center"             
             >
-              <Grid item>
+              <Grid item >
                 <Typography className={classes.Typography} variant="body1">
-                  Access the full course by{" "}
+                  Access the full course by
                 </Typography>
               </Grid>
               <Grid item>
                 <Typography className={classes.Typography} variant="body1">
-                  subscribing with $15{" "}
+                  subscribing with $15
                 </Typography>
               </Grid>
               <Grid item>
@@ -247,7 +273,9 @@ export default function CourseVIew() {
             <Grid item className={classes.PlayerContainer}>
               <YoutubePlayer
                 className={classes.youtubePlayer}
+                // videoId={videoid}
                 videoId="M4tz8nJImZc"
+                opts={opts}
               />
             </Grid>
             <Grid item>
@@ -274,6 +302,11 @@ export default function CourseVIew() {
           </Grid>
         </Grid>
       </Grid>
+      <Grid item className={classes.FooterDivider}>
+        <Divider />
+      </Grid>
+      <Grid item></Grid>
+      <Footer />
     </div>
   );
 }

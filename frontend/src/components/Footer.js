@@ -95,7 +95,7 @@ export default function ButtonAppBar() {
 				<Grid container direction='column' spacing={3} alignContent='center'>
 					<Grid item>
 						<Typography variant='subtitle2' align='left'>
-							Explore
+							About
 						</Typography>
 					</Grid>
 					<Grid item>

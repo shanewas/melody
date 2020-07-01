@@ -56,9 +56,9 @@ function App() {
         <Grid item className={classes.Divider}>
           <Divider />
         </Grid>
-        <Grid item>
-          <Footer />
-        </Grid>
+      </Grid>
+      <Grid item>
+        <Footer />
       </Grid>
     </div>
   );

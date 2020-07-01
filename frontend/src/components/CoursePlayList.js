@@ -12,7 +12,7 @@ import {
   Divider,
 } from "@material-ui/core";
 
-import PlayIcon from "@material-ui/icons/PlayArrow";
+import { PlayArrow, Lock } from "@material-ui/icons";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -37,6 +37,15 @@ const useStyles = makeStyles((theme) => ({
     marginTop: theme.spacing(10),
     marginBottom: theme.spacing(10),
   },
+  Avatar:{
+    backgroundColor: "#1f2328",
+    width: theme.spacing(5),
+    height: theme.spacing(5),
+  },
+  Icons:{
+    color: theme.palette.text.primary,
+    fontSize:"small"
+  }
 }));
 
 function generate(element) {
@@ -58,20 +67,20 @@ export default function InteractiveList() {
       <List>
         <ListItem selected={selectedIndex === 0}>
           <ListItemAvatar>
-            <Avatar>
-              <PlayIcon />
+            <Avatar className={classes.Avatar}>
+              <PlayArrow className={classes.Icons}/>
             </Avatar>
           </ListItemAvatar>
           <ListItemText
             primary="Class Trailer"
             className={classes.ListItemText}
           />
-          <ListItemText secondary="1.56" className={classes.ListItemText}/>
+          <ListItemText secondary="1.56" className={classes.ListItemText} />
         </ListItem>
         <ListItem selected={selectedIndex === 1}>
           <ListItemAvatar>
-            <Avatar>
-              <PlayIcon />
+            <Avatar className={classes.Avatar}>
+              <PlayArrow className={classes.Icons}/>
             </Avatar>
           </ListItemAvatar>
           <ListItemText
@@ -83,15 +92,15 @@ export default function InteractiveList() {
         {generate(
           <ListItem selected={selectedIndex === 1}>
             <ListItemAvatar>
-              <Avatar>
-                <PlayIcon />
+              <Avatar className={classes.Avatar}>
+                <Lock className={classes.Icons}/>
               </Avatar>
             </ListItemAvatar>
             <ListItemText primary="Lesson" className={classes.ListItemText} />
             <ListItemText secondary="10.56" className={classes.ListItemText} />
           </ListItem>
         )}
-      </List>    
-    </div>      
+      </List>
+    </div>
   );
 }
