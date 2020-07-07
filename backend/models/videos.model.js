@@ -3,6 +3,7 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const videosSchema = new Schema(
+	Videos:1{
 	{
 		videoId: {
 			type: String,
@@ -10,9 +11,19 @@ const videosSchema = new Schema(
 			unique: true,
 			trim: true,
 		},
+		videoTitle:{
+
+		},
+		videoDescription:{
+
+		},
+		videoTime:{
+
+		}
 	},
 	{ timestamps: true }
-);
+)
+;
 
 const Video = mongoose.model("Video", videosSchema);
 

@@ -19,6 +19,8 @@ import { Person, ExpandMore, ShoppingCart, Search } from "@material-ui/icons";
 
 import "../theme";
 
+import { useHistory } from "react-router-dom";
+
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
@@ -100,6 +102,12 @@ export default function ButtonAppBar() {
   const handleClose = () => {
     setAnchorEl(null);
   };
+
+  const history = useHistory();
+  function navigateTo() {
+    history.push("/login");
+  }
+
   return (
     <div className={classes.root}>
       <AppBar position="fixed" color="primary">
@@ -207,9 +215,9 @@ export default function ButtonAppBar() {
             color="inherit"
             aria-controls="customized-menu"
             aria-haspopup="true"
-            color="inherit"
             variant="text"
             startIcon={<Person />}
+            onClick={navigateTo}
           >
             Login
           </Button>

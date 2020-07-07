@@ -22,9 +22,11 @@ const useStyles = makeStyles((theme) => ({
     background: "rgba(25, 28, 33, .75)",
   },
   CarouselImage: {
-	  paddingLeft: theme.spacing(10),
-	  paddingRight: theme.spacing(10)
-  }
+    paddingLeft: theme.spacing(10),
+    paddingRight: theme.spacing(10),
+    marginBottom: theme.spacing(20),
+  },
+  Carousel: {},
 }));
 export default function ControlledCarousel() {
   const [index, setIndex] = React.useState(0);
@@ -35,7 +37,12 @@ export default function ControlledCarousel() {
   const classes = useStyles();
 
   return (
-    <Grid container direction="row" justify="center">
+    <Grid
+      container
+      direction="row"
+      justify="center"
+      className={classes.CarouselImage}
+    >
       <Grid item lg={12}>
         <Typography variant="h4" component="h4" className={classes.Typography}>
           What Students are Saying
@@ -46,7 +53,7 @@ export default function ControlledCarousel() {
           <Carousel.Item className={classes.CarouselImage}>
             <img
               className="d-block w-100"
-              src="https://upload.wikimedia.org/wikipedia/commons/a/ab/Patates.jpg"
+              src="https://pbs.twimg.com/profile_images/1055263632861343745/vIqzOHXj.jpg"
               alt="Second slide"
             />
             <Carousel.Caption>
@@ -61,7 +68,7 @@ export default function ControlledCarousel() {
           <Carousel.Item className={classes.CarouselImage}>
             <img
               className="d-block w-100"
-              src="https://upload.wikimedia.org/wikipedia/commons/a/ab/Patates.jpg"
+              src="https://pbs.twimg.com/profile_images/1055263632861343745/vIqzOHXj.jpg"
               alt="Second slide"
             />
             <Carousel.Caption>
@@ -76,7 +83,7 @@ export default function ControlledCarousel() {
           <Carousel.Item className={classes.CarouselImage}>
             <img
               className="d-block w-100"
-              src="https://upload.wikimedia.org/wikipedia/commons/a/ab/Patates.jpg"
+              src="https://pbs.twimg.com/profile_images/1055263632861343745/vIqzOHXj.jpg"
               alt="Second slide"
             />
             <Carousel.Caption>
