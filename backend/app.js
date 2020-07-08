@@ -23,9 +23,9 @@ connection.once("open", () => {
 	console.log("MongoDB database connection established successfully");
 });
 
-const videosRouter = require("./routes/videos");
+const courseRouter = require("./routes/course");
 
-app.use("/Videos", videosRouter);
+app.use("/course", courseRouter);
 
 app.get("/", function (req, res) {
 	res.sendFile(path.join(__dirname, "../frontend/build", "index.html"));

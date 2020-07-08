@@ -1,30 +1,30 @@
-const mongoose = require("mongoose");
+// const mongoose = require("mongoose");
 
-const Schema = mongoose.Schema;
+// const Schema = mongoose.Schema;
 
-const videosSchema = new Schema(
-	Videos:1{
-	{
-		videoId: {
-			type: String,
-			required: true,
-			unique: true,
-			trim: true,
-		},
-		videoTitle:{
+// const videosSchema = new Schema(
+// 	Videos:1{
+// 	{
+// 		videoId: {
+// 			type: String,
+// 			required: true,
+// 			unique: true,
+// 			trim: true,
+// 		},
+// 		videoTitle:{
 
-		},
-		videoDescription:{
+// 		},
+// 		videoDescription:{
 
-		},
-		videoTime:{
+// 		},
+// 		videoTime:{
 
-		}
-	},
-	{ timestamps: true }
-)
-;
+// 		}
+// 	},
+// 	{ timestamps: true }
+// )
+// ;
 
-const Video = mongoose.model("Video", videosSchema);
+// const Video = mongoose.model("Video", videosSchema);
 
-module.exports = Video;
+// module.exports = Video;
