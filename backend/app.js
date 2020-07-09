@@ -24,8 +24,12 @@ connection.once("open", () => {
 });
 
 const courseRouter = require("./routes/course");
+const videoRouter = require("./routes/video");
+const studentReviews = require("./routes/studentReviews");
 
 app.use("/course", courseRouter);
+app.use("/video", videoRouter);
+app.use("/studentReviews", studentReviews);
 
 app.get("/", function (req, res) {
 	res.sendFile(path.join(__dirname, "../frontend/build", "index.html"));
