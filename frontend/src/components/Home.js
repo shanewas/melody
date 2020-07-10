@@ -1,23 +1,25 @@
 import React from "react";
 import Carousel from "./Carousel";
 import "../App.css";
-import PrimarySearchAppBar from "./Topnav";
+import Navbar from "./Navbar";
 import FAQView from "./FAQView";
 import { Grid, Paper, Divider, CardMedia, makeStyles } from "@material-ui/core";
 
 import TopViewHome from "./TopViewHome";
 import InstructorViewHome from "./InstructorViewHome";
-import VideoPlayer from "./VideoPlayer";
-import Album from "./CourseViewHome";
+import VideoPlayer from "./videoPlayer/VideoPlayer";
+import CourseViewHome from "./CourseViewHome";
 
 import Footer from "./Footer";
-
-import Youtube from "../youtube/Youtube";
 
 const useStyles = makeStyles((theme) => ({
   Divider: {
     background: theme.palette.primary.light,
     marginTop: theme.spacing(10),
+  },
+  VideoPlayer: {
+    display: "flex",
+    padding: theme.spacing(10),
   },
 }));
 
@@ -27,18 +29,18 @@ function App() {
     <div className="App">
       <Grid container direction="column">
         <Grid item>
-          <PrimarySearchAppBar />
+          <Navbar />
         </Grid>
         <br />
         <Grid item>
           <TopViewHome />
         </Grid>
         <Grid item>
-          <Album />
+          <CourseViewHome />
         </Grid>
-        <Grid container justify="center">
-          <Grid item lg={6}>
-            <VideoPlayer />
+        <Grid container justify="center" className={classes.VideoPlayer}>
+          <Grid item lg={12}>
+            <VideoPlayer url="https://www.youtube.com/embed/I41fXTW-R6I" />
           </Grid>
         </Grid>
         <Grid item>
@@ -50,9 +52,7 @@ function App() {
         <Grid item>
           <Carousel />
         </Grid>
-        <Grid>
-          <Youtube />
-        </Grid>
+
         <Grid item className={classes.Divider}>
           <Divider />
         </Grid>

@@ -19,7 +19,7 @@ const useStyles = makeStyles((theme) => ({
     flexGrow: 1,
     maxHeight: 500,
     overflow: "auto",
-    marginTop: theme.spacing(2),
+  
     paddingBottom: theme.spacing(1),
   },
   ListItemText: {

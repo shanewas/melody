@@ -38,12 +38,11 @@ export default function CardThumbnailCourse() {
         title="Image title"
       />
       <CardContent className={classes.cardContent}>
-        <Typography variant="h5" component="h2">
-          Heading
+        <Typography variant="h6">
+          Course
         </Typography>
         <Typography>
-          This is a media card. You can use this section to describe the
-          content.
+          Course description
         </Typography>
       </CardContent>
       {/* <CardActions>
