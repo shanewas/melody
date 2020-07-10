@@ -16,18 +16,18 @@ import {
 } from "@material-ui/core";
 import { useHistory } from "react-router-dom";
 import { ExpandMore, ArrowForwardIos } from "@material-ui/icons";
-import YoutubePlayer from "react-youtube";
 
 import InstructorView from "./InstructorView";
 import CoursePlayList from "./CoursePlayList";
-import Youtube from "../api/Youtube";
+
 import Footer from "./Footer";
+import Topnav from "./Navbar";
 
 import Axios from "axios";
+import VideoPlayer from "./videoPlayer/VideoPlayer";
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    flexGrow: 1,
     backgroundColor: theme.palette.background.default,
   },
   title: {
@@ -39,24 +39,16 @@ const useStyles = makeStyles((theme) => ({
     marginRight: theme.spacing(10),
   },
   gridItem: {
-    display: "flex",
-    flexDirection: "column",
-    justifyContent: "center",
-    marginBottom: theme.spacing(10),
+    marginTop: theme.spacing(10),
   },
   gridContainer: {
     display: "flex",
     flexDirection: "column",
     justifyContent: "center",
 
-    marginTop: theme.spacing(5),
+    marginTop: theme.spacing(10),
   },
-  youtubePlayer: {
-    height: "500px",
-    width: "100%",
 
-    marginRight: theme.spacing(2),
-  },
   Button: {
     background: "rgba(225, 7, 18, .87)",
     color: "rgba(255,255,255,.87)",
@@ -95,6 +87,9 @@ const useStyles = makeStyles((theme) => ({
   Nav: {
     marginLeft: theme.spacing(30),
     marginRight: theme.spacing(30),
+  },
+  IntroSection: {
+    marginTop: theme.spacing(2),
   },
 }));
 
@@ -144,119 +139,40 @@ export default function CourseVIew() {
     history.push("/login");
   }
 
-  useEffect(() => {
-    Axios.get(
-      "https://www.googleapis.com/youtube/v3/search?key=AIzaSyBnuki5-aJBYxwv17HKL31LcYDLW6T3p9k&channelId=UCnRI0ay61tY-fKYzzB3fCnw&maxResults=5"
-    ).then(({ data }) => {
-      console.log(data.items[0].id.videoId);
-      const vid = data.items[0].id.videoId;
-      setVideoid(vid);
-    });
-  });
-
-  // React Player Option Customization
-  const opts = {
-    playerVars: {
-      // https://developers.google.com/youtube/player_parameters
-      autoplay: 0,
-      controls: 0,
-      rel: 0,
-    },
-  };
-
   return (
     <div className={classes.root}>
-      <AppBar position="sticky" className={classes.Nav}>
-        <Toolbar>
-          <Typography variant="body1" className={classes.title}>
-            MethodMelody
-          </Typography>
-          <div>
-            <Button
-              color="inherit"
-              endIcon={<ExpandMore />}
-              aria-controls="customized-menu"
-              aria-haspopup="true"
-              onClick={handleClick}
-            >
-              Learn
-            </Button>
-            <StyledMenu
-              id="customized-menu"
-              anchorEl={anchorEl}
-              keepMounted
-              open={Boolean(anchorEl)}
-              onClose={handleClose}
-            >
-              <StyledMenuItem>
-                <ListItemIcon>
-                  <ArrowForwardIos fontSize="small" />
-                </ListItemIcon>
-                <ListItemText primary="Sent mail" />
-              </StyledMenuItem>
-              <StyledMenuItem>
-                <ListItemIcon>
-                  <ArrowForwardIos fontSize="small" />
-                </ListItemIcon>
-                <ListItemText primary="Drafts" />
-              </StyledMenuItem>
-              <StyledMenuItem>
-                <ListItemIcon>
-                  <ArrowForwardIos fontSize="small" />
-                </ListItemIcon>
-                <ListItemText primary="Inbox" />
-              </StyledMenuItem>
-            </StyledMenu>
-          </div>
-          <Button
-            color="inherit"
-            className={classes.loginButton}
-            aria-controls="customized-menu"
-            aria-haspopup="true"
-            onClick={navigateTo}
-          >
-            Login
-          </Button>
-        </Toolbar>
-      </AppBar>
+      <Topnav />
       <Grid contaianer className={classes.Container}>
-        <Grid container direction="row" lg={12}>
-          <Grid item lg={8} sm={12} className={classes.gridItem}>
+        <Grid
+          container
+          direction="row"
+          lg={12}
+          className={classes.IntroSection}
+        >
+          <Grid item lg={8} sm={12}>
             <InstructorView />
           </Grid>
-          <Grid
-            item
-            container
-            direction="row"
-            lg={4}
-            sm={12}
-            className={classes.courseGetStart}           
-          >
-            <Grid
-              item
-              container
-              direction="column"
-              lg={6}
-              alignItems="center"
-              justify="center"             
-            >
-              <Grid item >
-                <Typography className={classes.Typography} variant="body1">
-                  Access the full course by
-                </Typography>
-              </Grid>
-              <Grid item>
-                <Typography className={classes.Typography} variant="body1">
-                  subscribing with $15
-                </Typography>
-              </Grid>
-              <Grid item>
-                <Typography className={classes.Typography} variant="body1">
-                  (billed annually)
-                </Typography>
+          <Grid item container direction="row" lg={4} sm={12}>
+            <Grid item lg={6}>
+              <Grid item container direction="column" lg={12}>
+                <Grid item>
+                  <Typography className={classes.Typography} variant="body1">
+                    Access full course by
+                  </Typography>
+                </Grid>
+                <Grid item>
+                  <Typography className={classes.Typography} variant="body1">
+                    subscribing with $15
+                  </Typography>
+                </Grid>
+                <Grid item>
+                  <Typography className={classes.Typography} variant="body1">
+                    (for a month)
+                  </Typography>
+                </Grid>
               </Grid>
             </Grid>
-            <Grid item container lg={6} alignItems="center" justify="center">
+            <Grid item lg={6}>
               <Button
                 variant="contained"
                 className={classes.Button}
@@ -268,15 +184,10 @@ export default function CourseVIew() {
           </Grid>
         </Grid>
 
-        <Grid container direction="row" lg={12}>
+        <Grid container direction="row" lg={12} className={classes.gridItem}>
           <Grid item container direction="column" lg={8} sm={12}>
-            <Grid item className={classes.PlayerContainer}>
-              <YoutubePlayer
-                className={classes.youtubePlayer}
-                // videoId={videoid}
-                videoId="M4tz8nJImZc"
-                opts={opts}
-              />
+            <Grid item>
+              <VideoPlayer url="https://www.youtube.com/embed/I41fXTW-R6I" />
             </Grid>
             <Grid item>
               <Grid item className={classes.gridContainer}>
@@ -305,7 +216,6 @@ export default function CourseVIew() {
       <Grid item className={classes.FooterDivider}>
         <Divider />
       </Grid>
-      <Grid item></Grid>
       <Footer />
     </div>
   );

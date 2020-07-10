@@ -6,22 +6,26 @@ import { Grid } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import React from "react";
 
-import VideoPlayer from "./VideoPlayer";
+import VideoPlayer from "./videoPlayer/VideoPlayer";
+import theme from "../theme";
 
 const useStyles = makeStyles((theme) => ({
   root: {
     display: "flex",
     paddingLeft: theme.spacing(10),
     paddingRight: theme.spacing(10),
-    background: "#000"
+    paddingTop: theme.spacing(10),
   },
   button: {
-    background: "rgba(225, 7, 18, .87)",
+    background: "#821518",
     color: "rgba(255,255,255,.87)",
     marginTop: theme.spacing(6),
   },
   Typography: {
     fontSize: 50,
+  },
+  GridItem: {
+    marginBottom: theme.spacing(2),
   },
 }));
 
@@ -29,40 +33,31 @@ export default function SimplePaper() {
   const classes = useStyles();
 
   return (
-    <Grid container direction="row" justify="center" alignItems="center" className={classes.root}>
-      <Grid item lg={6} md={6} xs={12}>
-        <Grid container direction="column">
-          <Grid item>
-            <Typography
-              variant="H1"
-              component="H1"
-              align="Left"
-              className={classes.Typography}
-            >
-              TODAY'S <br />
-              THE DAY
-            </Typography>
-          </Grid>
-          <Grid item>
-            <Typography variant="p" component="p" align="Left">
-              Learn from 10+ <br /> of Bangladesh’s most acclaimed Musicians !!
-            </Typography>
-          </Grid>
-          <Grid item align="left" lg={4}>
-            <Button
-              variant="contained"
-              size="large"
-              href="#contained-buttons"
-              className={classes.button}
-              fullWidth="true"
-            >
-              Let's Get Started!
-            </Button>
-          </Grid>
+    <Grid container className={classes.root}>
+      <Grid item lg={4} md={4} sm={12} xs={12}>
+        <Grid item className={classes.GridItem}>
+          <Typography variant="H1" component="H1" align="left">
+            TODAY'S <br />
+            THE DAY
+          </Typography>
+        </Grid>
+        <Grid item>
+          <Typography variant="p" component="p" align="left">
+            Learn from 10+ <br /> of Bangladesh’s most acclaimed Musicians !!
+          </Typography>
+        </Grid>
+        <Grid item container justify="flex-start">
+          <Button
+            variant="contained"
+            href="#contained-buttons"
+            className={classes.button}
+          >
+            Let's Get Started!
+          </Button>
         </Grid>
       </Grid>
-      <Grid item lg={6} md={6} xs={12}>
-        <VideoPlayer />
+      <Grid item lg={8} md={4} sm={12} xs={12}>
+        <VideoPlayer url="https://www.youtube.com/embed/I41fXTW-R6I" />
       </Grid>
     </Grid>
   );
