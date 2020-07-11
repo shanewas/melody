@@ -38,12 +38,8 @@ export default function CardThumbnailCourse() {
         title="Image title"
       />
       <CardContent className={classes.cardContent}>
-        <Typography variant="h6">
-          Course
-        </Typography>
-        <Typography>
-          Course description
-        </Typography>
+        <Typography variant="h6" component="h6">Course</Typography>
+        <Typography>Course description</Typography>
       </CardContent>
       {/* <CardActions>
         <Button size="large" className={classes.button} fullWidth="true">

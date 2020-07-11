@@ -32,22 +32,18 @@ const useStyles = makeStyles({
 export default function CardThumbnailInstructor() {
   const classes = useStyles();
   return (
-    <div>
-      <Card className={classes.card}>
-        <CardMedia
-          className={classes.cardMedia}
-          image="https://opend-licklibrary-com.akamaized.net/images/tutors/hero-tutor_Michael_Casswell.jpg"
-          title="Image title"
-        />
-      </Card>
-      <Card>
-        <CardContent className={classes.cardContent}>
-          <Typography variant="h5" component="h2">
-            Michael Casswell
-          </Typography>
-          <Typography>12 lessons</Typography>
-        </CardContent>
-      </Card>
-    </div>
+    <Card className={classes.card}>
+      <CardMedia
+        className={classes.cardMedia}
+        image="https://opend-licklibrary-com.akamaized.net/images/tutors/hero-tutor_Michael_Casswell.jpg"
+        title="Image title"
+      />
+      <CardContent className={classes.cardContent}>
+        <Typography variant="h6" component="h6">
+          Michael Casswell
+        </Typography>
+        <Typography>12 lessons</Typography>
+      </CardContent>
+    </Card>
   );
 }

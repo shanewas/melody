@@ -13,7 +13,7 @@ import { ChevronRight } from "@material-ui/icons";
 
 const useStyles = makeStyles((theme) => ({
   cardGrid: {
-    paddingTop: theme.spacing(10),
+    
   },
   card: {
     height: "100%",
@@ -25,7 +25,7 @@ const useStyles = makeStyles((theme) => ({
   },
   Button: {
     marginTop: theme.spacing(10),
-    background: "rgba(225, 7, 18, .87)",
+    background: "#821518",
     "&:hover": {
       //you want this to be the same as the backgroundColor above
       backgroundColor: theme.palette.primary.light,
@@ -33,7 +33,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+const cards = [1, 2, 3, 4, 5, 6];
 
 export default function Album() {
   const classes = useStyles();
@@ -51,9 +51,9 @@ export default function Album() {
           >
             Learn from the Best of the Best
           </Typography>
-          <Grid container spacing={4}>
+          <Grid container spacing={2}>
             {cards.map((card) => (
-              <Grid item key={card} xs={12} sm={6} md={4} lg={3}>
+              <Grid item key={card} xs={12} sm={12} md={2} lg={2}>
                 <CardThumbnailInstructor />
               </Grid>
             ))}

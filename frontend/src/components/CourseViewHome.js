@@ -25,7 +25,7 @@ const useStyles = makeStyles((theme) => ({
   },
   Button: {
     marginTop: theme.spacing(10),
-    background: "rgba(225, 7, 18, .87)",
+    background: "#821518",
     "&:hover": {
       //you want this to be the same as the backgroundColor above
       backgroundColor: theme.palette.primary.light,
@@ -45,15 +45,15 @@ export default function Album() {
         <Container className={classes.cardGrid}>
           {/* End hero unit */}
           <Typography
-            variant="h5"
-            component="h5"
+            variant="h4"
+            component="h4"
             className={classes.Typography}
           >
             Over 350 in-depth courses for you to pick from
           </Typography>
           <Grid container spacing={2}>
             {cards.map((card) => (
-              <Grid item key={card} xs={12} sm={6} md={4} lg={3}>
+              <Grid item key={card} xs={12} sm={12} md={2} lg={2}>
                 <CardThumbnailCourse />
               </Grid>
             ))}

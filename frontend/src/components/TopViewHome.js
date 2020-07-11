@@ -25,7 +25,7 @@ const useStyles = makeStyles((theme) => ({
     fontSize: 50,
   },
   GridItem: {
-    marginBottom: theme.spacing(2),
+    marginBottom: theme.spacing(10),
   },
 }));
 
@@ -34,15 +34,15 @@ export default function SimplePaper() {
 
   return (
     <Grid container className={classes.root}>
-      <Grid item lg={4} md={4} sm={12} xs={12}>
+      <Grid item lg={4} md={4} sm={12} xs={12} container alignContent="center">
         <Grid item className={classes.GridItem}>
-          <Typography variant="H1" component="H1" align="left">
+          <Typography variant="h2" component="h2" align="left">
             TODAY'S <br />
             THE DAY
           </Typography>
         </Grid>
         <Grid item>
-          <Typography variant="p" component="p" align="left">
+          <Typography variant="h6" component="h6" align="left">
             Learn from 10+ <br /> of Bangladesh’s most acclaimed Musicians !!
           </Typography>
         </Grid>
@@ -56,7 +56,7 @@ export default function SimplePaper() {
           </Button>
         </Grid>
       </Grid>
-      <Grid item lg={8} md={4} sm={12} xs={12}>
+      <Grid item lg={8} md={4} sm={12} xs={12} >
         <VideoPlayer url="https://www.youtube.com/embed/I41fXTW-R6I" />
       </Grid>
     </Grid>

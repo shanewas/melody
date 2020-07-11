@@ -6,7 +6,6 @@ import { makeStyles } from "@material-ui/core/styles";
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
-    paddingTop: theme.spacing(10)
   },
   Typography: {
     marginTop: theme.spacing(5),
@@ -24,7 +23,7 @@ export default function FAQView() {
       className={classes.root}
     >
       <Grid item>
-        <Typography variant="h5" component="h5" className={classes.Typography}>
+        <Typography variant="h4" component="h4" className={classes.Typography}>
           Frequently asked questions
         </Typography>
       </Grid>
