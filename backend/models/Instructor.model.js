@@ -3,15 +3,13 @@ var Schema = mongoose.Schema;
 
 var InstructorSchema = new Schema(
 	{
-		name: { type: String, required: true },
-		photo: { type: String, required: true },
-		bio: { type: String, required: true },
-		earnings: { type: Number, required: true },
-		courses: [{ type: Schema.Types.ObjectId, required: true, ref: "Course" }],
-		document: [
-			{ type: Schema.Types.ObjectId, required: true, ref: "Document" },
-		],
-		videos: [
+		name: { type: String },
+		photo: { type: String },
+		bio: { type: String },
+		earnings: { type: Number },
+		course: [{ type: Schema.Types.ObjectId, ref: "Course" }],
+		document: [{ type: Schema.Types.ObjectId, ref: "Document" }],
+		video: [
 			{
 				type: Schema.Types.ObjectId,
 				required: true,

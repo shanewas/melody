@@ -5,7 +5,7 @@ const Course = require("../models/Course.model");
 describe("Saving records", function () {
 	// Create tests
 	it("Saves a record to the database", function (done) {
-		const char = new MarioChar({
+		const char = new Course({
 			title: "Mario",
 		});
 

@@ -3,14 +3,13 @@ var Schema = mongoose.Schema;
 
 var DocumentSchema = new Schema(
 	{
-		file: { type: String, required: true },
+		file: { type: String },
 		desc: { type: String },
-		size: { type: Number },
-		course: [{ type: Schema.Types.ObjectId, required: true, ref: "Course" }],
-		video: [{ type: Schema.Types.ObjectId, required: true, ref: "Video" }],
+		size: { type: String },
+		course: [{ type: Schema.Types.ObjectId, ref: "Course" }],
+		video: [{ type: Schema.Types.ObjectId, ref: "Video" }],
 		instructor: {
 			type: Schema.Types.ObjectId,
-			required: true,
 			ref: "Instructor",
 		},
 	},
