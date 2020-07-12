@@ -26,7 +26,7 @@ const arrowStyles = {
   zIndex: 2,
   top: "calc(50% - 15px)",
   cursor: "pointer",
-  background: "#821518"
+  background: theme.palette.primary.dark,
 };
 
 const buttonStyles = {

@@ -25,11 +25,15 @@ const useStyles = makeStyles((theme) => ({
     background: theme.palette.primary.light,
     marginTop: theme.spacing(10),
   },
+  Divider2: {
+	background: theme.palette.primary.light,
+    marginTop: theme.spacing(10),
+    marginBottom: theme.spacing(10),
+  },
   Carousel: {
     color: theme.palette.primary.light,
     background: "#FF0000",
   },
-
 }));
 
 function App() {
@@ -56,21 +60,16 @@ function App() {
         <Grid item lg={12} sm={12} md={12} xs={12}>
           <FAQView />
         </Grid>
-
-        <Grid container direction="row">
-          <Grid item lg={2}></Grid>
-          <Grid
-            item
-            lg={8}
-            sm={12}
-            md={12}
-            xs={12}
-            className={classes.Carousel}
-          >
-            <Carousel />
-          </Grid>
-          <Grid item lg={2}></Grid>
+      </Grid>
+      <Grid item className={classes.Divider2}>
+        <Divider />
+      </Grid>
+      <Grid container direction="row">
+        <Grid item lg={2}></Grid>
+        <Grid item lg={8} sm={12} md={12} xs={12} className={classes.Carousel}>
+          <Carousel />
         </Grid>
+        <Grid item lg={2}></Grid>
       </Grid>
       {/* end */}
       <Grid item className={classes.Divider}>
