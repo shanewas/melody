@@ -4,48 +4,37 @@ var Schema = mongoose.Schema;
 
 var CourseSchema = new Schema(
 	{
-		title: { type: String, required: true },
-		subtitle: { type: String, required: true },
-		description: { type: String, required: true },
-		catagory: { type: String, required: true },
-		level: { type: Number, required: true },
-		sublevel: { type: Number, required: true },
-		videos: [
+		title: { type: String },
+		subtitle: { type: String },
+		desc: { type: String },
+		catagory: { type: String },
+		level: { type: Number },
+		sublevel: { type: Number },
+		video: [
 			{
 				type: Schema.Types.ObjectId,
-				required: true,
 				ref: "Video",
 			},
 		],
 		instructor: {
 			type: Schema.Types.ObjectId,
-			required: true,
 			ref: "Instructor",
 		},
-		preRequisites: [
-			{ type: Schema.Types.ObjectId, required: true, ref: "Course" },
-		],
+		preRequisite: [{ type: Schema.Types.ObjectId, ref: "Course" }],
 		requirements: { type: String },
-		nextCourses: [
-			{ type: Schema.Types.ObjectId, required: true, ref: "Course" },
-		],
-		RelatedCourse: [
-			{ type: Schema.Types.ObjectId, required: true, ref: "Course" },
-		],
-		courseHour: { type: Number, required: true },
-		document: [
-			{ type: Schema.Types.ObjectId, required: true, ref: "Document" },
-		],
-		price: { type: Number, required: true },
-		validity: { type: Number, required: true },
+		nextCourse: [{ type: Schema.Types.ObjectId, ref: "Course" }],
+		relatedCourse: [{ type: Schema.Types.ObjectId, ref: "Course" }],
+		courseHour: { type: Number },
+		document: [{ type: Schema.Types.ObjectId, ref: "Document" }],
+		price: { type: Number },
+		validity: { type: Number },
 		studentReviews: [
 			{
 				type: Schema.Types.ObjectId,
-				required: true,
 				ref: "StudentReviews",
 			},
 		],
-		certificate: { type: String, required: true },
+		certificate: { type: String },
 	},
 	{ timestamps: true }
 );
