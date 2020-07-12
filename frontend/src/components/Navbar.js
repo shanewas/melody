@@ -17,7 +17,13 @@ import {
   IconButton,
   Fade,
 } from "@material-ui/core";
-import { ExpandMore, ArrowForwardIos, ArrowBackIos, AccountCircle,ShoppingCart } from "@material-ui/icons";
+import {
+  ExpandMore,
+  ArrowForwardIos,
+  ArrowBackIos,
+  AccountCircle,
+  ShoppingCart,
+} from "@material-ui/icons";
 import MenuIcon from "@material-ui/icons/Menu";
 import theme from "../theme";
 
@@ -72,11 +78,31 @@ const StyledMenu = withStyles({
     elevation={10}
     getContentAnchorEl={null}
     anchorOrigin={{
-      vertical:"Top",
-      horizontal:"left",
+      vertical:"bottom",
+      horizontal: "left",
     }}
     transformOrigin={{
-      vertical:"top",
+      vertical: "top",
+      horizontal: "center",
+    }}
+    {...props}
+  />
+));
+
+const StyledMenuMobile = withStyles({
+  paper: {
+    background: theme.palette.primary.main,
+  },
+})((props) => (
+  <Menu
+    elevation={10}
+    getContentAnchorEl={null}
+    anchorOrigin={{
+      vertical: "bottom",
+      horizontal: "left",
+    }}
+    transformOrigin={{
+      vertical: "top",
       horizontal: "center",
     }}
     {...props}
@@ -145,7 +171,7 @@ export default function Navbar() {
             >
               <MenuIcon />
             </IconButton>
-            <StyledMenu
+            <StyledMenuMobile
               id="customized-menu"
               anchorEl={mobileMoreAnchorEl}
               keepMounted
@@ -171,7 +197,7 @@ export default function Navbar() {
                 </ListItemIcon>
                 <ListItemText primary="Browse" />
               </StyledMenuItem>
-            </StyledMenu>
+            </StyledMenuMobile>
           </div>
           <div className={classes.sectionDesktop}>
             <Button
@@ -219,10 +245,13 @@ export default function Navbar() {
               </StyledMenuItem>
             </StyledMenu>
 
-            <Button color="inherit" variant="text" onClick={navigateTo}>
+            <Button color="inherit" variant="text" startIcon={<AccountCircle />}>
               Login
             </Button>
           </div>
+          <Button color="inherit" variant="text" startIcon={<ShoppingCart />} className={classes.sectionDesktop}>
+            Cart
+          </Button>
         </Toolbar>
       </AppBar>
     </div>
