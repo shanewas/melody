@@ -26,7 +26,7 @@ const useStyles = makeStyles((theme) => ({
     marginTop: theme.spacing(10),
   },
   Divider2: {
-	background: theme.palette.primary.light,
+    background: theme.palette.primary.light,
     marginTop: theme.spacing(10),
     marginBottom: theme.spacing(10),
   },
@@ -57,26 +57,37 @@ function App() {
         <Grid item lg={12} sm={12} md={12} xs={12}>
           <InstructorViewHome />
         </Grid>
-        <Grid item lg={12} sm={12} md={12} xs={12}>
-          <FAQView />
-        </Grid>
       </Grid>
       <Grid item className={classes.Divider2}>
         <Divider />
       </Grid>
-      <Grid container direction="row">
-        <Grid item lg={2}></Grid>
-        <Grid item lg={8} sm={12} md={12} xs={12} className={classes.Carousel}>
-          <Carousel />
+      <Grid container direction="column" spacing={theme.spacing(1)}>
+        <Grid container direction="row">
+          <Grid item lg={2}></Grid>
+          <Grid
+            item
+            lg={8}
+            sm={12}
+            md={12}
+            xs={12}
+            className={classes.Carousel}
+          >
+            <Carousel />
+          </Grid>
+          <Grid item lg={2}></Grid>
         </Grid>
-        <Grid item lg={2}></Grid>
+        <Grid item lg={12} sm={12} md={12} xs={12}>
+          <FAQView />
+        </Grid>
+        {/* end */}
       </Grid>
-      {/* end */}
       <Grid item className={classes.Divider}>
         <Divider />
       </Grid>
-      <Grid item lg={12} sm={12} md={12} xs={12}>
-        <Footer />
+      <Grid container direction="column" spacing={theme.spacing(1)}>
+        <Grid item lg={12} sm={12} md={12} xs={12}>
+          <Footer />
+        </Grid>
       </Grid>
     </div>
   );

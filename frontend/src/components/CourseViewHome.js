@@ -12,9 +12,6 @@ import CardThumbnailCourse from "./CardThumbnailCourse";
 import { ChevronRight } from "@material-ui/icons";
 
 const useStyles = makeStyles((theme) => ({
-  cardGrid: {
-    paddingTop: theme.spacing(10),
-  },
   card: {
     height: "100%",
     display: "flex",
@@ -42,7 +39,7 @@ export default function Album() {
     <React.Fragment>
       <CssBaseline />
       <main>
-        <Container className={classes.cardGrid}>
+        <Container>
           {/* End hero unit */}
           <Typography
             variant="h4"
