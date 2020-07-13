@@ -16,7 +16,7 @@ import TopViewHome from "./TopViewHome";
 import InstructorViewHome from "./InstructorViewHome";
 import VideoPlayer from "./videoPlayer/VideoPlayer";
 import CourseViewHome from "./CourseViewHome";
-
+import Info from "./Info";
 import Footer from "./Footer";
 import theme from "../theme";
 
@@ -73,6 +73,13 @@ function App() {
             className={classes.Carousel}
           >
             <Carousel />
+          </Grid>
+          <Grid item lg={2}></Grid>
+        </Grid>
+        <Grid container direction="row">
+          <Grid item lg={2}></Grid>
+          <Grid item lg={8} sm={12} md={12} xs={12}>
+            <Info />
           </Grid>
           <Grid item lg={2}></Grid>
         </Grid>
