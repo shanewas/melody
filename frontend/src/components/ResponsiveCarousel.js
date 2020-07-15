@@ -14,7 +14,7 @@ const getConfigurableProps = () => ({
   infiniteLoop: true,
   showThumbs: false,
   useKeyboardArrows: true,
-  autoPlay: true,
+  autoPlay: false,
   stopOnHover: true,
   swipeable: true,
   dynamicHeight: true,

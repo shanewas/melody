@@ -19,6 +19,7 @@ const useStyles = makeStyles((theme) => ({
   },
   Typography: {
     marginBottom: theme.spacing(8),
+    color: theme.palette.secondary.contrastText,
   },
   Button: {
     marginTop: theme.spacing(10),

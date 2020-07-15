@@ -15,10 +15,10 @@ import "../theme";
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
-    padding: theme.spacing(10),
   },
   typography: {
     marginLeft: theme.spacing(1),
+    color: theme.palette.secondary.contrastText,
   },
 }));
 
@@ -166,9 +166,7 @@ export default function ButtonAppBar() {
             >
               <Twitter fontSize="small" />
               <Link color="inherit" size="small">
-                <Typography variant="body2" className={classes.typography}>
-                  Twitter
-                </Typography>
+                <Typography variant="body2">Twitter</Typography>
               </Link>
             </Grid>
           </Grid>
@@ -181,9 +179,7 @@ export default function ButtonAppBar() {
             >
               <Instagram fontSize="small" />
               <Link color="inherit" size="small">
-                <Typography variant="body2" className={classes.typography}>
-                  Instagram
-                </Typography>
+                <Typography variant="body2">Instagram</Typography>
               </Link>
             </Grid>
           </Grid>
@@ -196,9 +192,7 @@ export default function ButtonAppBar() {
             >
               <Facebook fontSize="small" />
               <Link color="inherit" size="small">
-                <Typography variant="body2" className={classes.typography}>
-                  Facebook
-                </Typography>
+                <Typography variant="body2">Facebook</Typography>
               </Link>
             </Grid>
           </Grid>
@@ -211,9 +205,7 @@ export default function ButtonAppBar() {
             >
               <LinkedIn fontSize="small" />
               <Link color="inherit" size="small">
-                <Typography variant="body2" className={classes.typography}>
-                  LinkedIn
-                </Typography>
+                <Typography variant="body2">LinkedIn</Typography>
               </Link>
             </Grid>
           </Grid>

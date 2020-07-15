@@ -3,14 +3,7 @@ import Carousel from "./ResponsiveCarousel";
 import "../App.css";
 import Navbar from "./Navbar";
 import FAQView from "./FAQView";
-import {
-  Grid,
-  Paper,
-  Divider,
-  CardMedia,
-  makeStyles,
-  Typography,
-} from "@material-ui/core";
+import { Grid, Divider, makeStyles } from "@material-ui/core";
 
 import TopViewHome from "./TopViewHome";
 import InstructorViewHome from "./InstructorViewHome";

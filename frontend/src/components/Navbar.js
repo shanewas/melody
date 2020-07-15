@@ -14,6 +14,8 @@ import {
   Toolbar,
   ListItemIcon,
   ListItemText,
+  ListItemAvatar,
+  Avatar,
   IconButton,
   Fade,
 } from "@material-ui/core";
@@ -28,19 +30,24 @@ import MenuIcon from "@material-ui/icons/Menu";
 import theme from "../theme";
 
 import logo from "../assets/images/logo.png";
+import logoShort from "../assets/images/short_logo.png";
 
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
   },
   ListItemIcon: {
-    color: theme.palette.common.white,
+    color: theme.palette.secondary.contrastText,
   },
-  logo: {
-    padding: theme.spacing(2),
-  },
-  buttonSpace: {
-    marginLeft: "auto",
+
+  button: {
+    color: theme.palette.secondary.contrastText,
+    "&:focus": {
+      outline: "none",
+    },
+    "&:active": {
+      outline: "none",
+    },
   },
   sectionDesktop: {
     display: "none",
@@ -58,6 +65,7 @@ const useStyles = makeStyles((theme) => ({
 
 const StyledMenuItem = withStyles((theme) => ({
   root: {
+    color: theme.palette.secondary.contrastText,
     "&:hover": {
       //you want this to be the same as the backgroundColor above
       backgroundColor: theme.palette.primary.light,
@@ -75,10 +83,28 @@ const StyledMenu = withStyles({
   },
 })((props) => (
   <Menu
-    elevation={10}
     getContentAnchorEl={null}
     anchorOrigin={{
-      vertical:"bottom",
+      vertical: "bottom",
+      horizontal: "center",
+    }}
+    transformOrigin={{
+      vertical: "top",
+      horizontal: "center",
+    }}
+    {...props}
+  />
+));
+
+const StyledMenuMusicians = withStyles({
+  paper: {
+    background: theme.palette.secondary.main,
+  },
+})((props) => (
+  <Menu
+    getContentAnchorEl={null}
+    anchorOrigin={{
+      vertical: "bottom",
       horizontal: "left",
     }}
     transformOrigin={{
@@ -91,11 +117,10 @@ const StyledMenu = withStyles({
 
 const StyledMenuMobile = withStyles({
   paper: {
-    background: theme.palette.primary.main,
+    background: theme.palette.secondary.main,
   },
 })((props) => (
   <Menu
-    elevation={10}
     getContentAnchorEl={null}
     anchorOrigin={{
       vertical: "bottom",
@@ -112,16 +137,25 @@ const StyledMenuMobile = withStyles({
 export default function Navbar() {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState(null);
-
+  const [mucisiansAnchorEl, setMucisiansAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
 
-  //Browse menu click handlers
+  //Course menu click handlers
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
 
   const handleClose = () => {
     setAnchorEl(null);
+  };
+
+  //Musicians menu click handlers
+  const handleMusiciansClick = (event) => {
+    setMucisiansAnchorEl(event.currentTarget);
+  };
+
+  const handleMusiciansClose = () => {
+    setMucisiansAnchorEl(null);
   };
 
   //Mobile menu click handlers
@@ -142,25 +176,9 @@ export default function Navbar() {
     <div className={classes.root}>
       <AppBar position="fixed">
         <Toolbar>
-          {/* <IconButton
-            edge="start"
-            className={classes.menuButton}
-            color="inherit"
-            aria-label="menu"
-          >
-            <Menu />
-          </IconButton> */}
-          {/* <Typography variant="h6" className={classes.title} align="left">
-            MethodMelody
-          </Typography> */}
-          <img
-            className={classes.logo}
-            src={logo}
-            alt="MethodMelody"
-            height="auto"
-            width="200"
-          />
-          <div style={{ flexGrow: 1 }} />
+          <img src={logo} alt="MethodMelody" height="auto" width="100" />
+          <img src={logoShort} alt="MethodMelody" height="auto" width="40" />
+
           <div className={classes.sectionMobile}>
             <IconButton
               aria-label="show more"
@@ -168,6 +186,7 @@ export default function Navbar() {
               aria-haspopup="true"
               onClick={handleMobileMenuOpen}
               color="inherit"
+              
             >
               <MenuIcon />
             </IconButton>
@@ -180,19 +199,19 @@ export default function Navbar() {
               TransitionComponent={Fade}
             >
               <StyledMenuItem>
-                <ListItemIcon className={classes.ListItemIcon}>
+                <ListItemIcon>
                   <AccountCircle fontSize="small" />
                 </ListItemIcon>
                 <ListItemText primary="Login" />
               </StyledMenuItem>
               <StyledMenuItem>
-                <ListItemIcon className={classes.ListItemIcon}>
+                <ListItemIcon>
                   <ShoppingCart fontSize="small" />
                 </ListItemIcon>
                 <ListItemText primary="Cart" />
               </StyledMenuItem>
               <StyledMenuItem onClick={handleClick}>
-                <ListItemIcon className={classes.ListItemIcon}>
+                <ListItemIcon>
                   <ArrowBackIos fontSize="small" />
                 </ListItemIcon>
                 <ListItemText primary="Browse" />
@@ -205,12 +224,10 @@ export default function Navbar() {
               variant="text"
               endIcon={<ExpandMore />}
               onClick={handleClick}
-              flexGrow="1"
-              className={classes.buttonSpace}
+              className={classes.button}
             >
-              Browse
+              Courses
             </Button>
-
             <StyledMenu
               id="customized-menu"
               anchorEl={anchorEl}
@@ -219,39 +236,125 @@ export default function Navbar() {
               onClose={handleClose}
               TransitionComponent={Fade}
             >
-              <StyledMenuItem>
+              <StyledMenuItem alignItems="center">
+                <ListItemAvatar>
+                  <Avatar
+                    alt="Guitar"
+                    src="https://icon-library.com/images/guitar-icon/guitar-icon-23.jpg"
+                  />
+                </ListItemAvatar>
                 <ListItemText primary="Guitar" />
-                <ListItemIcon className={classes.ListItemIcon}>
-                  <ArrowForwardIos fontSize="small" />
-                </ListItemIcon>
               </StyledMenuItem>
               <StyledMenuItem>
+                <ListItemAvatar>
+                  <Avatar
+                    alt="vocal"
+                    src="https://www.pngjoy.com/pngm/190/3748338_jedi-order-symbol-rock-band-microphone-logo-transparent.png"
+                  />
+                </ListItemAvatar>
+                <ListItemText primary="vocal" />
+              </StyledMenuItem>
+              <StyledMenuItem>
+                <ListItemAvatar>
+                  <Avatar
+                    alt="Drum"
+                    src="https://www.pinclipart.com/picdir/middle/70-704416_the-beatles-rock-band-clip-art-black-and.png"
+                  />
+                </ListItemAvatar>
                 <ListItemText primary="Drum" />
-                <ListItemIcon className={classes.ListItemIcon}>
-                  <ArrowForwardIos fontSize="small" />
-                </ListItemIcon>
               </StyledMenuItem>
               <StyledMenuItem>
+                <ListItemAvatar>
+                  <Avatar
+                    alt="Keyboard"
+                    src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d5/RB_keyboard_icon.svg/1024px-RB_keyboard_icon.svg.png"
+                  />
+                </ListItemAvatar>
                 <ListItemText primary="Keyboard" />
-                <ListItemIcon className={classes.ListItemIcon}>
-                  <ArrowForwardIos fontSize="small" />
-                </ListItemIcon>
-              </StyledMenuItem>
-              <StyledMenuItem>
-                <ListItemText primary="Vocal" />
-                <ListItemIcon className={classes.ListItemIcon}>
-                  <ArrowForwardIos fontSize="small" />
-                </ListItemIcon>
               </StyledMenuItem>
             </StyledMenu>
 
-            <Button color="inherit" variant="text" startIcon={<AccountCircle />}>
+            <Button
+              color="inherit"
+              variant="text"
+              endIcon={<ExpandMore />}
+              onClick={handleMusiciansClick}
+              className={classes.button}
+            >
+              Musicians
+            </Button>
+
+            <StyledMenuMusicians
+              id="customized-menu"
+              anchorEl={mucisiansAnchorEl}
+              keepMounted
+              open={Boolean(mucisiansAnchorEl)}
+              onClose={handleMusiciansClose}
+              TransitionComponent={Fade}
+
+              //setting menu height and width
+              // PaperProps={{  
+              //   style: {  
+              //     maxHeight: 200,  
+              //     width: 400,  
+              //   },  
+              // }}
+            >
+              <StyledMenuItem alignItems="center">
+                <ListItemAvatar>
+                  <Avatar
+                    alt="Ibrahim Ahmed Kamal"
+                    src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcTf9gxEaevS1beCdbVG6YfVSMA1RMxaT_-kbw&usqp=CAU"
+                  />
+                </ListItemAvatar>
+                <ListItemText primary="Ibrahim Ahmed Kamal" />
+              </StyledMenuItem>
+              <StyledMenuItem>
+                <ListItemAvatar>
+                  <Avatar
+                    alt="Oni Hasan"
+                    src="https://s3.amazonaws.com/bit-photos/large/6301099.jpeg"
+                  />
+                </ListItemAvatar>
+                <ListItemText primary="Oni Hasan" />
+              </StyledMenuItem>
+              <StyledMenuItem>
+                <ListItemAvatar>
+                  <Avatar
+                    alt="Kazi Shazzadul Asheqeen Shaju"
+                    src="https://scontent.fdac25-1.fna.fbcdn.net/v/t1.0-9/60601214_808016059568906_4171004618462986240_n.jpg?_nc_cat=108&_nc_sid=8bfeb9&_nc_eui2=AeHLg7gJl-F9cKJduQFHh5hV9Qs4DhZ8lzz1CzgOFnyXPBLq42ot7n9i5caVBMUW-R0&_nc_ohc=7IWv3lq1hGMAX9ZyVGO&_nc_ht=scontent.fdac25-1.fna&oh=466b8ec155c1014bc3e05ae2013bfcf9&oe=5F34F574"
+                  />
+                </ListItemAvatar>
+                <ListItemText primary="Kazi Shazzadul Asheqeen Shaju" />
+              </StyledMenuItem>
+              <StyledMenuItem>
+                <ListItemAvatar>
+                  <Avatar
+                    alt="Raef al Hasan Rafa"
+                    src="https://live.staticflickr.com/1495/24935624883_11c773493d_b.jpg"
+                  />
+                </ListItemAvatar>
+                <ListItemText primary="Raef al Hasan Rafa" />
+              </StyledMenuItem>
+            </StyledMenuMusicians>
+
+            <Button
+              color="inherit"
+              variant="text"
+              className={classes.sectionDesktop && classes.button}
+            >
+              Cart
+            </Button>
+
+            <Button
+              color="inherit"
+              variant="text"
+              className={classes.button}
+              onClick={navigateTo}
+            >
               Login
             </Button>
           </div>
-          <Button color="inherit" variant="text" startIcon={<ShoppingCart />} className={classes.sectionDesktop}>
-            Cart
-          </Button>
         </Toolbar>
       </AppBar>
     </div>
