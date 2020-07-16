@@ -9,6 +9,7 @@ const useStyles = makeStyles((theme) => ({
   },
   Typography: {
     marginTop: theme.spacing(5),
+    color: theme.palette.secondary.contrastText,
   },
 }));
 

@@ -15,11 +15,11 @@ import theme from "../theme";
 
 const useStyles = makeStyles((theme) => ({
   Divider: {
-    background: theme.palette.primary.light,
+    background: theme.palette.secondary.light,
     marginTop: theme.spacing(10),
   },
   Divider2: {
-    background: theme.palette.primary.light,
+    background: theme.palette.secondary.light,
     marginTop: theme.spacing(10),
     marginBottom: theme.spacing(10),
   },

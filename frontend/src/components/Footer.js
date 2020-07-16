@@ -176,7 +176,7 @@ export default function ButtonAppBar() {
           <Grid item>
             <Typography
               variant="subtitle2"
-              align="left"
+              align="center"
               className={classes.Typography}
             >
               Social

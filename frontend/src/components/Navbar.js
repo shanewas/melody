@@ -32,6 +32,8 @@ import theme from "../theme";
 
 import logo from "../assets/images/logo.png";
 import logoShort from "../assets/images/short_logo.png";
+import CoursesCategories from "../data/CourseCategoryData";
+import MusiciansList from "../data/MusiciansListData";
 
 const ITEM_HEIGHT = 48;
 
@@ -228,46 +230,21 @@ export default function Navbar() {
                   PaperProps={{
                     style: {
                       maxHeight: ITEM_HEIGHT * 4.5,
-                      width: "30ch",
+                      width: "40ch",
                     },
                   }}
                 >
-                  <StyledMenuItem alignItems="center">
-                    <ListItemAvatar>
-                      <Avatar
-                        alt="Guitar"
-                        src="https://icon-library.com/images/guitar-icon/guitar-icon-23.jpg"
-                      />
-                    </ListItemAvatar>
-                    <ListItemText primary="Guitar" />
-                  </StyledMenuItem>
-                  <StyledMenuItem>
-                    <ListItemAvatar>
-                      <Avatar
-                        alt="vocal"
-                        src="https://www.pngjoy.com/pngm/190/3748338_jedi-order-symbol-rock-band-microphone-logo-transparent.png"
-                      />
-                    </ListItemAvatar>
-                    <ListItemText primary="vocal" />
-                  </StyledMenuItem>
-                  <StyledMenuItem>
-                    <ListItemAvatar>
-                      <Avatar
-                        alt="Drum"
-                        src="https://www.pinclipart.com/picdir/middle/70-704416_the-beatles-rock-band-clip-art-black-and.png"
-                      />
-                    </ListItemAvatar>
-                    <ListItemText primary="Drum" />
-                  </StyledMenuItem>
-                  <StyledMenuItem>
-                    <ListItemAvatar>
-                      <Avatar
-                        alt="Keyboard"
-                        src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d5/RB_keyboard_icon.svg/1024px-RB_keyboard_icon.svg.png"
-                      />
-                    </ListItemAvatar>
-                    <ListItemText primary="Keyboard" />
-                  </StyledMenuItem>
+                  {CoursesCategories.map((courseCategory, index) => (
+                    <StyledMenuItem alignItems="center">
+                      <ListItemAvatar>
+                        <Avatar
+                          alt={courseCategory.alt}
+                          src={courseCategory.src}
+                        />
+                      </ListItemAvatar>
+                      <ListItemText primary={courseCategory.primary} />
+                    </StyledMenuItem>
+                  ))}
                 </StyledMenu>
               </Grid>
               <Grid item>
@@ -296,43 +273,17 @@ export default function Navbar() {
                     },
                   }}
                 >
-                  <StyledMenuItem alignItems="center">
-                    <ListItemAvatar>
-                      <Avatar
-                        alt="Ibrahim Ahmed Kamal"
-                        src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcTf9gxEaevS1beCdbVG6YfVSMA1RMxaT_-kbw&usqp=CAU"
-                      />
-                    </ListItemAvatar>
-                    <ListItemText primary="Ibrahim Ahmed Kamal" />
-                    <Divider height={1} />
-                  </StyledMenuItem>
-                  <StyledMenuItem>
-                    <ListItemAvatar>
-                      <Avatar
-                        alt="Oni Hasan"
-                        src="https://s3.amazonaws.com/bit-photos/large/6301099.jpeg"
-                      />
-                    </ListItemAvatar>
-                    <ListItemText primary="Oni Hasan" />
-                  </StyledMenuItem>
-                  <StyledMenuItem>
-                    <ListItemAvatar>
-                      <Avatar
-                        alt="Kazi Shazzadul Asheqeen Shaju"
-                        src="https://scontent.fdac25-1.fna.fbcdn.net/v/t1.0-9/60601214_808016059568906_4171004618462986240_n.jpg?_nc_cat=108&_nc_sid=8bfeb9&_nc_eui2=AeHLg7gJl-F9cKJduQFHh5hV9Qs4DhZ8lzz1CzgOFnyXPBLq42ot7n9i5caVBMUW-R0&_nc_ohc=7IWv3lq1hGMAX9ZyVGO&_nc_ht=scontent.fdac25-1.fna&oh=466b8ec155c1014bc3e05ae2013bfcf9&oe=5F34F574"
-                      />
-                    </ListItemAvatar>
-                    <ListItemText primary="Kazi Shazzadul Asheqeen Shaju" />
-                  </StyledMenuItem>
-                  <StyledMenuItem>
-                    <ListItemAvatar>
-                      <Avatar
-                        alt="Raef al Hasan Rafa"
-                        src="https://live.staticflickr.com/1495/24935624883_11c773493d_b.jpg"
-                      />
-                    </ListItemAvatar>
-                    <ListItemText primary="Raef al Hasan Rafa" />
-                  </StyledMenuItem>
+                  {MusiciansList.map((musician, index) => (
+                    <StyledMenuItem alignItems="center">
+                      <ListItemAvatar>
+                        <Avatar
+                          alt={musician.alt}
+                          src={musician.src}
+                        />
+                      </ListItemAvatar>
+                      <ListItemText primary={musician.primary} />
+                    </StyledMenuItem>
+                  ))}
                 </StyledMenuMusicians>
               </Grid>
               <Grid item>
@@ -401,20 +352,6 @@ export default function Navbar() {
               </StyledMenuMobile>
             </Grid>
           </Grid>
-
-          {/* 
-
-          <div >
-            
-          </div>
-          
-
-            
-
-            
-
-        
-          </div> */}
         </Toolbar>
       </AppBar>
     </div>
