@@ -7,12 +7,11 @@ var VideoSchema = new Schema({
 	file: { type: String },
 	duration: { type: Number },
 	eligibility: { type: Boolean },
-	course: [{ type: Schema.Types.ObjectId, ref: "Course" }],
+	course: [{ type: String }],
 	instructor: {
-		type: Schema.Types.ObjectId,
-		ref: "Instructor",
+		type: String,
 	},
-	document: [{ type: Schema.Types.ObjectId, ref: "Document" }],
+	document: [{ type: String }],
 });
 
 module.exports = mongoose.model("Video", VideoSchema);

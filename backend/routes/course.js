@@ -8,6 +8,22 @@ router.route("/").get((req, res) => {
 		.catch((err) => res.status(400).json("Error: " + err));
 });
 
+router.route("/search").get((req, res) => {
+	var query = {};
+	for (var key in req.query) {
+		query[key] = new RegExp(`${req.query[key]}`, "i");
+	}
+	Course.find(query)
+		.then((doc) => {
+			if (doc) {
+				res.status(200).json(doc);
+			} else {
+				res.status(404).json(doc);
+			}
+		})
+		.catch((err) => res.status(400).json("Error: " + err));
+});
+
 router.route("/:courseId").get((req, res) => {
 	const id = req.params.courseId;
 	Course.findById(id)
