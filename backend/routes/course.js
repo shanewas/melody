@@ -1,6 +1,8 @@
 const router = require("express").Router();
 const Course = require("../models/course.model");
-const { Mongoose } = require("mongoose");
+const { verifyToken } = require("../middleware/authentication");
+
+// router.use(verifyToken);
 
 router.route("/").get((req, res) => {
 	Course.find()
@@ -24,18 +26,21 @@ router.route("/search").get((req, res) => {
 		.catch((err) => res.status(400).json("Error: " + err));
 });
 
-router.route("/:courseId").get((req, res) => {
-	const id = req.params.courseId;
-	Course.findById(id)
-		.then((doc) => {
-			if (doc) {
-				res.status(200).json(doc);
-			} else {
-				res.status(404).json(doc);
-			}
-		})
-		.catch((err) => res.status(400).json("Error: " + err));
-});
+router
+	.use(verifyToken)
+	.route("/:courseId")
+	.get((req, res) => {
+		const id = req.params.courseId;
+		Course.findById(id)
+			.then((doc) => {
+				if (doc) {
+					res.status(200).json(doc);
+				} else {
+					res.status(404).json(doc);
+				}
+			})
+			.catch((err) => res.status(400).json("Error: " + err));
+	});
 
 router.route("/:key/:value").get((req, res) => {
 	var query = {};
