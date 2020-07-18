@@ -7,13 +7,11 @@ var InstructorSchema = new Schema(
 		photo: { type: String },
 		bio: { type: String },
 		earnings: { type: Number },
-		course: [{ type: Schema.Types.ObjectId, ref: "Course" }],
-		document: [{ type: Schema.Types.ObjectId, ref: "Document" }],
+		course: [{ type: String }],
+		document: [{ type: String }],
 		video: [
 			{
-				type: Schema.Types.ObjectId,
-				required: true,
-				ref: "Video",
+				type: String,
 			},
 		],
 	},

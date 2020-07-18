@@ -8,7 +8,7 @@ var StudentReviewsSchema = new Schema(
 		// 	required: true,
 		// 	ref: "User",
 		// },
-		course: [{ type: Schema.Types.ObjectId, ref: "Course" }],
+		course: [{ type: String }],
 		review: { type: String },
 	},
 	{ timestamps: true }
