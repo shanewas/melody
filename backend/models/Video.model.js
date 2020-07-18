@@ -5,7 +5,7 @@ var VideoSchema = new Schema({
 	title: { type: String },
 	desc: { type: String },
 	file: { type: String },
-	duration: { type: Number },
+	duration: { type: String },
 	eligibility: { type: Boolean },
 	course: [{ type: String }],
 	instructor: {
