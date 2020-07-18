@@ -3,11 +3,12 @@ const bcrypt = require("bcrypt");
 const User = require("../models/User.model");
 
 function verifyToken(req, res, next) {
-	const token = req.headers.cookie
-		.split("; ")
-		.find((c) => c.startsWith("token"))
-		.split("=")[1];
-	if (typeof token !== undefined && token !== "token") {
+	var token = undefined;
+	if (token !== undefined && token !== "token") {
+		token = req.headers.cookie
+			.split("; ")
+			.find((c) => c.startsWith("token"))
+			.split("=")[1];
 		var email, password;
 		try {
 			const decoded = jwt.verify(token, process.env.SECRET_KEY);
@@ -28,7 +29,7 @@ function verifyToken(req, res, next) {
 						return res.sendStatus(403);
 					}
 					if (result) {
-						console.log({ message: `Welcome back ${email} !` });
+						// console.log({ message: `Welcome back ${email} !` });
 						next();
 					} else {
 						console.log({ message: `Auth Failed !` });

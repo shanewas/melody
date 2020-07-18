@@ -13,71 +13,7 @@ router
 			.catch((err) => res.status(400).json("Error: " + err));
 	});
 
-router
-	.use(verifyToken)
-	.route("/search")
-	.get((req, res) => {
-		var query = {};
-		for (var key in req.query) {
-			query[key] = new RegExp(`${req.query[key]}`, "i");
-		}
-		Course.find(query)
-			.then((doc) => {
-				if (doc) {
-					res.status(200).json(doc);
-				} else {
-					res.status(404).json(doc);
-				}
-			})
-			.catch((err) => res.status(400).json("Error: " + err));
-	});
-
-router
-	.use(verifyToken)
-	.route("/:courseId")
-	.get((req, res) => {
-		const id = req.params.courseId;
-		Course.findById(id)
-			.then((doc) => {
-				if (doc) {
-					res.status(200).json(doc);
-				} else {
-					res.status(404).json(doc);
-				}
-			})
-			.catch((err) => res.status(400).json("Error: " + err));
-	});
-
-router
-	.use(verifyToken)
-	.route("/:key/:value")
-	.get((req, res) => {
-		var query = {};
-		query[req.params.key] = req.params.value;
-		Course.find(query)
-			.then((doc) => {
-				if (doc) {
-					res.status(200).json(doc);
-				} else {
-					res.status(404).json(doc);
-				}
-			})
-			.catch((err) => res.status(400).json("Error: " + err));
-	});
-
-router
-	.use(verifyToken)
-	.route("/:key/:value")
-	.delete((req, res) => {
-		var query = {};
-		query[req.params.key] = req.params.value;
-		Course.deleteMany(query)
-			.then((result) => {
-				res.status(200).json(result);
-			})
-			.catch((err) => res.status(400).json("Error: " + err));
-	});
-
+//ADD
 router
 	.use(verifyToken)
 	.route("/add")
@@ -122,16 +58,113 @@ router
 		});
 		newCourse
 			.save()
-			.then(() => res.json(`course added!`))
+			.then(() => res.status(200).json(`Course Added Successfully!`))
 			.catch((err) => res.status(400).json("Error: " + err));
 	});
 
-// router.route("/:id").put((req, res) => {});
+router
+	.use(verifyToken)
+	.route("/search")
+	.get((req, res) => {
+		var query = {};
+		for (var key in req.query) {
+			query[key] = new RegExp(`${req.query[key]}`, "i");
+		}
+		Course.find(query)
+			.then((doc) => {
+				if (doc) {
+					res.status(200).json(doc);
+				} else {
+					res.status(404).json(doc);
+				}
+			})
+			.catch((err) => res.status(400).json("Error: " + err));
+	});
 
-// app.post("/person", async (request, response) => {});
-// app.get("/people", async (request, response) => {});
-// app.get("/person/:id", async (request, response) => {});
-// app.put("/person/:id", async (request, response) => {});
-// app.delete("/person/:id", async (request, response) => {});
+//GET by ID
+router
+	.use(verifyToken)
+	.route("/:courseId")
+	.get((req, res) => {
+		const id = req.params.courseId;
+		Course.findById(id)
+			.then((doc) => {
+				if (doc) {
+					res.status(200).json(doc);
+				} else {
+					res.status(404).json(doc);
+				}
+			})
+			.catch((err) => res.status(400).json("Error: " + err));
+	});
+
+//UPDATE by ID
+router
+	.use(verifyToken)
+	.route("/:courseId")
+	.put((req, res) => {
+		const id = req.params.courseId;
+		Course.findByIdAndUpdate(
+			id,
+			{ $set: req.body },
+			{ useFindAndModify: false }
+		)
+			.then((doc) => {
+				if (doc) {
+					res.status(200).json(`Course Updated Successfully!`);
+				} else {
+					res.status(404).json(`Course Update Failed!`);
+				}
+			})
+			.catch((err) => res.status(400).json("Error: " + err));
+	});
+
+//DELETE
+router
+	.use(verifyToken)
+	.route("/:courseId")
+	.delete((req, res) => {
+		const id = req.params.courseId;
+		Course.findByIdAndDelete(id)
+			.then((result) => {
+				res.status(200).json(`${result} Successfully!`);
+			})
+			.catch((err) => res.status(400).json("Error: " + err));
+	});
+
+//GET
+// (query); //{ title: 'Course 1' }
+// (req.params); //{ key: 'title', value: 'Course 1' }
+
+router
+	.use(verifyToken)
+	.route("/:key/:value")
+	.get((req, res) => {
+		var query = {};
+		query[req.params.key] = req.params.value;
+		Course.find(query)
+			.then((doc) => {
+				if (doc) {
+					res.status(200).json(doc);
+				} else {
+					res.status(404).json(doc);
+				}
+			})
+			.catch((err) => res.status(400).json("Error: " + err));
+	});
+
+// //DELETE
+// router
+// 	.use(verifyToken)
+// 	.route("/:key/:value")
+// 	.delete((req, res) => {
+// 		var query = {};
+// 		query[req.params.key] = req.params.value;
+// 		Course.deleteMany(query)
+// 			.then((result) => {
+// 				res.status(200).json(result);
+// 			})
+// 			.catch((err) => res.status(400).json("Error: " + err));
+// 	});
 
 module.exports = router;
