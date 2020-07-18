@@ -1,11 +1,11 @@
 const router = require("express").Router();
 const Course = require("../models/course.model");
-const { verifyToken } = require("../middleware/authentication");
+const { authentication } = require("../middleware/authentication");
 
-// router.use(verifyToken);
+// router.use(authentication);
 
 router
-	.use(verifyToken)
+	.use(authentication)
 	.route("/")
 	.get((req, res) => {
 		Course.find()
@@ -15,7 +15,7 @@ router
 
 //ADD
 router
-	.use(verifyToken)
+	.use(authentication)
 	.route("/add")
 	.post((req, res) => {
 		const title = req.body.title;
@@ -63,7 +63,7 @@ router
 	});
 
 router
-	.use(verifyToken)
+	.use(authentication)
 	.route("/search")
 	.get((req, res) => {
 		var query = {};
@@ -83,7 +83,7 @@ router
 
 //GET by ID
 router
-	.use(verifyToken)
+	.use(authentication)
 	.route("/:courseId")
 	.get((req, res) => {
 		const id = req.params.courseId;
@@ -100,7 +100,7 @@ router
 
 //UPDATE by ID
 router
-	.use(verifyToken)
+	.use(authentication)
 	.route("/:courseId")
 	.put((req, res) => {
 		const id = req.params.courseId;
@@ -121,7 +121,7 @@ router
 
 //DELETE
 router
-	.use(verifyToken)
+	.use(authentication)
 	.route("/:courseId")
 	.delete((req, res) => {
 		const id = req.params.courseId;
@@ -137,7 +137,7 @@ router
 // (req.params); //{ key: 'title', value: 'Course 1' }
 
 router
-	.use(verifyToken)
+	.use(authentication)
 	.route("/:key/:value")
 	.get((req, res) => {
 		var query = {};
@@ -155,7 +155,7 @@ router
 
 // //DELETE
 // router
-// 	.use(verifyToken)
+// 	.use(authentication)
 // 	.route("/:key/:value")
 // 	.delete((req, res) => {
 // 		var query = {};

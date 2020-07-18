@@ -2,14 +2,9 @@ const router = require("express").Router();
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 const User = require("../models/User.model");
+const { authentication } = require("../middleware/authentication");
 
-router.route("/getAll").get((req, res) => {
-	User.find()
-		.then((user) => res.json(user))
-		.catch((err) => res.status(400).json("Error: " + err));
-});
-
-router.route(`/`).get((req, res) => {
+router.route(`/login`).get((req, res) => {
 	const email = req.body.email;
 	const password = req.body.password;
 	User.find({ email })
@@ -30,7 +25,7 @@ router.route(`/`).get((req, res) => {
 							(err, token) => {
 								res.cookie("token", token, { httpOnly: true });
 								return res.status(200).json({
-									message: "Token cookie set !",
+									message: "Authentication Successful !",
 								});
 							}
 						);
@@ -77,5 +72,14 @@ router.route("/signup").post((req, res) => {
 		}
 	});
 });
+
+router
+	.use(authentication)
+	.route("/")
+	.get((req, res) => {
+		User.find()
+			.then((user) => res.json(user))
+			.catch((err) => res.status(400).json("Error: " + err));
+	});
 
 module.exports = router;
