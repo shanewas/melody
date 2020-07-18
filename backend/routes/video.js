@@ -16,33 +16,23 @@ router
 router
 	.use(authentication)
 	.route("/add")
-	.post((req, res) => {
-		const title = req.body.title;
-		const desc = req.body.desc;
-		const file = req.body.file;
-		const duration = req.body.duration;
-		const eligibility = req.body.eligibility;
-		const course = req.body.course;
-		const instructor = req.body.instructor;
-		const document = req.body.document;
-		const newVideo = new Video({
-			title,
-			desc,
-			file,
-			duration,
-			eligibility,
-			course,
-			instructor,
-			document,
+	.post(async (req, res) => {
+		for (var item in req.body) {
+			const newVideo = new Video(req.body[item]);
+			await newVideo
+				.save()
+				.then(() => {
+					console.log({
+						message: `Video ${item} : ${req.body[item].title} Added Successfully!`,
+					});
+				})
+				.catch((err) => {
+					res.status(400).json("Error: " + err);
+				});
+		}
+		res.status(200).json({
+			message: `Videos Added Successfully!`,
 		});
-		newVideo
-			.save()
-			.then(() => {
-				res.status(200).json(`Video Added Successfully!`);
-			})
-			.catch((err) => {
-				res.status(400).json("Error: " + err);
-			});
 	});
 
 //Search
