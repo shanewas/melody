@@ -1,5 +1,5 @@
 const router = require("express").Router();
-const Course = require("../models/course.model");
+const Course = require("../models/Course.model");
 const { authentication } = require("../middleware/authentication");
 
 // router.use(authentication);
