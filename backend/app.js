@@ -25,9 +25,11 @@ connection.once("open", () => {
 
 const courseRouter = require("./routes/course");
 const loginRouter = require("./routes/user");
+const videoRouter = require("./routes/video");
 
 app.use(`/api/${process.env.API_VERSION}/course`, courseRouter);
 app.use(`/api/${process.env.API_VERSION}/user`, loginRouter);
+app.use(`/api/${process.env.API_VERSION}/video`, videoRouter);
 
 app.get("/", function (req, res) {
 	res.sendFile(path.join(__dirname, "../frontend/build", "index.html"));
