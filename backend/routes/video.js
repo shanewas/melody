@@ -1,6 +1,35 @@
 const router = require("express").Router();
+const multer = require("multer");
+const path = require("path");
 const Video = require("../models/Video.model");
 const { authentication } = require("../middleware/authentication");
+
+const storage = multer.diskStorage({
+	destination: function (req, file, cb) {
+		cb(null, path.join("storage", "video"));
+	},
+	filename: function (req, file, cb) {
+		cb(null, new Date().toISOString().replace(/:/g, "-") + file.originalname);
+	},
+});
+const fileFilter = (req, file, cb) => {
+	if (
+		file.mimetype === "video/mp4" || //mp4
+		file.mimetype === "video/quicktime" || //mov
+		file.mimetype === "video/quicktimevideo/x-msvideo" || //avi
+		file.mimetype === "video/x-ms-wmv" //wmv
+	) {
+		cb(null, true);
+	} else {
+		cb(null, false);
+	}
+};
+
+const video = multer({
+	storage,
+	limits: { fileSize: 1024 * 1024 * 4096 },
+	fileFilter,
+});
 
 router
 	.use(authentication)
@@ -9,6 +38,15 @@ router
 		Video.find()
 			.then((video) => res.json(video))
 			.catch((err) => res.status(400).json("Error: " + err));
+	});
+
+router
+	.use(authentication)
+	.use(video.array("file"))
+	.route("/addSingle")
+	.post((req, res) => {
+		console.log(req.files);
+		res.sendStatus(200);
 	});
 
 //ADD single / multiple
