@@ -6,10 +6,10 @@ var DocumentSchema = new Schema(
 		file: { type: String },
 		desc: { type: String },
 		size: { type: String },
-		course: [{ type: String }],
-		video: [{ type: String }],
+		course: [{ type: Schema.Types.ObjectId }],
+		video: [{ type: Schema.Types.ObjectId }],
 		instructor: {
-			type: String,
+			type: Schema.Types.ObjectId,
 		},
 	},
 	{ timestamps: true }

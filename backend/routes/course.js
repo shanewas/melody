@@ -1,8 +1,30 @@
 const router = require("express").Router();
+const multer = require("multer");
+const path = require("path");
 const Course = require("../models/Course.model");
 const { authentication } = require("../middleware/authentication");
 
-// router.use(authentication);
+const storage = multer.diskStorage({
+	destination: function (req, file, cb) {
+		cb(null, path.join("storage", "thumbnail"));
+	},
+	filename: function (req, file, cb) {
+		cb(null, new Date().toISOString().replace(/:/g, "-") + file.originalname);
+	},
+});
+const fileFilter = (req, file, cb) => {
+	if (file.mimetype === "image/jpeg" || file.mimetype === "image/png") {
+		cb(null, true);
+	} else {
+		cb(null, false);
+	}
+};
+
+const thumbnail = multer({
+	storage,
+	limits: { fileSize: 1024 * 1024 * 5 },
+	fileFilter,
+});
 
 router
 	.use(authentication)
@@ -16,6 +38,7 @@ router
 //ADD
 router
 	.use(authentication)
+	.use(thumbnail.single("thumbnail"))
 	.route("/add")
 	.post((req, res) => {
 		const title = req.body.title;
@@ -24,7 +47,7 @@ router
 		const catagory = req.body.catagory;
 		const level = req.body.level;
 		const sublevel = req.body.sublevel;
-		const thumbnail = req.body.thumbnail;
+		const thumbnail = req.file.path;
 		const video = req.body.video;
 		const instructor = req.body.instructor;
 		const preRequisite = req.body.preRequisite;
