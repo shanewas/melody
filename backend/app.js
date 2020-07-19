@@ -15,6 +15,10 @@ app.use(
 	"/storage/thumbnail",
 	express.static(path.join(__dirname, "../backend/storage/thumbnail"))
 );
+app.use(
+	"/storage/video",
+	express.static(path.join(__dirname, "../backend/storage/video"))
+);
 
 const uri = process.env.ATLAS_URI;
 mongoose.connect(uri, {

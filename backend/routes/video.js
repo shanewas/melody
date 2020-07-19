@@ -40,20 +40,47 @@ router
 			.catch((err) => res.status(400).json("Error: " + err));
 	});
 
+//add single video
 router
 	.use(authentication)
-	.use(video.array("file"))
-	.route("/addSingle")
+	.use(video.single("file"))
+	.route("/add")
 	.post((req, res) => {
-		console.log(req.files);
-		res.sendStatus(200);
+		console.log(req.file);
+		const title = req.body.title;
+		const desc = req.body.desc;
+		const file = req.file.path;
+		const duration = req.body.duration;
+		const eligibility = req.body.eligibility;
+		const newVideo = new Video({
+			title,
+			desc,
+			file,
+			duration,
+			eligibility,
+		});
+		newVideo
+			.save()
+			.then(() => {
+				res.status(200).json(`Video Added Successfully!`);
+			})
+			.catch((err) => res.status(400).json("Error: " + err));
 	});
+
+// router
+// 	.use(authentication)
+// 	.use(video.array("file"))
+// 	.route("/addSingle")
+// 	.post((req, res) => {
+// 		console.log(req.files);
+// 		res.sendStatus(200);
+// 	});
 
 //ADD single / multiple
 //POST
 router
 	.use(authentication)
-	.route("/add")
+	.route("/addMulti")
 	.post(async (req, res) => {
 		for (var item in req.body) {
 			const newVideo = new Video(req.body[item]);
