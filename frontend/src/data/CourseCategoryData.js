@@ -3,28 +3,29 @@ export default [
   {
     primary: "Guitar",
     alt: "Guitar",
-    src: "https://icon-library.com/images/guitar-icon/guitar-icon-23.jpg",
+    src: "https://i1.pngguru.com/preview/844/649/188/button-ui-2-apple-paid-pro-guitar-icon-png-clipart.jpg",
   },
   {
     primary: "Acoustic Fingerstyle guitar",
     alt: "Acoustic Fingerstyle guitar",
-    src: "https://icon-library.com/images/guitar-icon/guitar-icon-23.jpg",
+    src: "https://image.flaticon.com/icons/png/512/176/176540.png",
   },
   {
     primary: "Drums",
     alt: "Drums",
     src:
-      "https://www.pinclipart.com/picdir/middle/70-704416_the-beatles-rock-band-clip-art-black-and.png",
+      "https://imageog.flaticon.com/icons/png/512/1803/1803943.png?size=1200x630f&pad=10,10,10,10&ext=png&bg=FFFFFFFF",
   },
   {
     primary: "Piano/Keyboard",
     alt: "Piano/Keyboard",
     src:
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d5/RB_keyboard_icon.svg/1024px-RB_keyboard_icon.svg.png",
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRxbm59tHjLaXC1joj-gB2Mid9SXnZ7KZTX3A&usqp=CAU",
   },
   {
     primary: "Sound Engineering",
     alt: "Sound Engineering",
-    src: "https://i.pinimg.com/originals/05/49/b6/0549b65b903048ddef5e67c83daf9fc6.png",
+    src:
+      "https://imageog.flaticon.com/icons/png/512/2198/2198024.png?size=1200x630f&pad=10,10,10,10&ext=png&bg=FFFFFFFF",
   },
 ];

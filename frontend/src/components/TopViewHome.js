@@ -4,10 +4,16 @@ import Typography from "@material-ui/core/Typography";
 
 import { Grid, Box } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 import VideoPlayer from "./videoPlayer/VideoPlayer";
 import theme from "../theme";
+
+import axios from "../api/Config";
+
+import Path from "path";
+
+import vid from "../storage/video/hd1967.mov";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -15,16 +21,42 @@ const useStyles = makeStyles((theme) => ({
   },
   button: {
     background: theme.palette.secondary.contrastText,
-    color: "rgba(255,255,255,.87)",
+    color: theme.palette.secondary.main,
     marginTop: theme.spacing(6),
   },
-  Typography: {
+  TypographyTitle: {
     color: theme.palette.secondary.contrastText,
+  },
+  TypographyText: {
+    color: theme.palette.text.secondary,
+  },
+  Box: {
+    color: theme.palette.secondary.main,
   },
 }));
 
 export default function SimplePaper() {
   const classes = useStyles();
+
+  const [video, setVideo] = useState("");
+
+  useEffect(() => {
+    getCourseData();
+  });
+
+  function getCourseData() {
+    axios
+      .get("video/5f13f9b0a866a353303776a3/", {})
+      .then((res) => {
+        const data = res.data;
+        // console.log(data.file);
+        // setState({ video: url });
+        setVideo(data.file);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
 
   return (
     <Grid
@@ -44,12 +76,12 @@ export default function SimplePaper() {
         alignContent="center"
       >
         <Grid item>
-          <Box border={5} width="75%">
+          <Box border={5} width="75%" className={classes.Box}>
             <Typography
               variant="h2"
               component="h2"
               align="left"
-              className={classes.Typography}
+              className={classes.TypographyTitle}
             >
               TODAY'S <br />
               THE DAY
@@ -61,7 +93,7 @@ export default function SimplePaper() {
             variant="h6"
             component="h6"
             align="left"
-            className={classes.Typography}
+            className={classes.TypographyText}
           >
             Learn from 10+ of Bangladesh’s most acclaimed Musicians
           </Typography>
@@ -77,7 +109,11 @@ export default function SimplePaper() {
         </Grid>
       </Grid>
       <Grid item lg={8} md={6} sm={12} xs={12}>
-        <VideoPlayer url="https://www.youtube.com/embed/I41fXTW-R6I" />
+        {/* {console.log("qvideo url from state: " + video)} */}
+
+        <VideoPlayer
+          url={vid}
+        />
       </Grid>
     </Grid>
   );

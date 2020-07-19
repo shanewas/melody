@@ -8,7 +8,8 @@ const useStyles = makeStyles((theme) => ({
     flexGrow: 1,
   },
   Card: {
-    background: theme.palette.secondary.contrastText,
+    color: theme.palette.text.secondary,
+    background: theme.palette.secondary.main,
     padding:theme.spacing(1),
     margin: theme.spacing(5)
   },

@@ -5,7 +5,7 @@ const { authentication } = require("../middleware/authentication");
 // router.use(authentication);
 
 router
-	.use(authentication)
+	// .use(authentication)
 	.route("/")
 	.get((req, res) => {
 		Course.find()
@@ -15,7 +15,7 @@ router
 
 //ADD
 router
-	.use(authentication)
+	// .use(authentication)
 	.route("/add")
 	.post((req, res) => {
 		const title = req.body.title;
@@ -63,7 +63,7 @@ router
 	});
 
 router
-	.use(authentication)
+	// .use(authentication)
 	.route("/search")
 	.get((req, res) => {
 		var query = {};
@@ -83,7 +83,7 @@ router
 
 //GET by ID
 router
-	.use(authentication)
+	// .use(authentication)
 	.route("/:courseId")
 	.get((req, res) => {
 		const id = req.params.courseId;
@@ -100,7 +100,7 @@ router
 
 //UPDATE by ID
 router
-	.use(authentication)
+	// .use(authentication)
 	.route("/:courseId")
 	.put((req, res) => {
 		const id = req.params.courseId;
@@ -121,7 +121,7 @@ router
 
 //DELETE
 router
-	.use(authentication)
+	// .use(authentication)
 	.route("/:courseId")
 	.delete((req, res) => {
 		const id = req.params.courseId;
@@ -137,7 +137,7 @@ router
 // (req.params); //{ key: 'title', value: 'Course 1' }
 
 router
-	.use(authentication)
+	// .use(authentication)
 	.route("/:key/:value")
 	.get((req, res) => {
 		var query = {};

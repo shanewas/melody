@@ -80,9 +80,6 @@ export default () => (
         style={{ backgroundColor: "rgba(255,255,255,.0)" }}
       >
         <Grid item lg={12}>
-          <Typography variant="subtitle1">Recently Added</Typography>
-        </Grid>
-        <Grid item lg={12}>
           <Typography variant="h4">Chris Voss</Typography>
         </Grid>
         <Grid item lg={12}>

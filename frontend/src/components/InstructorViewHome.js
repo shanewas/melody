@@ -26,6 +26,7 @@ const useStyles = makeStyles((theme) => ({
   },
   Button: {
     marginTop: theme.spacing(10),
+    color: theme.palette.primary.light,
     background: "#821518",
     "&:hover": {
       //you want this to be the same as the backgroundColor above

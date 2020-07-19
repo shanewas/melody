@@ -16,6 +16,7 @@ const useStyles = makeStyles({
     display: "flex",
     flexDirection: "column",
     background: theme.palette.primary.light,
+    color:theme.palette.text.secondary
   },
   cardMedia: {
     paddingTop: "56.25%", // 16:9

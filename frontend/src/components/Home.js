@@ -3,7 +3,7 @@ import Carousel from "./ResponsiveCarousel";
 import "../App.css";
 import Navbar from "./Navbar";
 import FAQView from "./FAQView";
-import { Grid, Divider, makeStyles } from "@material-ui/core";
+import { Grid, Divider, makeStyles, Typography } from "@material-ui/core";
 
 import TopViewHome from "./TopViewHome";
 import InstructorViewHome from "./InstructorViewHome";
@@ -26,6 +26,10 @@ const useStyles = makeStyles((theme) => ({
   Carousel: {
     color: theme.palette.primary.light,
     background: "#FF0000",
+  },
+  Typography: {
+    marginBottom: theme.spacing(8),
+    color: theme.palette.secondary.contrastText,
   },
 }));
 

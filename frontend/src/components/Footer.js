@@ -17,8 +17,14 @@ const useStyles = makeStyles((theme) => ({
     flexGrow: 1,
   },
   Typography: {
+    color: theme.palette.text.secondary,
+  },
+  TypographyTitle:{
     color: theme.palette.secondary.contrastText,
   },
+  SocialIconColor:{
+    color: theme.palette.text.secondary
+  }
 }));
 
 export default function ButtonAppBar() {
@@ -38,7 +44,7 @@ export default function ButtonAppBar() {
             <Typography
               variant="subtitle2"
               align="left"
-              className={classes.Typography}
+              className={classes.TypographyTitle}
             >
               Explore
             </Typography>
@@ -108,7 +114,7 @@ export default function ButtonAppBar() {
             <Typography
               variant="subtitle2"
               align="left"
-              className={classes.Typography}
+              className={classes.TypographyTitle}
             >
               About
             </Typography>
@@ -176,8 +182,8 @@ export default function ButtonAppBar() {
           <Grid item>
             <Typography
               variant="subtitle2"
-              align="center"
-              className={classes.Typography}
+              align="left"
+              className={classes.TypographyTitle}
             >
               Social
             </Typography>
@@ -189,7 +195,7 @@ export default function ButtonAppBar() {
               justify="flex-start"
               alignItems="center"
             >
-              <Twitter fontSize="small" />
+              <Twitter fontSize="small" className={classes.SocialIconColor}/>
               <Link color="inherit" size="small">
                 <Typography variant="body2" className={classes.Typography}>
                   Twitter
@@ -204,7 +210,7 @@ export default function ButtonAppBar() {
               justify="flex-start"
               alignItems="center"
             >
-              <Instagram fontSize="small" />
+              <Instagram fontSize="small" className={classes.SocialIconColor}/>
               <Link color="inherit" size="small">
                 <Typography variant="body2" className={classes.Typography}>
                   Instagram
@@ -219,7 +225,7 @@ export default function ButtonAppBar() {
               justify="flex-start"
               alignItems="center"
             >
-              <Facebook fontSize="small" />
+              <Facebook fontSize="small" className={classes.SocialIconColor}/>
               <Link color="inherit" size="small">
                 <Typography variant="body2" className={classes.Typography}>
                   Facebook
@@ -234,7 +240,7 @@ export default function ButtonAppBar() {
               justify="flex-start"
               alignItems="center"
             >
-              <LinkedIn fontSize="small" />
+              <LinkedIn fontSize="small" className={classes.SocialIconColor}/>
               <Link color="inherit" size="small">
                 <Typography variant="body2" className={classes.Typography}>
                   LinkedIn

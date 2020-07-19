@@ -42,9 +42,7 @@ const useStyles = makeStyles((theme) => ({
     flexGrow: 1,
     background: theme.palette.secondary.main,
   },
-  ListItemIcon: {
-    color: theme.palette.secondary.contrastText,
-  },
+ 
 
   button: {
     color: theme.palette.secondary.contrastText,
@@ -71,10 +69,10 @@ const useStyles = makeStyles((theme) => ({
 
 const StyledMenuItem = withStyles((theme) => ({
   root: {
-    color: theme.palette.secondary.contrastText,
+    color: theme.palette.background.paper,
     "&:hover": {
       //you want this to be the same as the backgroundColor above
-      backgroundColor: theme.palette.primary.light,
+      backgroundColor: theme.palette.secondary.contrastText,
       color: theme.palette.common.white,
       "& .MuiListItemIcon-root, & .MuiListItemText-primary": {
         color: theme.palette.common.white,
@@ -86,7 +84,7 @@ const StyledMenuItem = withStyles((theme) => ({
 //Courses Menu
 const StyledMenu = withStyles({
   paper: {
-    background: theme.palette.primary.main,
+    background: theme.palette.secondary.main,
   },
 })((props) => (
   <Menu
@@ -177,8 +175,11 @@ export default function Navbar() {
   };
 
   const history = useHistory();
-  function navigateTo() {
+  function navigateToLogin() {
     history.push("/login");
+  }
+  function navigateToCourse() {
+    history.push("/coursespage")
   }
 
   return (
@@ -235,7 +236,7 @@ export default function Navbar() {
                   }}
                 >
                   {CoursesCategories.map((courseCategory, index) => (
-                    <StyledMenuItem alignItems="center">
+                    <StyledMenuItem alignItems="center" onClick={navigateToCourse}>
                       <ListItemAvatar>
                         <Avatar
                           alt={courseCategory.alt}
@@ -274,7 +275,7 @@ export default function Navbar() {
                   }}
                 >
                   {MusiciansList.map((musician, index) => (
-                    <StyledMenuItem alignItems="center">
+                    <StyledMenuItem alignItems="center" onClick={navigateToCourse}>
                       <ListItemAvatar>
                         <Avatar
                           alt={musician.alt}
@@ -300,7 +301,7 @@ export default function Navbar() {
                   color="inherit"
                   variant="text"
                   className={classes.button}
-                  onClick={navigateTo}
+                  onClick={navigateToLogin}
                 >
                   Login
                 </Button>

@@ -24,7 +24,7 @@ const useStyles = makeStyles({
     color: "rgba(255,255,255,.87)",
   },
   Typography:{
-    color:theme.palette.text.primary
+    color:theme.palette.text.secondary
   }
 });
 
