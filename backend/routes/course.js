@@ -24,6 +24,7 @@ router
 		const catagory = req.body.catagory;
 		const level = req.body.level;
 		const sublevel = req.body.sublevel;
+		const thumbnail = req.body.thumbnail;
 		const video = req.body.video;
 		const instructor = req.body.instructor;
 		const preRequisite = req.body.preRequisite;
@@ -43,6 +44,7 @@ router
 			catagory,
 			level,
 			sublevel,
+			thumbnail,
 			video,
 			instructor,
 			preRequisite,

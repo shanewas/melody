@@ -10,6 +10,7 @@ var CourseSchema = new Schema(
 		catagory: { type: String },
 		level: { type: String },
 		sublevel: { type: String },
+		thumbnail: { type: String },
 		video: [
 			{
 				type: Schema.Types.ObjectId,

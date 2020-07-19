@@ -4,7 +4,7 @@ const bcrypt = require("bcrypt");
 const User = require("../models/User.model");
 const { authentication } = require("../middleware/authentication");
 
-router.route(`/login`).get((req, res) => {
+router.route(`/login`).post((req, res) => {
 	const email = req.body.email;
 	const password = req.body.password;
 	User.find({ email })
