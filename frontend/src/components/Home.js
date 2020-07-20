@@ -1,5 +1,5 @@
-import React from "react";
-import Carousel from "./ResponsiveCarousel";
+import React, { useEffect, useState } from "react";
+import InstructorCarousel from "./InstructorCarousel";
 import "../App.css";
 import Navbar from "./Navbar";
 import FAQView from "./FAQView";
@@ -12,6 +12,9 @@ import CourseViewHome from "./CourseViewHome";
 import Info from "./Info";
 import Footer from "./Footer";
 import theme from "../theme";
+import StudentFeedbackCarousel from "./StudentFeedbackCarousel";
+
+import axios from "../api/Config";
 
 const useStyles = makeStyles((theme) => ({
   Divider: {
@@ -26,15 +29,37 @@ const useStyles = makeStyles((theme) => ({
   Carousel: {
     color: theme.palette.primary.light,
     background: "#FF0000",
+    marginTop: theme.spacing(8),
   },
   Typography: {
-    marginBottom: theme.spacing(8),
+    marginBottom: theme.spacing(4),
     color: theme.palette.secondary.contrastText,
   },
 }));
 
 function App() {
   const classes = useStyles();
+
+  const [video, setVideo] = useState("");
+
+  useEffect(() => {
+    getCourseData();
+  });
+
+  function getCourseData() {
+    axios
+      .get("video/5f147d66d4c1340a1b1ff499/", {})
+      .then((res) => {
+        const data = res.data;
+        // console.log(data.file);
+        // setState({ video: url });
+        setVideo(data.file);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
+
   return (
     <div className="App">
       <Grid container direction="column" spacing={theme.spacing(1)}>
@@ -48,8 +73,12 @@ function App() {
         <Grid item lg={12} sm={12} md={12} xs={12}>
           <CourseViewHome />
         </Grid>
-        <Grid item justify="center" lg={12} sm={12} md={12} xs={12}>
-          <VideoPlayer url="https://www.youtube.com/embed/I41fXTW-R6I" />
+        <Grid container direction="row">
+          <Grid item lg={2}></Grid>
+          <Grid item justify="center" lg={8} sm={12} md={12} xs={12}>
+            <VideoPlayer url={"http://162.0.231.67/" + video} />
+          </Grid>
+          <Grid item lg={2}></Grid>
         </Grid>
         <Grid item lg={12} sm={12} md={12} xs={12}>
           <InstructorViewHome />
@@ -57,6 +86,11 @@ function App() {
       </Grid>
       <Grid item className={classes.Divider2}>
         <Divider />
+      </Grid>
+      <Grid item lg={12}>
+        <Typography variant="h4" className={classes.Typography}>
+          Meet our Instructors
+        </Typography>
       </Grid>
       <Grid container direction="column" spacing={theme.spacing(1)}>
         <Grid container direction="row">
@@ -69,7 +103,7 @@ function App() {
             xs={12}
             className={classes.Carousel}
           >
-            <Carousel />
+            <InstructorCarousel />
           </Grid>
           <Grid item lg={2}></Grid>
         </Grid>
@@ -80,11 +114,24 @@ function App() {
           </Grid>
           <Grid item lg={2}></Grid>
         </Grid>
+        <Grid item lg={12}>
+          <Typography variant="h4" className={classes.Typography}>
+            Our Student's Feedback
+          </Typography>
+        </Grid>
+        <Grid container direction="row">
+          <Grid item lg={4}></Grid>
+          <Grid item lg={4}>
+            <StudentFeedbackCarousel />
+          </Grid>
+          <Grid item lg={4}></Grid>
+        </Grid>
         <Grid item lg={12} sm={12} md={12} xs={12}>
           <FAQView />
         </Grid>
         {/* end */}
       </Grid>
+
       <Grid item className={classes.Divider}>
         <Divider />
       </Grid>

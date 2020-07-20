@@ -13,7 +13,7 @@ import axios from "../api/Config";
 
 import Path from "path";
 
-import vid from "../storage/video/hd1967.mov";
+import vid from "../storage/video/intro.mp4";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -46,7 +46,7 @@ export default function SimplePaper() {
 
   function getCourseData() {
     axios
-      .get("video/5f13f9b0a866a353303776a3/", {})
+      .get("video/5f147d66d4c1340a1b1ff499/", {})
       .then((res) => {
         const data = res.data;
         // console.log(data.file);
@@ -109,11 +109,9 @@ export default function SimplePaper() {
         </Grid>
       </Grid>
       <Grid item lg={8} md={6} sm={12} xs={12}>
-        {/* {console.log("qvideo url from state: " + video)} */}
+        {console.log("http://162.0.231.67/"+video)}
 
-        <VideoPlayer
-          url={vid}
-        />
+        <VideoPlayer url={"http://162.0.231.67/"+video} />
       </Grid>
     </Grid>
   );

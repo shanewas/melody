@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 import theme from "../theme";
 import {
@@ -8,7 +8,10 @@ import {
   Card,
   CardActions,
   makeStyles,
+  Button
 } from "@material-ui/core";
+
+import axios from "../api/Config";
 
 const useStyles = makeStyles({
   card: {
@@ -16,35 +19,67 @@ const useStyles = makeStyles({
     display: "flex",
     flexDirection: "column",
     background: theme.palette.primary.light,
-    color:theme.palette.text.secondary
+    color: theme.palette.text.secondary,
   },
   cardMedia: {
-    paddingTop: "56.25%", // 16:9
+    paddingTop: "70.25%", // 16:9
   },
   cardContent: {
     flexGrow: 1,
   },
   button: {
-    background: "rgba(225, 7, 18, .87)",
-    color: "rgba(255,255,255,.87)",
+    color: theme.palette.secondary.contrastText,
+    "&:focus": {
+      outline: "none",
+    },
+    "&:active": {
+      outline: "none",
+    },
   },
 });
 
 export default function CardThumbnailInstructor() {
   const classes = useStyles();
+
+  const [instructor, setInstructor] = useState("");
+
+  useEffect(() => {
+    getInstructorData();
+  });
+
+  function getInstructorData() {
+    axios
+      .get("instructor/", {})
+      .then((res) => {
+        const data = res.data;
+
+        // setState({ video: url });
+        setInstructor(data[data.length - 1]);
+        console.log(data[data.length - 1]);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
+
   return (
     <Card className={classes.card}>
       <CardMedia
         className={classes.cardMedia}
-        image="https://opend-licklibrary-com.akamaized.net/images/tutors/hero-tutor_Michael_Casswell.jpg"
-        title="Image title"
+        image={"http://162.0.231.67/" + instructor.photo}
+        // title={"Image title"}
       />
       <CardContent className={classes.cardContent}>
         <Typography variant="h6" component="h6">
-          Michael Casswell
+          {instructor.name}
         </Typography>
         <Typography>12 lessons</Typography>
       </CardContent>
+       <CardActions>
+        <Button size="large" className={classes.button} fullWidth="true" variant="text">
+          See more
+        </Button>
+      </CardActions>
     </Card>
   );
 }
