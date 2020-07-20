@@ -3,10 +3,28 @@ import { Carousel } from "react-responsive-carousel";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 
 import { ChevronRight, ChevronLeft } from "@material-ui/icons";
-import { Fab, Button, Grid, Typography } from "@material-ui/core";
+import {
+  Fab,
+  Button,
+  Grid,
+  Typography,
+  makeStyles,
+  withStyles,
+} from "@material-ui/core";
 
 import theme from "../theme";
 import axios from "../api/Config";
+
+const useStyles = makeStyles((theme) => ({
+  Fab: {
+    "&:focus": {
+      outline: "none",
+    },
+    "&:active": {
+      outline: "none",
+    },
+  },
+}));
 
 const getConfigurableProps = () => ({
   showArrows: true,
@@ -36,6 +54,7 @@ const buttonStyles = {
   background: "#821518",
 };
 export default function InstructorCarousel() {
+  const classes = useStyles();
   const [instructor, setInstructor] = useState([]);
 
   useEffect(() => {
@@ -70,6 +89,7 @@ export default function InstructorCarousel() {
             onClick={onClickHandler}
             title={label}
             style={{ ...arrowStyles, right: 10 }}
+            className={classes.Fab}
           >
             <ChevronRight />
           </Fab>
@@ -83,6 +103,7 @@ export default function InstructorCarousel() {
             onClick={onClickHandler}
             title={label}
             style={{ ...arrowStyles, left: 10 }}
+            className={classes.Fab}
           >
             <ChevronLeft />
           </Fab>
@@ -155,7 +176,11 @@ export default function InstructorCarousel() {
 
       <div>
         {console.log(instructor.photo)}
-        <img alt="" src={"http://162.0.231.67/" + instructor.photo} />
+        <img
+          alt=""
+          src={"http://162.0.231.67/" + instructor.photo}
+          height="500"
+        />
         <Grid
           container
           direction="column"

@@ -31,6 +31,14 @@ const useStyles = makeStyles({
     background: theme.palette.secondary.contrastText,
     color: theme.palette.primary.light,
   },
+  Fab: {
+    "&:focus": {
+      outline: "none",
+    },
+    "&:active": {
+      outline: "none",
+    },
+  },
 });
 
 const getConfigurableProps = () => ({
@@ -70,6 +78,7 @@ export default function StudentFeedback() {
             onClick={onClickHandler}
             title={label}
             style={{ ...arrowStyles, right: 10 }}
+            className={classes.Fab}
           >
             <ChevronRight />
           </Fab>
@@ -83,6 +92,7 @@ export default function StudentFeedback() {
             onClick={onClickHandler}
             title={label}
             style={{ ...arrowStyles, left: 10 }}
+            className={classes.Fab}
           >
             <ChevronLeft />
           </Fab>

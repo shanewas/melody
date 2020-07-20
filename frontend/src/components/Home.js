@@ -3,7 +3,13 @@ import InstructorCarousel from "./InstructorCarousel";
 import "../App.css";
 import Navbar from "./Navbar";
 import FAQView from "./FAQView";
-import { Grid, Divider, makeStyles, Typography } from "@material-ui/core";
+import {
+  Grid,
+  Divider,
+  makeStyles,
+  Typography,
+  FormControl,
+} from "@material-ui/core";
 
 import TopViewHome from "./TopViewHome";
 import InstructorViewHome from "./InstructorViewHome";
@@ -15,6 +21,7 @@ import theme from "../theme";
 import StudentFeedbackCarousel from "./StudentFeedbackCarousel";
 
 import axios from "../api/Config";
+import ContactForm from "./ContactForm";
 
 const useStyles = makeStyles((theme) => ({
   Divider: {
@@ -28,7 +35,6 @@ const useStyles = makeStyles((theme) => ({
   },
   Carousel: {
     color: theme.palette.primary.light,
-    background: "#FF0000",
     marginTop: theme.spacing(8),
   },
   Typography: {
@@ -126,6 +132,11 @@ function App() {
           </Grid>
           <Grid item lg={4}></Grid>
         </Grid>
+
+        {/* <Grid item lg={12}>
+          <ContactForm />
+        </Grid> */}
+
         <Grid item lg={12} sm={12} md={12} xs={12}>
           <FAQView />
         </Grid>
