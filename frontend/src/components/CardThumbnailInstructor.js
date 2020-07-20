@@ -8,7 +8,7 @@ import {
   Card,
   CardActions,
   makeStyles,
-  Button
+  Button,
 } from "@material-ui/core";
 
 import axios from "../api/Config";
@@ -22,7 +22,7 @@ const useStyles = makeStyles({
     color: theme.palette.text.secondary,
   },
   cardMedia: {
-    paddingTop: "70.25%", // 16:9
+    paddingTop: "66.25%", // 16:9
   },
   cardContent: {
     flexGrow: 1,
@@ -54,8 +54,8 @@ export default function CardThumbnailInstructor() {
         const data = res.data;
 
         // setState({ video: url });
-        setInstructor(data[data.length - 1]);
-        console.log(data[data.length - 1]);
+        setInstructor(data[data.length - 4]);
+        console.log(data[data.length - 4]);
       })
       .catch((error) => {
         console.log(error);
@@ -72,11 +72,17 @@ export default function CardThumbnailInstructor() {
       <CardContent className={classes.cardContent}>
         <Typography variant="h6" component="h6">
           {instructor.name}
+          {console.log("instructor name: "+instructor.name)}
         </Typography>
         <Typography>12 lessons</Typography>
       </CardContent>
-       <CardActions>
-        <Button size="large" className={classes.button} fullWidth="true" variant="text">
+      <CardActions>
+        <Button
+          size="large"
+          className={classes.button}
+          fullWidth="true"
+          variant="text"
+        >
           See more
         </Button>
       </CardActions>
