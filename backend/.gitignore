@@ -8,6 +8,7 @@ package-lock.json
 /upload
 # testing
 /coverage
+/storage
 
 # production
 /build
