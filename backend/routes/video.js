@@ -46,7 +46,6 @@ router
 	.use(video.single("file"))
 	.route("/add")
 	.post((req, res) => {
-		console.log(req.file);
 		const title = req.body.title;
 		const desc = req.body.desc;
 		const file = req.file.path;

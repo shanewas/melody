@@ -31,7 +31,7 @@ router
 	.route("/")
 	.get((req, res) => {
 		Course.find()
-			.then((courses) => res.json(courses))
+			.then((courses) => res.status(200).json(courses))
 			.catch((err) => res.status(400).json("Error: " + err));
 	});
 

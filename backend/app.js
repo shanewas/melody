@@ -15,9 +15,15 @@ app.use(
 	"/storage/thumbnail",
 	express.static(path.join(__dirname, "../backend/storage/thumbnail"))
 );
+
 app.use(
 	"/storage/video",
 	express.static(path.join(__dirname, "../backend/storage/video"))
+);
+
+app.use(
+	"/storage/photo",
+	express.static(path.join(__dirname, "../backend/storage/photo"))
 );
 
 const uri = process.env.ATLAS_URI;
@@ -34,10 +40,12 @@ connection.once("open", () => {
 const courseRouter = require("./routes/course");
 const loginRouter = require("./routes/user");
 const videoRouter = require("./routes/video");
+const instructorRouter = require("./routes/instructor");
 
 app.use(`/api/${process.env.API_VERSION}/course`, courseRouter);
 app.use(`/api/${process.env.API_VERSION}/user`, loginRouter);
 app.use(`/api/${process.env.API_VERSION}/video`, videoRouter);
+app.use(`/api/${process.env.API_VERSION}/instructor`, instructorRouter);
 
 app.get("/", function (req, res) {
 	res.sendFile(path.join(__dirname, "../frontend/build", "index.html"));
