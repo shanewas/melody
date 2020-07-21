@@ -19,12 +19,10 @@ const useStyles = makeStyles((theme) => ({
     flexGrow: 1,
     maxHeight: 500,
     overflow: "auto",
-  
+
     paddingBottom: theme.spacing(1),
   },
-  ListItemText: {
-    color: "#fff",
-  },
+
   Button: {
     background: "rgba(225, 7, 18, .87)",
     "&:hover": {
@@ -37,15 +35,15 @@ const useStyles = makeStyles((theme) => ({
     marginTop: theme.spacing(10),
     marginBottom: theme.spacing(10),
   },
-  Avatar:{
-    backgroundColor: "#1f2328",
+  Avatar: {
+    background: theme.palette.secondary.contrastText,
     width: theme.spacing(5),
     height: theme.spacing(5),
   },
-  Icons:{
-    color: theme.palette.text.primary,
-    fontSize:"small"
-  }
+  Icons: {
+    color: theme.palette.primary.light,
+    fontSize: "small",
+  },
 }));
 
 function generate(element) {
@@ -68,32 +66,26 @@ export default function InteractiveList() {
         <ListItem selected={selectedIndex === 0}>
           <ListItemAvatar>
             <Avatar className={classes.Avatar}>
-              <PlayArrow className={classes.Icons}/>
+              <PlayArrow className={classes.Icons} />
             </Avatar>
           </ListItemAvatar>
-          <ListItemText
-            primary="Class Trailer"
-            className={classes.ListItemText}
-          />
-          <ListItemText secondary="1.56" className={classes.ListItemText} />
+          <ListItemText primary="Class Trailer" />
+          <ListItemText secondary="1.56" />
         </ListItem>
         <ListItem selected={selectedIndex === 1}>
           <ListItemAvatar>
             <Avatar className={classes.Avatar}>
-              <PlayArrow className={classes.Icons}/>
+              <PlayArrow className={classes.Icons} />
             </Avatar>
           </ListItemAvatar>
-          <ListItemText
-            primary="Class Sample"
-            className={classes.ListItemText}
-          />
+          <ListItemText primary="Class Sample" />
           <ListItemText secondary="1.02" className={classes.ListItemText} />
         </ListItem>
         {generate(
           <ListItem selected={selectedIndex === 1}>
             <ListItemAvatar>
               <Avatar className={classes.Avatar}>
-                <Lock className={classes.Icons}/>
+                <Lock className={classes.Icons} />
               </Avatar>
             </ListItemAvatar>
             <ListItemText primary="Lesson" className={classes.ListItemText} />

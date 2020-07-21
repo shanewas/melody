@@ -13,6 +13,7 @@ import {
   Menu,
   MenuItem,
   withStyles,
+  Box,
 } from "@material-ui/core";
 import { useHistory } from "react-router-dom";
 import { ExpandMore, ArrowForwardIos } from "@material-ui/icons";
@@ -28,7 +29,7 @@ import VideoPlayer from "./videoPlayer/VideoPlayer";
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    backgroundColor: theme.palette.background.default,
+    backgroundColor: theme.palette.primary.main,
   },
   title: {
     marginRight: theme.spacing(3),
@@ -50,19 +51,15 @@ const useStyles = makeStyles((theme) => ({
   },
 
   Button: {
-    background: "rgba(225, 7, 18, .87)",
+    background: theme.palette.secondary.contrastText,
     color: "rgba(255,255,255,.87)",
     "&:hover": {
       //you want this to be the same as the backgroundColor above
       backgroundColor: theme.palette.primary.light,
     },
   },
-  Typography: {
-    color: theme.palette.text.primary,
-  },
-  courseGetStart: {
-    backgroundColor: theme.palette.primary.light,
-  },
+
+
   Divider: {
     background: theme.palette.primary.light,
     marginTop: theme.spacing(10),
@@ -210,6 +207,11 @@ export default function CourseVIew() {
           </Grid>
           <Grid item lg={12} sm={12}>
             <Divider className={classes.Divider} />
+          </Grid>
+          <Grid item lg={12} sm={12} md={12}>
+            <Box>
+              <Typography>Hello</Typography>
+            </Box>
           </Grid>
         </Grid>
       </Grid>

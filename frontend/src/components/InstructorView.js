@@ -23,7 +23,7 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: "center",
   },
   Typography: {
-    color: theme.palette.text.primary,
+    color: theme.palette.secondary.contrastText,
   },
 }));
 

@@ -19,8 +19,10 @@ const useStyles = makeStyles((theme) => ({
   },
   Typography: {
     marginBottom: theme.spacing(8),
+    color: theme.palette.secondary.contrastText,
   },
   Button: {
+    color: theme.palette.primary.light,
     marginTop: theme.spacing(10),
     background: "#821518",
     "&:hover": {

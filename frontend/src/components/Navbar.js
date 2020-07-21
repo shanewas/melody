@@ -14,8 +14,11 @@ import {
   Toolbar,
   ListItemIcon,
   ListItemText,
+  ListItemAvatar,
+  Avatar,
   IconButton,
   Fade,
+  Divider,
 } from "@material-ui/core";
 import {
   ExpandMore,
@@ -28,19 +31,27 @@ import MenuIcon from "@material-ui/icons/Menu";
 import theme from "../theme";
 
 import logo from "../assets/images/logo.png";
+import logoShort from "../assets/images/short_logo.png";
+import CoursesCategories from "../data/CourseCategoryData";
+import MusiciansList from "../data/MusiciansListData";
+
+const ITEM_HEIGHT = 48;
 
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
+    background: theme.palette.secondary.main,
   },
-  ListItemIcon: {
-    color: theme.palette.common.white,
-  },
-  logo: {
-    padding: theme.spacing(2),
-  },
-  buttonSpace: {
-    marginLeft: "auto",
+ 
+
+  button: {
+    color: theme.palette.secondary.contrastText,
+    "&:focus": {
+      outline: "none",
+    },
+    "&:active": {
+      outline: "none",
+    },
   },
   sectionDesktop: {
     display: "none",
@@ -58,9 +69,10 @@ const useStyles = makeStyles((theme) => ({
 
 const StyledMenuItem = withStyles((theme) => ({
   root: {
+    color: theme.palette.background.paper,
     "&:hover": {
       //you want this to be the same as the backgroundColor above
-      backgroundColor: theme.palette.primary.light,
+      backgroundColor: theme.palette.secondary.contrastText,
       color: theme.palette.common.white,
       "& .MuiListItemIcon-root, & .MuiListItemText-primary": {
         color: theme.palette.common.white,
@@ -69,16 +81,36 @@ const StyledMenuItem = withStyles((theme) => ({
   },
 }))(MenuItem);
 
+//Courses Menu
 const StyledMenu = withStyles({
   paper: {
-    background: theme.palette.primary.main,
+    background: theme.palette.secondary.main,
   },
 })((props) => (
   <Menu
-    elevation={10}
     getContentAnchorEl={null}
     anchorOrigin={{
-      vertical:"bottom",
+      vertical: "bottom",
+      horizontal: "center",
+    }}
+    transformOrigin={{
+      vertical: "top",
+      horizontal: "center",
+    }}
+    {...props}
+  />
+));
+
+//Musicians Menu
+const StyledMenuMusicians = withStyles({
+  paper: {
+    background: theme.palette.secondary.main,
+  },
+})((props) => (
+  <Menu
+    getContentAnchorEl={null}
+    anchorOrigin={{
+      vertical: "bottom",
       horizontal: "left",
     }}
     transformOrigin={{
@@ -89,13 +121,13 @@ const StyledMenu = withStyles({
   />
 ));
 
+//Mobile view menu
 const StyledMenuMobile = withStyles({
   paper: {
-    background: theme.palette.primary.main,
+    background: theme.palette.secondary.main,
   },
 })((props) => (
   <Menu
-    elevation={10}
     getContentAnchorEl={null}
     anchorOrigin={{
       vertical: "bottom",
@@ -112,16 +144,25 @@ const StyledMenuMobile = withStyles({
 export default function Navbar() {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState(null);
-
+  const [mucisiansAnchorEl, setMucisiansAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
 
-  //Browse menu click handlers
+  //Course menu click handlers
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
 
   const handleClose = () => {
     setAnchorEl(null);
+  };
+
+  //Musicians menu click handlers
+  const handleMusiciansClick = (event) => {
+    setMucisiansAnchorEl(event.currentTarget);
+  };
+
+  const handleMusiciansClose = () => {
+    setMucisiansAnchorEl(null);
   };
 
   //Mobile menu click handlers
@@ -134,124 +175,184 @@ export default function Navbar() {
   };
 
   const history = useHistory();
-  function navigateTo() {
+  function navigateToLogin() {
     history.push("/login");
+  }
+  function navigateToCourse() {
+    history.push("/coursespage")
   }
 
   return (
     <div className={classes.root}>
-      <AppBar position="fixed">
+      <AppBar position="fixed" style={{ background: "#fff" }}>
         <Toolbar>
-          {/* <IconButton
-            edge="start"
-            className={classes.menuButton}
-            color="inherit"
-            aria-label="menu"
-          >
-            <Menu />
-          </IconButton> */}
-          {/* <Typography variant="h6" className={classes.title} align="left">
-            MethodMelody
-          </Typography> */}
-          <img
-            className={classes.logo}
-            src={logo}
-            alt="MethodMelody"
-            height="auto"
-            width="200"
-          />
-          <div style={{ flexGrow: 1 }} />
-          <div className={classes.sectionMobile}>
-            <IconButton
-              aria-label="show more"
-              // aria-controls={mobileMenuId}
-              aria-haspopup="true"
-              onClick={handleMobileMenuOpen}
-              color="inherit"
+          <Grid container direction="row">
+            <Grid
+              item
+              container
+              justify="flex-start"
+              className={classes.sectionDesktop}
+              lg={4}
             >
-              <MenuIcon />
-            </IconButton>
-            <StyledMenuMobile
-              id="customized-menu"
-              anchorEl={mobileMoreAnchorEl}
-              keepMounted
-              open={Boolean(mobileMoreAnchorEl)}
-              onClose={handleMobileMenuClose}
-              TransitionComponent={Fade}
+              <img src={logo} alt="MethodMelody" height="auto" width="100ch" />
+            </Grid>
+            <Grid item container justify="center" lg={4}>
+              <img
+                src={logoShort}
+                alt="MethodMelody"
+                height="auto"
+                width="40"
+              />
+            </Grid>
+            <Grid
+              lg={4}
+              item
+              container
+              justify="flex-end"
+              className={classes.sectionDesktop}
             >
-              <StyledMenuItem>
-                <ListItemIcon className={classes.ListItemIcon}>
-                  <AccountCircle fontSize="small" />
-                </ListItemIcon>
-                <ListItemText primary="Login" />
-              </StyledMenuItem>
-              <StyledMenuItem>
-                <ListItemIcon className={classes.ListItemIcon}>
-                  <ShoppingCart fontSize="small" />
-                </ListItemIcon>
-                <ListItemText primary="Cart" />
-              </StyledMenuItem>
-              <StyledMenuItem onClick={handleClick}>
-                <ListItemIcon className={classes.ListItemIcon}>
-                  <ArrowBackIos fontSize="small" />
-                </ListItemIcon>
-                <ListItemText primary="Browse" />
-              </StyledMenuItem>
-            </StyledMenuMobile>
-          </div>
-          <div className={classes.sectionDesktop}>
-            <Button
-              color="inherit"
-              variant="text"
-              endIcon={<ExpandMore />}
-              onClick={handleClick}
-              flexGrow="1"
-              className={classes.buttonSpace}
-            >
-              Browse
-            </Button>
+              <Grid item>
+                <Button
+                  color="inherit"
+                  variant="text"
+                  endIcon={<ExpandMore />}
+                  onClick={handleClick}
+                  className={classes.button}
+                >
+                  Courses
+                </Button>
+                <StyledMenu
+                  id="customized-menu"
+                  anchorEl={anchorEl}
+                  keepMounted
+                  open={Boolean(anchorEl)}
+                  onClose={handleClose}
+                  TransitionComponent={Fade}
+                  PaperProps={{
+                    style: {
+                      maxHeight: ITEM_HEIGHT * 4.5,
+                      width: "40ch",
+                    },
+                  }}
+                >
+                  {CoursesCategories.map((courseCategory, index) => (
+                    <StyledMenuItem alignItems="center" onClick={navigateToCourse}>
+                      <ListItemAvatar>
+                        <Avatar
+                          alt={courseCategory.alt}
+                          src={courseCategory.src}
+                        />
+                      </ListItemAvatar>
+                      <ListItemText primary={courseCategory.primary} />
+                    </StyledMenuItem>
+                  ))}
+                </StyledMenu>
+              </Grid>
+              <Grid item>
+                <Button
+                  color="inherit"
+                  variant="text"
+                  endIcon={<ExpandMore />}
+                  onClick={handleMusiciansClick}
+                  className={classes.button}
+                >
+                  Musicians
+                </Button>
 
-            <StyledMenu
-              id="customized-menu"
-              anchorEl={anchorEl}
-              keepMounted
-              open={Boolean(anchorEl)}
-              onClose={handleClose}
-              TransitionComponent={Fade}
+                <StyledMenuMusicians
+                  id="customized-menu"
+                  anchorEl={mucisiansAnchorEl}
+                  keepMounted
+                  open={Boolean(mucisiansAnchorEl)}
+                  onClose={handleMusiciansClose}
+                  TransitionComponent={Fade}
+                  //setting menu height and width
+                  PaperProps={{
+                    style: {
+                      maxHeight: ITEM_HEIGHT * 4.5,
+                      width: "50ch",
+                    },
+                  }}
+                >
+                  {MusiciansList.map((musician, index) => (
+                    <StyledMenuItem alignItems="center" onClick={navigateToCourse}>
+                      <ListItemAvatar>
+                        <Avatar
+                          alt={musician.alt}
+                          src={musician.src}
+                        />
+                      </ListItemAvatar>
+                      <ListItemText primary={musician.primary} />
+                    </StyledMenuItem>
+                  ))}
+                </StyledMenuMusicians>
+              </Grid>
+              <Grid item>
+                <Button
+                  color="inherit"
+                  variant="text"
+                  className={classes.sectionDesktop && classes.button}
+                >
+                  Cart
+                </Button>
+              </Grid>
+              <Grid item>
+                <Button
+                  color="inherit"
+                  variant="text"
+                  className={classes.button}
+                  onClick={navigateToLogin}
+                >
+                  Login
+                </Button>
+              </Grid>
+            </Grid>
+            <Grid
+              item
+              container
+              justify="flex-end"
+              className={classes.sectionMobile}
+              lg={2}
             >
-              <StyledMenuItem>
-                <ListItemText primary="Guitar" />
-                <ListItemIcon className={classes.ListItemIcon}>
-                  <ArrowForwardIos fontSize="small" />
-                </ListItemIcon>
-              </StyledMenuItem>
-              <StyledMenuItem>
-                <ListItemText primary="Drum" />
-                <ListItemIcon className={classes.ListItemIcon}>
-                  <ArrowForwardIos fontSize="small" />
-                </ListItemIcon>
-              </StyledMenuItem>
-              <StyledMenuItem>
-                <ListItemText primary="Keyboard" />
-                <ListItemIcon className={classes.ListItemIcon}>
-                  <ArrowForwardIos fontSize="small" />
-                </ListItemIcon>
-              </StyledMenuItem>
-              <StyledMenuItem>
-                <ListItemText primary="Vocal" />
-                <ListItemIcon className={classes.ListItemIcon}>
-                  <ArrowForwardIos fontSize="small" />
-                </ListItemIcon>
-              </StyledMenuItem>
-            </StyledMenu>
-
-            <Button color="inherit" variant="text" startIcon={<AccountCircle />}>
-              Login
-            </Button>
-          </div>
-          <Button color="inherit" variant="text" startIcon={<ShoppingCart />} className={classes.sectionDesktop}>
-            Cart
-          </Button>
+              <IconButton
+                aria-label="show more"
+                // aria-controls={mobileMenuId}
+                aria-haspopup="true"
+                onClick={handleMobileMenuOpen}
+                color="inherit"
+                className={classes.button}
+              >
+                <MenuIcon />
+              </IconButton>
+              <StyledMenuMobile
+                id="customized-menu"
+                anchorEl={mobileMoreAnchorEl}
+                keepMounted
+                open={Boolean(mobileMoreAnchorEl)}
+                onClose={handleMobileMenuClose}
+                TransitionComponent={Fade}
+              >
+                <StyledMenuItem>
+                  <ListItemIcon>
+                    <AccountCircle fontSize="small" />
+                  </ListItemIcon>
+                  <ListItemText primary="Login" />
+                </StyledMenuItem>
+                <StyledMenuItem>
+                  <ListItemIcon>
+                    <ShoppingCart fontSize="small" />
+                  </ListItemIcon>
+                  <ListItemText primary="Cart" />
+                </StyledMenuItem>
+                <StyledMenuItem onClick={handleClick}>
+                  <ListItemIcon>
+                    <ArrowBackIos fontSize="small" />
+                  </ListItemIcon>
+                  <ListItemText primary="Browse" />
+                </StyledMenuItem>
+              </StyledMenuMobile>
+            </Grid>
+          </Grid>
         </Toolbar>
       </AppBar>
     </div>

@@ -22,9 +22,11 @@ const useStyles = makeStyles((theme) => ({
   },
   Typography: {
     marginBottom: theme.spacing(8),
+    color:theme.palette.secondary.contrastText
   },
   Button: {
     marginTop: theme.spacing(10),
+    color: theme.palette.primary.light,
     background: "#821518",
     "&:hover": {
       //you want this to be the same as the backgroundColor above
