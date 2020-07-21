@@ -32,7 +32,7 @@ function Copyright() {
 const useStyles = makeStyles((theme) => ({
   root: {
     background: theme.palette.primary.light,
-    padding: theme.spacing(4,5,4,5)
+    padding: theme.spacing(4, 5, 4, 5),
   },
   paper: {
     marginTop: theme.spacing(8),
@@ -63,6 +63,9 @@ const useStyles = makeStyles((theme) => ({
     "&:active": {
       color: theme.palette.text.secondary,
     },
+  },
+  input: {
+    color: theme.palette.text.secondary,
   },
 }));
 
@@ -99,6 +102,9 @@ export default function SignIn() {
             name="email"
             autoComplete="email"
             className={classes.label}
+            InputProps={{
+              className: classes.input
+            }}
           />
           <TextField
             variant="outlined"
@@ -110,6 +116,9 @@ export default function SignIn() {
             type="password"
             id="password"
             autoComplete="current-password"
+            InputProps={{
+              className: classes.input
+            }}
           />
           <FormControlLabel
             control={

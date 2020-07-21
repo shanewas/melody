@@ -31,7 +31,7 @@ function Copyright() {
 const useStyles = makeStyles((theme) => ({
   root: {
     background: theme.palette.primary.light,
-    padding: theme.spacing(4,5,4,5)
+    padding: theme.spacing(4, 5, 4, 5),
   },
   paper: {
     marginTop: theme.spacing(8),
@@ -55,6 +55,9 @@ const useStyles = makeStyles((theme) => ({
     background: theme.palette.secondary.contrastText,
     color: theme.palette.primary.light,
   },
+  input: {
+    color: theme.palette.text.secondary,
+  },
 }));
 
 export default function SignUp() {
@@ -71,7 +74,11 @@ export default function SignUp() {
         <Avatar className={classes.avatar}>
           <LockOutlinedIcon />
         </Avatar>
-        <Typography component="h1" variant="h5" style={{ color: theme.palette.secondary.contrastText }}>
+        <Typography
+          component="h1"
+          variant="h5"
+          style={{ color: theme.palette.secondary.contrastText }}
+        >
           Sign up
         </Typography>
         <form className={classes.form} noValidate>
@@ -85,7 +92,9 @@ export default function SignUp() {
                 fullWidth
                 id="firstName"
                 label="First Name"
-                
+                InputProps={{
+                  className: classes.input,
+                }}
               />
             </Grid>
             <Grid item xs={12} sm={6}>
@@ -97,6 +106,9 @@ export default function SignUp() {
                 label="Last Name"
                 name="lastName"
                 autoComplete="lname"
+                InputProps={{
+                  className: classes.input
+                }}
               />
             </Grid>
             <Grid item xs={12}>
@@ -109,6 +121,9 @@ export default function SignUp() {
                 name="email"
                 autoComplete="email"
                 color="primary"
+                InputProps={{
+                  className: classes.input
+                }}
               />
             </Grid>
             <Grid item xs={12}>
@@ -121,11 +136,19 @@ export default function SignUp() {
                 type="password"
                 id="password"
                 autoComplete="current-password"
+                InputProps={{
+                  className: classes.input
+                }}
               />
             </Grid>
             <Grid item xs={12}>
               <FormControlLabel
-                control={<Checkbox value="allowExtraEmails" style={{ color: theme.palette.secondary.contrastText }} />}
+                control={
+                  <Checkbox
+                    value="allowExtraEmails"
+                    style={{ color: theme.palette.secondary.contrastText }}
+                  />
+                }
                 label="I want to receive inspiration, marketing promotions and updates via email."
               />
             </Grid>
@@ -141,7 +164,12 @@ export default function SignUp() {
           </Button>
           <Grid container justify="flex-end">
             <Grid item>
-              <Link href="#" variant="body2" style={{ color: theme.palette.secondary.contrastText }} onClick={navigateToLogin}>
+              <Link
+                href="#"
+                variant="body2"
+                style={{ color: theme.palette.secondary.contrastText }}
+                onClick={navigateToLogin}
+              >
                 Already have an account? Sign in
               </Link>
             </Grid>

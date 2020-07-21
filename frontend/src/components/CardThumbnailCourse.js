@@ -6,10 +6,12 @@ import {
   CardMedia,
   Typography,
   makeStyles,
+  CardActionArea,
 } from "@material-ui/core";
 import theme from "../theme";
 
 import axios from "../api/Config";
+import { useHistory } from "react-router-dom";
 
 const useStyles = makeStyles({
   card: {
@@ -34,6 +36,14 @@ const useStyles = makeStyles({
   Typography: {
     color: theme.palette.text.secondary,
   },
+  CardActionArea:{
+    "&:focus": {
+      outline: "none",
+    },
+    "&:active": {
+      outline: "none",
+    },
+  }
 });
 
 export default function CardThumbnailCourse() {
@@ -60,39 +70,46 @@ export default function CardThumbnailCourse() {
       });
   }
 
+  const history = useHistory();
+  function navigateToCourse() {
+    history.push("/course");
+  }
+
   return (
-    <Card className={classes.card}>
-      <CardMedia
-        className={classes.cardMedia}
-        image={"http://162.0.231.67/" + course.thumbnail}
-        title="Image title"
-      />
-      <CardContent className={classes.cardContent}>
-        <Typography
-          variant="body"
-          component="h6"
-          align="left"
-          className={classes.Typography}
-        >
-          {course.title}
-        </Typography>
-        <Typography
-          className={classes.Typography}
-          align="left"
-          variant="subtitle"
-          component="h6"
-        >
-          ( {course.subtitle} )
-        </Typography>
-        <Typography className={classes.Typography} align="left">
-          Course description
-        </Typography>
-      </CardContent>
-      {/* <CardActions>
+    <CardActionArea className={classes.CardActionArea} onClick={navigateToCourse}>
+      <Card className={classes.card}>
+        <CardMedia
+          className={classes.cardMedia}
+          image={"http://162.0.231.67/" + course.thumbnail}
+          title="Image title"
+        />
+        <CardContent className={classes.cardContent}>
+          <Typography
+            variant="body"
+            component="h6"
+            align="left"
+            className={classes.Typography}
+          >
+            {course.title}
+          </Typography>
+          <Typography
+            className={classes.Typography}
+            align="left"
+            variant="subtitle"
+            component="h6"
+          >
+            ( {course.subtitle} )
+          </Typography>
+          <Typography className={classes.Typography} align="left">
+            Course description
+          </Typography>
+        </CardContent>
+        {/* <CardActions>
         <Button size="large" className={classes.button} fullWidth="true">
           View
         </Button>
       </CardActions> */}
-    </Card>
+      </Card>
+    </CardActionArea>
   );
 }
