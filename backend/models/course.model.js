@@ -19,8 +19,9 @@ var CourseSchema = new Schema(
 		instructor: {
 			type: Schema.Types.ObjectId,
 		},
+		topic: [{ type: String }],
 		preRequisite: [{ type: Schema.Types.ObjectId }],
-		requirements: { type: String },
+		requirements: [{ type: String }],
 		nextCourse: [{ type: Schema.Types.ObjectId }],
 		relatedCourse: [{ type: Schema.Types.ObjectId }],
 		courseHour: { type: Number },

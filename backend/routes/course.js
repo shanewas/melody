@@ -50,6 +50,7 @@ router
 		const thumbnail = req.file.path;
 		const video = req.body.video;
 		const instructor = req.body.instructor;
+		const topic = req.body.topic;
 		const preRequisite = req.body.preRequisite;
 		const requirements = req.body.requirements;
 		const nextCourses = req.body.nextCourses;
@@ -70,6 +71,7 @@ router
 			thumbnail,
 			video,
 			instructor,
+			topic,
 			preRequisite,
 			requirements,
 			nextCourses,
