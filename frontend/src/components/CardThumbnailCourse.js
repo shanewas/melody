@@ -7,7 +7,10 @@ import {
   Typography,
   makeStyles,
   CardActionArea,
+  Box,
+  Grid,
 } from "@material-ui/core";
+import { Rating } from "@material-ui/lab";
 import theme from "../theme";
 
 import axios from "../api/Config";
@@ -36,14 +39,14 @@ const useStyles = makeStyles({
   Typography: {
     color: theme.palette.text.secondary,
   },
-  CardActionArea:{
+  CardActionArea: {
     "&:focus": {
       outline: "none",
     },
     "&:active": {
       outline: "none",
     },
-  }
+  },
 });
 
 export default function CardThumbnailCourse(props) {
@@ -52,12 +55,11 @@ export default function CardThumbnailCourse(props) {
   // const [course, setCourse] = useState("");
 
   const course = props.course;
-  console.log("course inside CardThumbnailCourse: "+course);
-  
+  console.log("course inside CardThumbnailCourse: " + course);
 
   useEffect(() => {
     // getCourseData();
-  },[]);
+  }, []);
 
   // function getCourseData() {
   //   axios
@@ -80,7 +82,10 @@ export default function CardThumbnailCourse(props) {
   }
 
   return (
-    <CardActionArea className={classes.CardActionArea} onClick={navigateToCourse}>
+    <CardActionArea
+      className={classes.CardActionArea}
+      onClick={navigateToCourse}
+    >
       <Card className={classes.card}>
         <CardMedia
           className={classes.cardMedia}
@@ -99,14 +104,35 @@ export default function CardThumbnailCourse(props) {
           <Typography
             className={classes.Typography}
             align="left"
-            variant="subtitle"
+            variant="subtitle2"
             component="h6"
           >
-            ( {course.subtitle} )
+            {course.subtitle} 
           </Typography>
-          <Typography className={classes.Typography} align="left">
-            Course description
-          </Typography>
+          <Grid container direction="row">
+            <Grid item style={{marginRight:2}}>
+           
+              <Typography
+                className={classes.Typography}
+                align="left"                
+              >
+                Level:
+              </Typography>
+            </Grid>
+            <Grid item>
+              <Typography className={classes.Typography}>
+                {course.level}
+              </Typography>
+            </Grid>
+          </Grid>
+          <Box
+            component="fieldset"
+            mb={3}
+            borderColor="transparent"
+            alignSelf="left"
+          >
+            <Rating name="read-only" value={3} readOnly />
+          </Box>
         </CardContent>
         {/* <CardActions>
         <Button size="large" className={classes.button} fullWidth="true">
