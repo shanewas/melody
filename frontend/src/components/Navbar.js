@@ -42,7 +42,6 @@ const useStyles = makeStyles((theme) => ({
     flexGrow: 1,
     background: theme.palette.secondary.main,
   },
- 
 
   button: {
     color: theme.palette.secondary.contrastText,
@@ -141,11 +140,14 @@ const StyledMenuMobile = withStyles({
   />
 ));
 
-export default function Navbar() {
+export default function Navbar(props) {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mucisiansAnchorEl, setMucisiansAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
+
+  const instructorList = props.instructors;
+  console.log("instructor list inside NavBar: "+instructorList);
 
   //Course menu click handlers
   const handleClick = (event) => {
@@ -179,10 +181,10 @@ export default function Navbar() {
     history.push("/login");
   }
   function navigateToCourse() {
-    history.push("/coursespage")
+    history.push("/coursespage");
   }
   function navigateToHome() {
-    history.push("/")
+    history.push("/");
   }
 
   return (
@@ -197,7 +199,13 @@ export default function Navbar() {
               className={classes.sectionDesktop}
               lg={4}
             >
-              <img src={logo} alt="MethodMelody" height="auto" width="100ch" onClick={navigateToHome}/>
+              <img
+                src={logo}
+                alt="MethodMelody"
+                height="auto"
+                width="100ch"
+                onClick={navigateToHome}
+              />
             </Grid>
             <Grid item container justify="center" lg={4}>
               <img
@@ -239,7 +247,10 @@ export default function Navbar() {
                   }}
                 >
                   {CoursesCategories.map((courseCategory, index) => (
-                    <StyledMenuItem alignItems="center" onClick={navigateToCourse}>
+                    <StyledMenuItem
+                      alignItems="center"
+                      onClick={navigateToCourse}
+                    >
                       <ListItemAvatar>
                         <Avatar
                           alt={courseCategory.alt}
@@ -277,15 +288,18 @@ export default function Navbar() {
                     },
                   }}
                 >
-                  {MusiciansList.map((musician, index) => (
-                    <StyledMenuItem alignItems="center" onClick={navigateToCourse}>
+                  {instructorList.map((instructor, index) => (
+                    <StyledMenuItem
+                      alignItems="center"
+                      onClick={navigateToCourse}
+                    >
                       <ListItemAvatar>
                         <Avatar
-                          alt={musician.alt}
-                          src={musician.src}
+                          alt={instructor.name}
+                          src={instructor.photo}
                         />
                       </ListItemAvatar>
-                      <ListItemText primary={musician.primary} />
+                      <ListItemText primary={instructor.name} />
                     </StyledMenuItem>
                   ))}
                 </StyledMenuMusicians>
