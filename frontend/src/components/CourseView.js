@@ -3,20 +3,30 @@ import React, { useState, useEffect } from "react";
 import {
   Typography,
   Button,
-  Toolbar,
-  AppBar,
   makeStyles,
   Divider,
   Grid,
-  ListItemIcon,
-  ListItemText,
   Menu,
   MenuItem,
   withStyles,
   Box,
+  Paper,
+  Table,
+  TableBody,
+  TableCell,
+  TableRow,
+  List,
+  ListItemIcon,
+  ListItemText,
+  ListItem,
 } from "@material-ui/core";
 import { useHistory } from "react-router-dom";
-import { ExpandMore, ArrowForwardIos } from "@material-ui/icons";
+import {
+  ExpandMore,
+  ArrowForwardIos,
+  Check,
+  ArrowRight,
+} from "@material-ui/icons";
 
 import InstructorView from "./InstructorView";
 import CoursePlayList from "./CoursePlayList";
@@ -27,21 +37,10 @@ import Topnav from "./Navbar";
 import Axios from "axios";
 import VideoPlayer from "./videoPlayer/VideoPlayer";
 
+import theme from "../theme";
+import axios from "../api/Config";
+
 const useStyles = makeStyles((theme) => ({
-  root: {
-    backgroundColor: theme.palette.primary.main,
-  },
-  title: {
-    marginRight: theme.spacing(3),
-    fontSize: 18,
-  },
-  loginButton: {
-    justifySelf: "right",
-    marginRight: theme.spacing(10),
-  },
-  gridItem: {
-    marginTop: theme.spacing(10),
-  },
   gridContainer: {
     display: "flex",
     flexDirection: "column",
@@ -59,15 +58,14 @@ const useStyles = makeStyles((theme) => ({
     },
   },
 
-
   Divider: {
-    background: theme.palette.primary.light,
+    background: theme.palette.secondary.dark,
     marginTop: theme.spacing(10),
     marginBottom: theme.spacing(10),
   },
   DividerSmall: {
-    background: theme.palette.primary.light,
-    marginTop: theme.spacing(0),
+    background: theme.palette.secondary.dark,
+    marginTop: theme.spacing(2),
   },
   FooterDivider: {
     background: theme.palette.primary.light,
@@ -78,15 +76,19 @@ const useStyles = makeStyles((theme) => ({
     marginLeft: theme.spacing(30),
     marginRight: theme.spacing(30),
   },
-  PlayerContainer: {
-    marginRight: theme.spacing(5),
-  },
+
   Nav: {
     marginLeft: theme.spacing(30),
     marginRight: theme.spacing(30),
   },
-  IntroSection: {
-    marginTop: theme.spacing(2),
+  Typography: {
+    color: theme.palette.text.secondary,
+  },
+  Box: {
+    color: theme.palette.primary.light,
+  },
+  ListItemText: {
+    color: theme.palette.text.secondary,
   },
 }));
 
@@ -121,7 +123,61 @@ export default function CourseVIew() {
   const [anchorEl, setAnchorEl] = React.useState(null);
 
   // useState hooks for updating videoId
-  const [videoid, setVideoid] = useState("");
+  const [video, setVideo] = useState("");
+
+  const [course, setCourse] = useState("");
+
+  const [instructor, setInstructor] = useState("");
+
+  useEffect(() => {
+    getCourseData();
+    getVideoData();
+  });
+
+  function getCourseData() {
+    axios
+      .get("course/", {})
+      .then((res) => {
+        const data = res.data;
+
+        // setState({ video: url });
+        setCourse(data[data.length - 1]);
+        console.log(data[data.length - 1]);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
+
+  function getVideoData() {
+    axios
+      .get("video/5f147d66d4c1340a1b1ff499/", {})
+      .then((res) => {
+        const data = res.data;
+        // console.log(data.file);
+        // setState({ video: url });
+        setVideo(data.file);
+        getInstructorData();
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
+
+  function getInstructorData() {
+    axios
+      .get("instructor/", {})
+      .then((res) => {
+        const data = res.data;
+
+        // setState({ video: url });
+        setInstructor(data[data.length - 4]);
+        console.log(data[data.length - 4]);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -137,15 +193,22 @@ export default function CourseVIew() {
   }
 
   return (
-    <div className={classes.root}>
+    <div style={{ background: theme.palette.background.default }}>
       <Topnav />
       <Grid contaianer className={classes.Container}>
-        <Grid
-          container
-          direction="row"
-          lg={12}
-          className={classes.IntroSection}
-        >
+        <Grid container direction="row" lg={12}>
+          <Grid item lg={12} sm={12}>
+            <Typography
+              variant="h4"
+              style={{
+                color: theme.palette.secondary.contrastText,
+                marginTop: theme.spacing(3),
+                marginBottom: theme.spacing(5),
+              }}
+            >
+              {course.title}
+            </Typography>
+          </Grid>
           <Grid item lg={8} sm={12}>
             <InstructorView />
           </Grid>
@@ -153,17 +216,17 @@ export default function CourseVIew() {
             <Grid item lg={6}>
               <Grid item container direction="column" lg={12}>
                 <Grid item>
-                  <Typography className={classes.Typography} variant="body1">
+                  <Typography variant="body1" className={classes.Typography}>
                     Access full course by
                   </Typography>
                 </Grid>
                 <Grid item>
-                  <Typography className={classes.Typography} variant="body1">
+                  <Typography variant="body1" className={classes.Typography}>
                     subscribing with $15
                   </Typography>
                 </Grid>
                 <Grid item>
-                  <Typography className={classes.Typography} variant="body1">
+                  <Typography variant="body1" className={classes.Typography}>
                     (for a month)
                   </Typography>
                 </Grid>
@@ -184,34 +247,253 @@ export default function CourseVIew() {
         <Grid container direction="row" lg={12} className={classes.gridItem}>
           <Grid item container direction="column" lg={8} sm={12}>
             <Grid item>
-              <VideoPlayer url="https://www.youtube.com/embed/I41fXTW-R6I" />
+              {console.log("player video url:" + video)}
+              <VideoPlayer url={"http://162.0.231.67/" + video} />
+            </Grid>
+
+            <Grid item className={classes.gridContainer}>
+              <Paper
+                square="true"
+                elevation={0}
+                style={{
+                  background: theme.palette.primary.light,
+                  padding: theme.spacing(3),
+                  margin: theme.spacing(0, 2, 0, 0),
+                }}
+              >
+                <Typography color="textSecondary" variant="h6">
+                  What you'll learn?
+                </Typography>
+                <Table>
+                  <TableBody>
+                    <TableRow>
+                      <TableCell
+                        style={{
+                          color: theme.palette.text.secondary,
+                          padding: theme.spacing(1, 0, 0, 5),
+                          borderBottom: "none",
+                        }}
+                      >
+                        <Grid container direction="row">
+                          <Grid item lg={1}>
+                            <Check
+                              style={{ color: theme.palette.text.secondary }}
+                              fontSize="small"
+                            />
+                          </Grid>
+                          <Grid item lg={11}>
+                            <Typography> Basic 12 bar blues form</Typography>
+                          </Grid>
+                        </Grid>
+                      </TableCell>
+                      <TableCell
+                        style={{
+                          color: theme.palette.text.secondary,
+                          padding: theme.spacing(1, 0, 0, 5),
+                          borderBottom: "none",
+                        }}
+                      >
+                        <Grid container direction="row">
+                          <Grid item lg={1}>
+                            <Check
+                              style={{ color: theme.palette.text.secondary }}
+                              fontSize="small"
+                            />
+                          </Grid>
+                          <Grid item lg={11}>
+                            <Typography> Chord patterns</Typography>
+                          </Grid>
+                        </Grid>
+                      </TableCell>
+                    </TableRow>
+                    <TableRow>
+                      <TableCell
+                        style={{
+                          color: theme.palette.text.secondary,
+                          padding: theme.spacing(1, 0, 0, 5),
+                          borderBottom: "none",
+                        }}
+                      >
+                        <Grid container direction="row">
+                          <Grid item lg={1}>
+                            <Check
+                              style={{ color: theme.palette.text.secondary }}
+                              fontSize="small"
+                            />
+                          </Grid>
+                          <Grid item lg={11}>
+                            <Typography>12 bar blues guitar riffs</Typography>
+                          </Grid>
+                        </Grid>
+                      </TableCell>
+                      <TableCell
+                        style={{
+                          color: theme.palette.text.secondary,
+                          padding: theme.spacing(1, 0, 0, 5),
+                          borderBottom: "none",
+                        }}
+                      >
+                        <Grid container direction="row">
+                          <Grid item lg={1}>
+                            <Check
+                              style={{ color: theme.palette.text.secondary }}
+                              fontSize="small"
+                            />
+                          </Grid>
+                          <Grid item lg={11}>
+                            <Typography> Moveable chord patterns</Typography>
+                          </Grid>
+                        </Grid>
+                      </TableCell>
+                    </TableRow>
+                    <TableRow>
+                      <TableCell
+                        style={{
+                          color: theme.palette.text.secondary,
+                          padding: theme.spacing(1, 0, 0, 5),
+                          borderBottom: "none",
+                        }}
+                      >
+                        <Grid container direction="row">
+                          <Grid item lg={1}>
+                            <Check
+                              style={{ color: theme.palette.text.secondary }}
+                              fontSize="small"
+                            />
+                          </Grid>
+                          <Grid item lg={11}>
+                            <Typography>Blues Fills</Typography>
+                          </Grid>
+                        </Grid>
+                      </TableCell>
+                      <TableCell
+                        style={{
+                          color: theme.palette.text.secondary,
+                          padding: theme.spacing(1, 0, 0, 5),
+                          borderBottom: "none",
+                        }}
+                      >
+                        <Grid container direction="row">
+                          <Grid item lg={1}>
+                            <Check
+                              style={{ color: theme.palette.text.secondary }}
+                              fontSize="small"
+                            />
+                          </Grid>
+                          <Grid item lg={11}>
+                            <Typography>Double Stops</Typography>
+                          </Grid>
+                        </Grid>
+                      </TableCell>
+                    </TableRow>
+                    <TableRow>
+                      <TableCell
+                        style={{
+                          color: theme.palette.text.secondary,
+                          padding: theme.spacing(1, 0, 0, 5),
+                          borderBottom: "none",
+                        }}
+                      >
+                        <Grid container direction="row">
+                          <Grid item lg={1}>
+                            <Check
+                              style={{ color: theme.palette.text.secondary }}
+                              fontSize="small"
+                            />
+                          </Grid>
+                          <Grid item lg={11}>
+                            <Typography>Blues guitar soloing ideas</Typography>
+                          </Grid>
+                        </Grid>
+                      </TableCell>
+                      <TableCell
+                        style={{
+                          color: theme.palette.text.secondary,
+                          padding: theme.spacing(1, 0, 0, 5),
+                          borderBottom: "none",
+                        }}
+                      >
+                        <Grid container direction="row">
+                          <Grid item lg={1}>
+                            <Check
+                              style={{ color: theme.palette.text.secondary }}
+                              fontSize="small"
+                            />
+                          </Grid>
+                          <Grid item lg={11}>
+                            <Typography>Blues guitar scales </Typography>
+                          </Grid>
+                        </Grid>
+                      </TableCell>
+                    </TableRow>
+                  </TableBody>
+                </Table>
+              </Paper>
             </Grid>
             <Grid item>
-              <Grid item className={classes.gridContainer}>
-                <Typography className={classes.Typography} align="justify">
-                  Tom Morello is a two-time Grammy winner and one of Rolling
-                  Stone’s "greatest guitarists of all time." In his first online
-                  guitar class, the co-founder of Rage Against the Machine will
-                  teach you the riffs, rhythms, and solos that launched his
-                  career and sent his music to the top of the charts. Tom will
-                  share his approach to making music that challenges the status
-                  quo and teach you how to create your own musical style.
-                </Typography>
-              </Grid>
+              <Typography
+                align="justify"
+                className={classes.Typography}
+                variant="h6"
+                style={{ marginTop: theme.spacing(8) }}
+              >
+                Requirements
+              </Typography>
+              <List>
+                <ListItem>
+                  <ListItemIcon>
+                    <ArrowRight />
+                  </ListItemIcon>
+                  <ListItemText
+                    primary="No special skills required"
+                    className={classes.ListItemText}
+                  />
+                </ListItem>
+                <ListItem>
+                  <ListItemIcon>
+                    <ArrowRight />
+                  </ListItemIcon>
+                  <ListItemText
+                    primary="You will need a guitar"
+                    className={classes.ListItemText}
+                  />
+                </ListItem>
+                <ListItem>
+                  <ListItemIcon>
+                    <ArrowRight />
+                  </ListItemIcon>
+                  <ListItemText
+                    primary="Practice cannot be avoided"
+                    className={classes.ListItemText}
+                  />
+                </ListItem>
+              </List>
             </Grid>
           </Grid>
-          <Grid item lg={4} sm={12}>
-            <CoursePlayList />
-
-            <Divider className={classes.DividerSmall} />
+          <Grid item lg={4} sm={12} container direction="column">
+            <Grid item>
+              <CoursePlayList />
+            </Grid>
+            <Grid item>
+              <Divider className={classes.DividerSmall} />
+            </Grid>
+            <Grid item className={classes.gridContainer}>
+              {/* <Box border={5}  className={classes.Box}> */}
+              <Typography
+                align="justify"
+                className={classes.Typography}
+                variant="h6"
+              >
+                Description
+              </Typography>
+              <Typography align="justify" className={classes.Typography}>
+                {course.desc}
+              </Typography>
+              {/* </Box> */}
+            </Grid>
           </Grid>
           <Grid item lg={12} sm={12}>
             <Divider className={classes.Divider} />
-          </Grid>
-          <Grid item lg={12} sm={12} md={12}>
-            <Box>
-              <Typography>Hello</Typography>
-            </Box>
           </Grid>
         </Grid>
       </Grid>

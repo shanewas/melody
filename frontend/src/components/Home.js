@@ -47,23 +47,32 @@ function App() {
   const classes = useStyles();
 
   const [video, setVideo] = useState("");
+  const [courseList, setCourseList] = useState([]);
 
   useEffect(() => {
-    getCourseData();
-  });
+    // getIntroVideo();
+    getCourses();
+  }, []);
 
-  function getCourseData() {
+  function getIntroVideo() {
     axios
       .get("video/5f147d66d4c1340a1b1ff499/", {})
       .then((res) => {
         const data = res.data;
-        // console.log(data.file);
-        // setState({ video: url });
+
         setVideo(data.file);
       })
       .catch((error) => {
         console.log(error);
       });
+  }
+
+  function getCourses() {
+    axios.get("course/", {}).then((res) => {
+      const courseList = res.data;
+      setCourseList(courseList);
+      console.log("course list fetched in home: " + courseList);
+    });
   }
 
   return (
@@ -77,7 +86,7 @@ function App() {
           <TopViewHome />
         </Grid>
         <Grid item lg={12} sm={12} md={12} xs={12}>
-          <CourseViewHome />
+          <CourseViewHome courses={courseList}/>
         </Grid>
         <Grid container direction="row">
           <Grid item lg={2}></Grid>

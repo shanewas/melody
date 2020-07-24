@@ -45,7 +45,7 @@ export default function CardThumbnailInstructor() {
 
   useEffect(() => {
     getInstructorData();
-  });
+  },[]);
 
   function getInstructorData() {
     axios
@@ -55,7 +55,7 @@ export default function CardThumbnailInstructor() {
 
         // setState({ video: url });
         setInstructor(data[data.length - 4]);
-        console.log(data[data.length - 4]);
+        console.log("result instructor api called: "+data[data.length - 4]);
       })
       .catch((error) => {
         console.log(error);

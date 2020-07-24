@@ -9,18 +9,17 @@ import {
   ListItem,
   List,
   makeStyles,
-  Divider,
 } from "@material-ui/core";
 
 import { PlayArrow, Lock } from "@material-ui/icons";
 
+const ITEM_HEIGHT = 48;
+
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
-    maxHeight: 500,
+    maxHeight: ITEM_HEIGHT * 7.5,
     overflow: "auto",
-
-    paddingBottom: theme.spacing(1),
   },
 
   Button: {
@@ -30,11 +29,7 @@ const useStyles = makeStyles((theme) => ({
       backgroundColor: theme.palette.primary.light,
     },
   },
-  Divider: {
-    background: theme.palette.text.primary,
-    marginTop: theme.spacing(10),
-    marginBottom: theme.spacing(10),
-  },
+
   Avatar: {
     background: theme.palette.secondary.contrastText,
     width: theme.spacing(5),
@@ -44,6 +39,9 @@ const useStyles = makeStyles((theme) => ({
     color: theme.palette.primary.light,
     fontSize: "small",
   },
+  ListItemText:{
+    color: theme.palette.text.secondary
+  }
 }));
 
 function generate(element) {
@@ -69,8 +67,8 @@ export default function InteractiveList() {
               <PlayArrow className={classes.Icons} />
             </Avatar>
           </ListItemAvatar>
-          <ListItemText primary="Class Trailer" />
-          <ListItemText secondary="1.56" />
+          <ListItemText primary="Class Trailer" className={classes.ListItemText}/>
+          <ListItemText secondary="1.56" className={classes.ListItemText}/>
         </ListItem>
         <ListItem selected={selectedIndex === 1}>
           <ListItemAvatar>
@@ -78,7 +76,7 @@ export default function InteractiveList() {
               <PlayArrow className={classes.Icons} />
             </Avatar>
           </ListItemAvatar>
-          <ListItemText primary="Class Sample" />
+          <ListItemText primary="Class Sample" className={classes.ListItemText}/>
           <ListItemText secondary="1.02" className={classes.ListItemText} />
         </ListItem>
         {generate(

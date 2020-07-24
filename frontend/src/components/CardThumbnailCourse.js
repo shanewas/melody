@@ -46,29 +46,33 @@ const useStyles = makeStyles({
   }
 });
 
-export default function CardThumbnailCourse() {
+export default function CardThumbnailCourse(props) {
   const classes = useStyles();
 
-  const [course, setCourse] = useState("");
+  // const [course, setCourse] = useState("");
+
+  const course = props.course;
+  console.log("course inside CardThumbnailCourse: "+course);
+  
 
   useEffect(() => {
-    getCourseData();
-  });
+    // getCourseData();
+  },[]);
 
-  function getCourseData() {
-    axios
-      .get("course/", {})
-      .then((res) => {
-        const data = res.data;
+  // function getCourseData() {
+  //   axios
+  //     .get("course/", {})
+  //     .then((res) => {
+  //       const data = res.data;
 
-        // setState({ video: url });
-        setCourse(data[data.length - 1]);
-        console.log(data[data.length - 1]);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }
+  //       // setState({ video: url });
+  //       setCourse(data[data.length - 1]);
+  //       console.log("result course api called: "+data[data.length - 1]);
+  //     })
+  //     .catch((error) => {
+  //       console.log(error);
+  //     });
+  // }
 
   const history = useHistory();
   function navigateToCourse() {

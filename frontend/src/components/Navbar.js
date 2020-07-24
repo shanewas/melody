@@ -181,6 +181,9 @@ export default function Navbar() {
   function navigateToCourse() {
     history.push("/coursespage")
   }
+  function navigateToHome() {
+    history.push("/")
+  }
 
   return (
     <div className={classes.root}>
@@ -194,7 +197,7 @@ export default function Navbar() {
               className={classes.sectionDesktop}
               lg={4}
             >
-              <img src={logo} alt="MethodMelody" height="auto" width="100ch" />
+              <img src={logo} alt="MethodMelody" height="auto" width="100ch" onClick={navigateToHome}/>
             </Grid>
             <Grid item container justify="center" lg={4}>
               <img

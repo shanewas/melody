@@ -4,7 +4,7 @@ import Avatar from "@material-ui/core/Avatar";
 import { Typography, Grid } from "@material-ui/core";
 import { PlayCircleFilledWhite } from "@material-ui/icons";
 
-import "../theme";
+import theme from "../theme";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -45,10 +45,10 @@ export default function ImageAvatars() {
             <Typography variant="h6" className={classes.Typography}>Tom Morello</Typography>
           </Grid>
           <Grid item>
-            <Typography variant="h7" className={classes.Typography}>Teaches Electric Guitar</Typography>
+            <Typography variant="subtitle" style={{color: theme.palette.text.secondary}}>Teaches Electric Guitar</Typography>
           </Grid>
           <Grid item>
-            <Typography variant="h7" className={classes.Typography}>26 video lessons (5h 36m)</Typography>
+            <Typography variant="subtitle" className={classes.Typography} style={{color: theme.palette.text.secondary}}>26 video lessons (5h 36m)</Typography>
           </Grid>
         </Grid>
       </Grid>

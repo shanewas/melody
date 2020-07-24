@@ -34,8 +34,11 @@ const useStyles = makeStyles((theme) => ({
 
 const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
-export default function Album() {
+export default function CourseViewHome(props) {
   const classes = useStyles();
+
+  const courseList = props.courses;
+  console.log("course list inside CourseViewHome: " + courseList.length);
 
   return (
     <React.Fragment>
@@ -51,9 +54,9 @@ export default function Album() {
             Over 350 in-depth courses for you to pick from
           </Typography>
           <Grid container spacing={2}>
-            {cards.map((card) => (
-              <Grid item key={card} xs={12} sm={12} md={2} lg={2}>
-                <CardThumbnailCourse />
+            {courseList.map((course) => (
+              <Grid item key={course} xs={12} sm={12} md={2} lg={2}>
+                <CardThumbnailCourse course={course}/>
               </Grid>
             ))}
           </Grid>
