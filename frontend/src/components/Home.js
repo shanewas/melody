@@ -48,12 +48,15 @@ function App() {
 
   const [video, setVideo] = useState("");
   const [courseList, setCourseList] = useState([]);
+  const [instructorList, setInstructorList] = useState([]);
 
   useEffect(() => {
     // getIntroVideo();
     getCourses();
+    getInstructors();
   }, []);
 
+  //get the 2 videos in Home Page
   function getIntroVideo() {
     axios
       .get("video/5f147d66d4c1340a1b1ff499/", {})
@@ -67,11 +70,21 @@ function App() {
       });
   }
 
+  //get all courses from server later it will be list all featured courses
   function getCourses() {
     axios.get("course/", {}).then((res) => {
       const courseList = res.data;
       setCourseList(courseList);
       console.log("course list fetched in home: " + courseList);
+    });
+  }
+
+  //get all instructor list from server later it will be list of all featured instructors
+  function getInstructors() {
+    axios.get("instructor/", {}).then((res) => {
+      const instructorList = res.data;
+      setInstructorList(instructorList);
+      console.log("instructor list fetched in home: " + instructorList);
     });
   }
 
@@ -96,7 +109,7 @@ function App() {
           <Grid item lg={2}></Grid>
         </Grid>
         <Grid item lg={12} sm={12} md={12} xs={12}>
-          <InstructorViewHome />
+          <InstructorViewHome instructors={instructorList} />
         </Grid>
       </Grid>
       <Grid item className={classes.Divider2}>

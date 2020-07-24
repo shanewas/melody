@@ -12,9 +12,7 @@ import CardThumbnailInstructor from "./CardThumbnailInstructor";
 import { ChevronRight } from "@material-ui/icons";
 
 const useStyles = makeStyles((theme) => ({
-  cardGrid: {
-    
-  },
+  cardGrid: {},
   card: {
     height: "100%",
     display: "flex",
@@ -22,7 +20,7 @@ const useStyles = makeStyles((theme) => ({
   },
   Typography: {
     marginBottom: theme.spacing(8),
-    color:theme.palette.secondary.contrastText
+    color: theme.palette.secondary.contrastText,
   },
   Button: {
     marginTop: theme.spacing(10),
@@ -35,10 +33,13 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const cards = [1, 2, 3, 4, 5, 6];
-
-export default function Album() {
+export default function InstructorViewHome(props) {
   const classes = useStyles();
+
+  const instructorList = props.instructors;
+  console.log(
+    "instructor list inside InstructorViewHome: " + instructorList.length
+  );
 
   return (
     <React.Fragment>
@@ -54,9 +55,9 @@ export default function Album() {
             Learn from the Best of the Best
           </Typography>
           <Grid container spacing={2}>
-            {cards.map((card) => (
-              <Grid item key={card} xs={12} sm={12} md={2} lg={2}>
-                <CardThumbnailInstructor />
+            {instructorList.map((instructor) => (
+              <Grid item key={instructor} xs={12} sm={12} md={2} lg={2}>
+                <CardThumbnailInstructor instructor={instructor}/>
               </Grid>
             ))}
           </Grid>

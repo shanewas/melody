@@ -32,8 +32,6 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
-
 export default function CourseViewHome(props) {
   const classes = useStyles();
 
@@ -56,7 +54,7 @@ export default function CourseViewHome(props) {
           <Grid container spacing={2}>
             {courseList.map((course) => (
               <Grid item key={course} xs={12} sm={12} md={2} lg={2}>
-                <CardThumbnailCourse course={course}/>
+                <CardThumbnailCourse course={course} />
               </Grid>
             ))}
           </Grid>

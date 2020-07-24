@@ -38,29 +38,32 @@ const useStyles = makeStyles({
   },
 });
 
-export default function CardThumbnailInstructor() {
+export default function CardThumbnailInstructor(props) {
   const classes = useStyles();
 
-  const [instructor, setInstructor] = useState("");
+  // const [instructor, setInstructor] = useState("");
+
+  const instructor = props.instructor;
+  console.log("course inside CardThumbnailCourse: "+instructor.name);
 
   useEffect(() => {
-    getInstructorData();
+    // getInstructorData();
   },[]);
 
-  function getInstructorData() {
-    axios
-      .get("instructor/", {})
-      .then((res) => {
-        const data = res.data;
+  // function getInstructorData() {
+  //   axios
+  //     .get("instructor/", {})
+  //     .then((res) => {
+  //       const data = res.data;
 
-        // setState({ video: url });
-        setInstructor(data[data.length - 4]);
-        console.log("result instructor api called: "+data[data.length - 4]);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }
+  //       // setState({ video: url });
+  //       setInstructor(data[data.length - 4]);
+  //       console.log("result instructor api called: "+data[data.length - 4]);
+  //     })
+  //     .catch((error) => {
+  //       console.log(error);
+  //     });
+  // }
 
   return (
     <Card className={classes.card}>
