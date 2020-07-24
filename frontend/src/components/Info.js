@@ -15,15 +15,18 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default () => {
+export default function Info(props) {
   const classes = useStyles();
+
+  const numberOfCourse = props.numberOfCourse;
+  const numberOfInstructors = props.numberOfInstructors;
   return (
     <Grid container direction="row" className={classes.root} justify="center">
       <Grid item lg={4}>
         <Card className={classes.Card}>
           <CardContent>
-            <Typography variant="h5">20+ CLasses</Typography>
-            <Typography variant="subtitle1">From 10 Instructors</Typography>
+            <Typography variant="h5">{numberOfCourse} Classes</Typography>
+            <Typography variant="subtitle1">From {numberOfInstructors} Instructors</Typography>
           </CardContent>
         </Card>
       </Grid>

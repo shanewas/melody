@@ -138,7 +138,7 @@ function App() {
         <Grid container direction="row">
           <Grid item lg={2}></Grid>
           <Grid item lg={8} sm={12} md={12} xs={12}>
-            <Info />
+            <Info numberOfCourse={courseList.length} numberOfInstructors={instructorList.length}/>
           </Grid>
           <Grid item lg={2}></Grid>
         </Grid>
