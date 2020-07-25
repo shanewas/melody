@@ -10,6 +10,7 @@ import {
 import Link from "@material-ui/core/Link";
 import CardThumbnailCourse from "./CardThumbnailCourse";
 import { ChevronRight } from "@material-ui/icons";
+import { useHistory } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   card: {
@@ -27,7 +28,7 @@ const useStyles = makeStyles((theme) => ({
     background: "#821518",
     "&:hover": {
       //you want this to be the same as the backgroundColor above
-      backgroundColor: theme.palette.primary.light,
+      backgroundColor: theme.palette.primary.dark,
     },
   },
 }));
@@ -37,6 +38,11 @@ export default function CourseViewHome(props) {
 
   const courseList = props.courses;
   console.log("course list inside CourseViewHome: " + courseList.length);
+
+  const history = useHistory();
+  function navigateToCourse() {
+    history.push("/coursespage");
+  }
 
   return (
     <React.Fragment>
@@ -67,6 +73,7 @@ export default function CourseViewHome(props) {
           endIcon={<ChevronRight />}
           className={classes.Button}
           size="large"
+          onClick={navigateToCourse}
         >
           View All Courses
         </Button>

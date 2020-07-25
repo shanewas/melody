@@ -21,7 +21,7 @@ const useStyles = makeStyles({
     background: theme.palette.secondary.main,
   },
   cardMedia: {
-    paddingTop: "76.25%", // 16:9
+    paddingTop: "66.25%", // 16:9
   },
   cardContent: {
     flexGrow: 1,
@@ -38,6 +38,7 @@ const useStyles = makeStyles({
   },
   Typography: {
     color: theme.palette.text.secondary,
+    marginBottom: theme.spacing(1),
   },
   CardActionArea: {
     "&:focus": {
@@ -94,45 +95,41 @@ export default function CardThumbnailCourse(props) {
         />
         <CardContent className={classes.cardContent}>
           <Typography
-            variant="body"
-            component="h6"
+            variant="subtitle1"
             align="left"
             className={classes.Typography}
           >
-            {course.title}
+            <Box fontWeight="fontWeightBold">{course.title}</Box>
           </Typography>
           <Typography
             className={classes.Typography}
             align="left"
-            variant="subtitle2"
-            component="h6"
+            variant="body"
           >
-            {course.subtitle} 
+            <Box fontStyle="italic">{course.subtitle}</Box>
           </Typography>
           <Grid container direction="row">
-            <Grid item style={{marginRight:2}}>
-           
-              <Typography
-                className={classes.Typography}
-                align="left"                
-              >
-                Level:
-              </Typography>
+            <Grid item container direction="row" xs={12}>
+              <Grid item style={{ marginRight: 2 }}>
+                <Typography className={classes.Typography} align="left">
+                  <Box fontWeight="fontWeightMedium"> Level:</Box>
+                </Typography>
+              </Grid>
+              <Grid item>
+                <Typography className={classes.Typography}>
+                  {course.level}
+                </Typography>
+              </Grid>
             </Grid>
             <Grid item>
-              <Typography className={classes.Typography}>
-                {course.level}
-              </Typography>
+              <Rating
+                name="read-only"
+                value={Math.floor(Math.random() * 5) + 1}
+                readOnly
+                size="medium"
+              />
             </Grid>
           </Grid>
-          <Box
-            component="fieldset"
-            mb={3}
-            borderColor="transparent"
-            alignSelf="left"
-          >
-            <Rating name="read-only" value={3} readOnly />
-          </Box>
         </CardContent>
         {/* <CardActions>
         <Button size="large" className={classes.button} fullWidth="true">

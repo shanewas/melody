@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import {
   CssBaseline,
@@ -34,6 +34,7 @@ import logo from "../assets/images/logo.png";
 import logoShort from "../assets/images/short_logo.png";
 import CoursesCategories from "../data/CourseCategoryData";
 import MusiciansList from "../data/MusiciansListData";
+import axios from "../api/Config";
 
 const ITEM_HEIGHT = 48;
 
@@ -145,9 +146,23 @@ export default function Navbar(props) {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mucisiansAnchorEl, setMucisiansAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
+  const [instructorList, setInstructorList] = useState([]);
 
-  const instructorList = props.instructors;
-  console.log("instructor list inside NavBar: "+instructorList);
+  useEffect(() => {
+    getInstructors();
+  }, []);
+
+  //get all instructor list from server later it will be list of all featured instructors
+  function getInstructors() {
+    axios.get("instructor/", {}).then((res) => {
+      const instructorList = res.data;
+      setInstructorList(instructorList);
+      console.log("instructor list fetched in home: " + instructorList);
+    });
+  }
+
+  // const instructorList = props.instructors;
+  console.log("instructor list inside NavBar: " + instructorList);
 
   //Course menu click handlers
   const handleClick = (event) => {
@@ -294,10 +309,7 @@ export default function Navbar(props) {
                       onClick={navigateToCourse}
                     >
                       <ListItemAvatar>
-                        <Avatar
-                          alt={instructor.name}
-                          src={instructor.photo}
-                        />
+                        <Avatar alt={instructor.name} src={instructor.photo} />
                       </ListItemAvatar>
                       <ListItemText primary={instructor.name} />
                     </StyledMenuItem>
