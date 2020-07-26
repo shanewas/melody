@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   makeStyles,
   TextField,
@@ -7,6 +7,7 @@ import {
   MenuItem,
   InputAdornment,
   TextareaAutosize,
+  Button,
 } from "@material-ui/core";
 import theme from "../theme";
 import axios from "../api/Config";
@@ -109,6 +110,10 @@ export default function CourseUploader() {
   const [category, setCategory] = React.useState("");
   const [level, setLevel] = React.useState("");
   const [module, setModule] = React.useState("");
+  const [instructor, setInstructor] = React.useState("");
+
+  const [instructorList, setInstructorList] = useState([]);
+  const [thumbnail, setThumbnail] = useState(null);
 
   const handleCategoryChange = (event) => {
     setCategory(event.target.value);
@@ -119,6 +124,28 @@ export default function CourseUploader() {
   const handleModuleChange = (event) => {
     setModule(event.target.value);
   };
+  const handleInstructorChange = (event) => {
+    setInstructor(event.target.value);
+  };
+
+  useEffect(() => {
+    getInstructors();
+  }, []);
+
+  //get all instructor list from server later it will be list of all featured instructors
+  function getInstructors() {
+    axios.get("instructor/", {}).then((res) => {
+      const instructorList = res.data;
+      setInstructorList(instructorList);
+      console.log("instructor list fetched in home: " + instructorList);
+    });
+  }
+
+  //get file selected for thumbnail
+  function fileSelectedHandler(event) {
+    console.log("file selected: " + event.target.files[0]);
+    setThumbnail(event.target.files[0]);
+  }
 
   return (
     <Grid
@@ -161,6 +188,58 @@ export default function CourseUploader() {
                     className: classes.input,
                   }}
                   className={classes.label}
+                />
+              </Grid>
+              <Grid item container direction="row" spacing={3}>
+                <Grid item lg={4}>
+                  <TextField
+                    id="text_instructor"
+                    select
+                    label="Instructor"
+                    value={instructor}
+                    onChange={handleInstructorChange}
+                    variant="outlined"
+                    fullWidth
+                    InputProps={{
+                      className: classes.input,
+                    }}
+                    className={classes.label}
+                  >
+                    {instructorList.map((option) => (
+                      <MenuItem
+                        key={option.name}
+                        value={option.name}
+                        style={{ color: theme.palette.primary.light }}
+                      >
+                        {option.name}
+                      </MenuItem>
+                    ))}
+                  </TextField>
+                </Grid>
+                <Grid item lg={4}>
+                  <TextField
+                    id="text_requirements"
+                    label="Requirements"
+                    variant="outlined"
+                    fullWidth
+                    InputProps={{
+                      className: classes.input,
+                    }}
+                    className={classes.label}
+                  />
+                </Grid>
+              </Grid>
+              <Grid item lg={4}>
+                <TextField
+                  id="text_thumbnail"
+                  type="file"
+                  variant="outlined"
+                  helperText="Select image for course thumbnail"
+                  InputProps={{
+                    className: classes.input,
+                  }}
+                  className={classes.label}
+                  onChange={fileSelectedHandler}
                 />
               </Grid>
               <Grid item container direction="row" spacing={3}>
