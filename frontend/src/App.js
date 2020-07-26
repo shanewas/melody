@@ -10,7 +10,8 @@ import Login from "./components/SignIn";
 import Signup from "./components/SignUp";
 import CourseView from "./components/CourseView";
 import CoursesPage from "./components/CoursesPage";
-
+import CourseUploader from "./components/CourseUploader";
+ 
 // import CourseData from "./data/CoursesData";
 
 export default function App() {
@@ -22,6 +23,7 @@ export default function App() {
         <Route exact path="/signup" component={Signup} />
         <Route exact path="/course" component={CourseView} />
         <Route exact path="/coursespage" component={CoursesPage} />
+        <Route exact path="/courseupload" component={CourseUploader}/>
         {/* <Route exact path="/coursedata" component={CourseData} /> */}
         <Redirect to="/" />
       </Switch>

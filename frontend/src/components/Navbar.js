@@ -157,7 +157,7 @@ export default function Navbar(props) {
     axios.get("instructor/", {}).then((res) => {
       const instructorList = res.data;
       setInstructorList(instructorList);
-      console.log("instructor list fetched in home: " + instructorList);
+      console.log("instructor list fetched in navbar: " + instructorList[0].photo);
     });
   }
 
@@ -309,7 +309,7 @@ export default function Navbar(props) {
                       onClick={navigateToCourse}
                     >
                       <ListItemAvatar>
-                        <Avatar alt={instructor.name} src={instructor.photo} />
+                        <Avatar alt={instructor.name} src={"http://162.0.231.67/"+instructor.photo} />
                       </ListItemAvatar>
                       <ListItemText primary={instructor.name} />
                     </StyledMenuItem>
