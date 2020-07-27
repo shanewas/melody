@@ -48,6 +48,7 @@ router.route(`/login`).post((req, res) => {
 							{ expiresIn: "1h" },
 							(err, token) => {
 								res.cookie("token", token, { httpOnly: true });
+								// res.header("auth-token", token).send(token);
 								return res.status(200).json({
 									message: "Authentication Successful !",
 								});
