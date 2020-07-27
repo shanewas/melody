@@ -13,8 +13,6 @@ import axios from "../api/Config";
 
 import Path from "path";
 
-import vid from "../storage/video/intro.mp4";
-
 const useStyles = makeStyles((theme) => ({
   root: {
     display: "flex",
@@ -42,11 +40,15 @@ export default function SimplePaper() {
 
   useEffect(() => {
     getCourseData();
-  });
+  },[]);
 
   function getCourseData() {
     axios
-      .get("video/5f147d66d4c1340a1b1ff499/", {})
+      .get("video/5f147d66d4c1340a1b1ff499/", {
+        headers: {
+          "auth-token": `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InNoYW5ld2FzYWhtZWRAZ21haWwuY29tIiwicGFzc3dvcmQiOiJQb3RhdG83MjYiLCJpYXQiOjE1OTU4NjA3MzYsImV4cCI6MTU5NTg2NDMzNn0.IRPW-1hioz4LZABZrmtYakjmDwORfKnzIWkwK3DzAXc`,
+        },
+      })
       .then((res) => {
         const data = res.data;
         // console.log(data.file);
@@ -109,9 +111,9 @@ export default function SimplePaper() {
         </Grid>
       </Grid>
       <Grid item lg={8} md={6} sm={12} xs={12}>
-        {console.log("http://162.0.231.67/"+video)}
+        {console.log("http://162.0.231.67/" + video)}
 
-        <VideoPlayer url={"http://162.0.231.67/"+video} />
+        <VideoPlayer url={"http://162.0.231.67/" + video} />
       </Grid>
     </Grid>
   );

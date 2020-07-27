@@ -165,13 +165,19 @@ export default function CourseUploader() {
 
   //get all instructor list from server later it will be list of all featured instructors
   function getInstructors() {
-    axios.get("instructor/", {}).then((res) => {
-      const instructorList = res.data;
-      setInstructorList(instructorList);
-      console.log(
-        "instructor list fetched in courseuploader: " + instructorList
-      );
-    });
+    axios
+      .get("instructor/", {
+        headers: {
+          "auth-token": `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InNoYW5ld2FzYWhtZWRAZ21haWwuY29tIiwicGFzc3dvcmQiOiJQb3RhdG83MjYiLCJpYXQiOjE1OTU4NjA3MzYsImV4cCI6MTU5NTg2NDMzNn0.IRPW-1hioz4LZABZrmtYakjmDwORfKnzIWkwK3DzAXc`,
+        },
+      })
+      .then((res) => {
+        const instructorList = res.data;
+        setInstructorList(instructorList);
+        console.log(
+          "instructor list fetched in courseuploader: " + instructorList
+        );
+      });
   }
 
   //get file selected for thumbnail

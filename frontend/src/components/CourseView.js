@@ -136,7 +136,11 @@ export default function CourseVIew() {
 
   function getCourseData() {
     axios
-      .get("course/", {})
+      .get("course/", {
+        headers: {
+          "auth-token": `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InNoYW5ld2FzYWhtZWRAZ21haWwuY29tIiwicGFzc3dvcmQiOiJQb3RhdG83MjYiLCJpYXQiOjE1OTU4NjA3MzYsImV4cCI6MTU5NTg2NDMzNn0.IRPW-1hioz4LZABZrmtYakjmDwORfKnzIWkwK3DzAXc`,
+        },
+      })
       .then((res) => {
         const data = res.data;
 
@@ -151,7 +155,11 @@ export default function CourseVIew() {
 
   function getVideoData() {
     axios
-      .get("video/5f147d66d4c1340a1b1ff499/", {})
+      .get("video/5f147d66d4c1340a1b1ff499/", {
+        headers: {
+          "auth-token": `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InNoYW5ld2FzYWhtZWRAZ21haWwuY29tIiwicGFzc3dvcmQiOiJQb3RhdG83MjYiLCJpYXQiOjE1OTU4NjA3MzYsImV4cCI6MTU5NTg2NDMzNn0.IRPW-1hioz4LZABZrmtYakjmDwORfKnzIWkwK3DzAXc`,
+        },
+      })
       .then((res) => {
         const data = res.data;
         // console.log(data.file);

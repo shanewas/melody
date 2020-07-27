@@ -50,6 +50,8 @@ function App() {
   const [courseList, setCourseList] = useState([]);
   const [instructorList, setInstructorList] = useState([]);
 
+  const [res, setRes] = useState("");
+
   useEffect(() => {
     // login();
     getIntroVideo();
@@ -60,7 +62,11 @@ function App() {
   //get the 2 videos in Home Page
   function getIntroVideo() {
     instance
-      .get("video/5f147d66d4c1340a1b1ff499/", {})
+      .get("video/5f147d66d4c1340a1b1ff499/", {
+        headers: {
+          "auth-token": `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InNoYW5ld2FzYWhtZWRAZ21haWwuY29tIiwicGFzc3dvcmQiOiJQb3RhdG83MjYiLCJpYXQiOjE1OTU4NjA3MzYsImV4cCI6MTU5NTg2NDMzNn0.IRPW-1hioz4LZABZrmtYakjmDwORfKnzIWkwK3DzAXc`,
+        },
+      })
       .then((res) => {
         const data = res.data;
 
@@ -71,35 +77,48 @@ function App() {
       });
   }
 
-  // //login
-  // function login() {
-  //   instance
-  //     .post("user/login/", {
-  //       email: "tanzeerhossain@zoho.com",
-  //       password: "123321",
-  //     })
-  //     .then((res) => {
-  //       console.log("login response: "+res);
-  //       // getCourses();
-  //     });
-  // }
+  //login
+  function login() {
+    instance
+      .post("user/login/", {
+        email: "tanzeerhossain@zoho.com",
+        password: "123321",
+      })
+      .then((res) => {
+        console.log("login response: " + JSON.stringify(res.headers));
+        setRes(`${res.headers["set-cookie"]}`);
+        getCourses();
+      });
+  }
 
   //get all courses from server later it will be list all featured courses
   function getCourses() {
-    instance.get("course/", {}).then((res) => {
-      const courseList = res.data;
-      setCourseList(courseList);
-      console.log("course list fetched in home: " + courseList);
-    });
+    instance
+      .get("course/", {
+        headers: {
+          "auth-token": `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InNoYW5ld2FzYWhtZWRAZ21haWwuY29tIiwicGFzc3dvcmQiOiJQb3RhdG83MjYiLCJpYXQiOjE1OTU4NjA3MzYsImV4cCI6MTU5NTg2NDMzNn0.IRPW-1hioz4LZABZrmtYakjmDwORfKnzIWkwK3DzAXc`,
+        },
+      })
+      .then((res) => {
+        const courseList = res.data;
+        setCourseList(courseList);
+        console.log("course list fetched in home: " + courseList);
+      });
   }
 
   //get all instructor list from server later it will be list of all featured instructors
   function getInstructors() {
-    instance.get("instructor/", {}).then((res) => {
-      const instructorList = res.data;
-      setInstructorList(instructorList);
-      console.log("instructor list fetched in home: " + instructorList);
-    });
+    instance
+      .get("instructor/", {
+        headers: {
+          "auth-token": `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InNoYW5ld2FzYWhtZWRAZ21haWwuY29tIiwicGFzc3dvcmQiOiJQb3RhdG83MjYiLCJpYXQiOjE1OTU4NjA3MzYsImV4cCI6MTU5NTg2NDMzNn0.IRPW-1hioz4LZABZrmtYakjmDwORfKnzIWkwK3DzAXc`,
+        },
+      })
+      .then((res) => {
+        const instructorList = res.data;
+        setInstructorList(instructorList);
+        console.log("instructor list fetched in home: " + instructorList);
+      });
   }
 
   return (

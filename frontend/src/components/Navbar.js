@@ -154,11 +154,19 @@ export default function Navbar(props) {
 
   //get all instructor list from server later it will be list of all featured instructors
   function getInstructors() {
-    axios.get("instructor/", {}).then((res) => {
-      const instructorList = res.data;
-      setInstructorList(instructorList);
-      console.log("instructor list fetched in navbar: " + instructorList[0].photo);
-    });
+    axios
+      .get("instructor/", {
+        headers: {
+          "auth-token": `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InNoYW5ld2FzYWhtZWRAZ21haWwuY29tIiwicGFzc3dvcmQiOiJQb3RhdG83MjYiLCJpYXQiOjE1OTU4NjA3MzYsImV4cCI6MTU5NTg2NDMzNn0.IRPW-1hioz4LZABZrmtYakjmDwORfKnzIWkwK3DzAXc`,
+        },
+      })
+      .then((res) => {
+        const instructorList = res.data;
+        setInstructorList(instructorList);
+        console.log(
+          "instructor list fetched in navbar: " + instructorList[0].photo
+        );
+      });
   }
 
   // const instructorList = props.instructors;
@@ -309,7 +317,10 @@ export default function Navbar(props) {
                       onClick={navigateToCourse}
                     >
                       <ListItemAvatar>
-                        <Avatar alt={instructor.name} src={"http://162.0.231.67/"+instructor.photo} />
+                        <Avatar
+                          alt={instructor.name}
+                          src={"http://162.0.231.67/" + instructor.photo}
+                        />
                       </ListItemAvatar>
                       <ListItemText primary={instructor.name} />
                     </StyledMenuItem>
