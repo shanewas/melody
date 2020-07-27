@@ -82,6 +82,8 @@ router
 		const address = req.body.address;
 		const email = req.body.email;
 		const password = req.body.password;
+		const course = req.body.course;
+		const previousCourse = req.body.previousCourse;
 
 		User.find({ email }).then((user) => {
 			if (user.length >= 1) {
@@ -99,6 +101,8 @@ router
 							address,
 							email,
 							password: hash,
+							course,
+							previousCourse,
 						});
 						newUser
 							.save()
