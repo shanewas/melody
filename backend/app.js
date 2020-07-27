@@ -48,11 +48,17 @@ const videoRouter = require("./routes/video");
 const instructorRouter = require("./routes/instructor");
 const documentRouter = require("./routes/document");
 
-app.use(`/api/${process.env.API_VERSION}/course`, courseRouter);
+const { apiAuth } = require("./middleware/authentication");
+
+app.use(`/api/${process.env.API_VERSION}/course`, apiAuth, courseRouter);
 app.use(`/api/${process.env.API_VERSION}/user`, loginRouter);
-app.use(`/api/${process.env.API_VERSION}/video`, videoRouter);
-app.use(`/api/${process.env.API_VERSION}/instructor`, instructorRouter);
-app.use(`/api/${process.env.API_VERSION}/document`, documentRouter);
+app.use(`/api/${process.env.API_VERSION}/video`, apiAuth, videoRouter);
+app.use(
+	`/api/${process.env.API_VERSION}/instructor`,
+	apiAuth,
+	instructorRouter
+);
+app.use(`/api/${process.env.API_VERSION}/document`, apiAuth, documentRouter);
 
 app.get("/", function (req, res) {
 	res.sendFile(path.join(__dirname, "../frontend/build", "index.html"));
