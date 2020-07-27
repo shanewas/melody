@@ -26,6 +26,11 @@ app.use(
 	express.static(path.join(__dirname, "../backend/storage/photo"))
 );
 
+app.use(
+	"/storage/document",
+	express.static(path.join(__dirname, "../backend/storage/document"))
+);
+
 const uri = process.env.ATLAS_URI;
 mongoose.connect(uri, {
 	useNewUrlParser: true,
@@ -41,11 +46,19 @@ const courseRouter = require("./routes/course");
 const loginRouter = require("./routes/user");
 const videoRouter = require("./routes/video");
 const instructorRouter = require("./routes/instructor");
+const documentRouter = require("./routes/document");
 
-app.use(`/api/${process.env.API_VERSION}/course`, courseRouter);
+const { apiAuth } = require("./middleware/authentication");
+
+app.use(`/api/${process.env.API_VERSION}/course`, apiAuth, courseRouter);
 app.use(`/api/${process.env.API_VERSION}/user`, loginRouter);
-app.use(`/api/${process.env.API_VERSION}/video`, videoRouter);
-app.use(`/api/${process.env.API_VERSION}/instructor`, instructorRouter);
+app.use(`/api/${process.env.API_VERSION}/video`, apiAuth, videoRouter);
+app.use(
+	`/api/${process.env.API_VERSION}/instructor`,
+	apiAuth,
+	instructorRouter
+);
+app.use(`/api/${process.env.API_VERSION}/document`, apiAuth, documentRouter);
 
 app.get("/", function (req, res) {
 	res.sendFile(path.join(__dirname, "../frontend/build", "index.html"));

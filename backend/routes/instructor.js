@@ -2,7 +2,6 @@ const router = require("express").Router();
 const multer = require("multer");
 const path = require("path");
 const Instructor = require("../models/Instructor.model");
-const { authentication } = require("../middleware/authentication");
 
 const storage = multer.diskStorage({
 	destination: function (req, file, cb) {
@@ -27,18 +26,14 @@ const photo = multer({
 	fileFilter,
 });
 
-router
-	.use(authentication)
-	.route("/")
-	.get((req, res) => {
-		Instructor.find()
-			.then((instructor) => res.status(200).json(instructor))
-			.catch((err) => res.status(400).json("Error: " + err));
-	});
+router.route("/").get((req, res) => {
+	Instructor.find()
+		.then((instructor) => res.status(200).json(instructor))
+		.catch((err) => res.status(400).json("Error: " + err));
+});
 
 //add Instructor
 router
-	.use(authentication)
 	.use(photo.single("photo"))
 	.route("/add")
 	.post((req, res) => {
@@ -67,74 +62,62 @@ router
 	});
 
 //Search
-router
-	.use(authentication)
-	.route("/search")
-	.get((req, res) => {
-		var query = {};
-		for (var key in req.query) {
-			query[key] = new RegExp(`${req.query[key]}`, "i");
-		}
-		Instructor.find(query)
-			.then((doc) => {
-				if (doc) {
-					res.status(200).json(doc);
-				} else {
-					res.status(404).json(doc);
-				}
-			})
-			.catch((err) => res.status(400).json("Error: " + err));
-	});
+router.route("/search").get((req, res) => {
+	var query = {};
+	for (var key in req.query) {
+		query[key] = new RegExp(`${req.query[key]}`, "i");
+	}
+	Instructor.find(query)
+		.then((doc) => {
+			if (doc) {
+				res.status(200).json(doc);
+			} else {
+				res.status(404).json(doc);
+			}
+		})
+		.catch((err) => res.status(400).json("Error: " + err));
+});
 
 //GET by ID
-router
-	.use(authentication)
-	.route("/:instructorId")
-	.get((req, res) => {
-		const id = req.params.instructorId;
-		Instructor.findById(id)
-			.then((doc) => {
-				if (doc) {
-					res.status(200).json(doc);
-				} else {
-					res.status(404).json(doc);
-				}
-			})
-			.catch((err) => res.status(400).json("Error: " + err));
-	});
+router.route("/:instructorId").get((req, res) => {
+	const id = req.params.instructorId;
+	Instructor.findById(id)
+		.then((doc) => {
+			if (doc) {
+				res.status(200).json(doc);
+			} else {
+				res.status(404).json(doc);
+			}
+		})
+		.catch((err) => res.status(400).json("Error: " + err));
+});
 
 //UPDATE by ID
-router
-	.use(authentication)
-	.route("/:instructorId")
-	.put((req, res) => {
-		const id = req.params.instructorId;
-		Instructor.findByIdAndUpdate(
-			id,
-			{ $set: req.body },
-			{ useFindAndModify: false }
-		)
-			.then((doc) => {
-				if (doc) {
-					res.status(200).json(`Instructor Updated Successfully!`);
-				} else {
-					res.status(404).json(`Instructor Update Failed!`);
-				}
-			})
-			.catch((err) => res.status(400).json("Error: " + err));
-	});
+router.route("/:instructorId").put((req, res) => {
+	const id = req.params.instructorId;
+	Instructor.findByIdAndUpdate(
+		id,
+		{ $set: req.body },
+		{ useFindAndModify: false }
+	)
+		.then((doc) => {
+			if (doc) {
+				res.status(200).json(`Instructor Updated Successfully!`);
+			} else {
+				res.status(404).json(`Instructor Update Failed!`);
+			}
+		})
+		.catch((err) => res.status(400).json("Error: " + err));
+});
 
 //DELETE by ID
-router
-	.use(authentication)
-	.route("/:instructorId")
-	.delete((req, res) => {
-		const id = req.params.instructorId;
-		Instructor.findByIdAndDelete(id)
-			.then((result) => {
-				res.status(200).json(`${result} Successfully!`);
-			})
-			.catch((err) => res.status(400).json("Error: " + err));
-	});
+router.route("/:instructorId").delete((req, res) => {
+	const id = req.params.instructorId;
+	Instructor.findByIdAndDelete(id)
+		.then((result) => {
+			res.status(200).json(`${result} Successfully!`);
+		})
+		.catch((err) => res.status(400).json("Error: " + err));
+});
 
 module.exports = router;
