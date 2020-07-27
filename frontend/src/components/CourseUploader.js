@@ -168,7 +168,9 @@ export default function CourseUploader() {
     axios.get("instructor/", {}).then((res) => {
       const instructorList = res.data;
       setInstructorList(instructorList);
-      console.log("instructor list fetched in courseuploader: " + instructorList);
+      console.log(
+        "instructor list fetched in courseuploader: " + instructorList
+      );
     });
   }
 
@@ -441,7 +443,10 @@ export default function CourseUploader() {
                   return (
                     <div
                       key={`${field}-${idx}`}
-                      style={{ marginTop: theme.spacing(5) }}
+                      style={{
+                        marginTop: theme.spacing(5),
+                        marginBottom: theme.spacing(5),
+                      }}
                     >
                       <Grid item>
                         <TextField
@@ -456,7 +461,7 @@ export default function CourseUploader() {
                             className: classes.input,
                           }}
                           className={classes.label}
-                          style={{ marginTop: theme.spacing(1) }}
+                          style={{ marginTop: theme.spacing(3) }}
                         />
                       </Grid>
                       <Grid item>
@@ -474,16 +479,10 @@ export default function CourseUploader() {
                             className: classes.input,
                           }}
                           className={classes.label}
-                          style={{ marginTop: theme.spacing(1) }}
+                          style={{ marginTop: theme.spacing(3) }}
                         />
                       </Grid>
-                      <Grid
-                        item
-                        container
-                        direction="row"
-                        spacing={3}
-                        style={{ marginTop: theme.spacing(1) }}
-                      >
+                      <Grid item container direction="row" spacing={3}>
                         <Grid item lg={6}>
                           <TextField
                             id="text_video"
@@ -496,10 +495,11 @@ export default function CourseUploader() {
                             className={classes.label}
                             onChange={fileSelectedHandler}
                             fullWidth
+                            style={{ marginTop: theme.spacing(3) }}
                           />
                         </Grid>
                         <Grid item lg={6}>
-                        <TextField
+                          <TextField
                             id="text_document"
                             type="file"
                             variant="outlined"
@@ -510,6 +510,7 @@ export default function CourseUploader() {
                             className={classes.label}
                             onChange={fileSelectedHandler}
                             fullWidth
+                            style={{ marginTop: theme.spacing(3) }}
                           />
                         </Grid>
                       </Grid>
@@ -535,37 +536,45 @@ export default function CourseUploader() {
                               ),
                             }}
                             className={classes.label}
-                            style={{ marginTop: theme.spacing(1) }}
+                            style={{ marginTop: theme.spacing(3) }}
                           />
                         </Grid>
-                        <Grid item>
-                          <Fab
-                            type="button"
-                            size="small"
-                            className={classes.Fab}
-                            onClick={() => handleAdd()}
-                          >
-                            <Add />
-                          </Fab>
-                        </Grid>
-                        <Grid item>
-                          <Fab
-                            type="button"
-                            size="small"
-                            className={classes.Fab}
-                            onClick={() => handleRemove(idx)}
-                          >
-                            <Delete />
-                          </Fab>
-                        </Grid>
-                        <Grid item>
-                          <Fab
-                            type="button"
-                            size="small"
-                            className={classes.Fab}
-                          >
-                            <CloudUpload />
-                          </Fab>
+                        <Grid
+                          item
+                          container
+                          direction="row"
+                          spacing={3}
+                          justify="flex-end"
+                        >
+                          <Grid item>
+                            <Fab
+                              type="button"
+                              size="medium"
+                              className={classes.Fab}
+                              onClick={() => handleAdd()}
+                            >
+                              <Add />
+                            </Fab>
+                          </Grid>
+                          <Grid item>
+                            <Fab
+                              type="button"
+                              size="medium"
+                              className={classes.Fab}
+                              onClick={() => handleRemove(idx)}
+                            >
+                              <Delete />
+                            </Fab>
+                          </Grid>
+                          <Grid item>
+                            <Fab
+                              type="button"
+                              size="medium"
+                              className={classes.Fab}
+                            >
+                              <CloudUpload />
+                            </Fab>
+                          </Grid>
                         </Grid>
                       </Grid>
                     </div>

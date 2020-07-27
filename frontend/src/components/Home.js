@@ -20,7 +20,7 @@ import Footer from "./Footer";
 import theme from "../theme";
 import StudentFeedbackCarousel from "./StudentFeedbackCarousel";
 
-import axios from "../api/Config";
+import instance from "../api/Config";
 import ContactForm from "./ContactForm";
 
 const useStyles = makeStyles((theme) => ({
@@ -51,14 +51,15 @@ function App() {
   const [instructorList, setInstructorList] = useState([]);
 
   useEffect(() => {
-    // getIntroVideo();
+    // login();
+    getIntroVideo();
     getCourses();
     getInstructors();
   }, []);
 
   //get the 2 videos in Home Page
   function getIntroVideo() {
-    axios
+    instance
       .get("video/5f147d66d4c1340a1b1ff499/", {})
       .then((res) => {
         const data = res.data;
@@ -70,9 +71,22 @@ function App() {
       });
   }
 
+  // //login
+  // function login() {
+  //   instance
+  //     .post("user/login/", {
+  //       email: "tanzeerhossain@zoho.com",
+  //       password: "123321",
+  //     })
+  //     .then((res) => {
+  //       console.log("login response: "+res);
+  //       // getCourses();
+  //     });
+  // }
+
   //get all courses from server later it will be list all featured courses
   function getCourses() {
-    axios.get("course/", {}).then((res) => {
+    instance.get("course/", {}).then((res) => {
       const courseList = res.data;
       setCourseList(courseList);
       console.log("course list fetched in home: " + courseList);
@@ -81,7 +95,7 @@ function App() {
 
   //get all instructor list from server later it will be list of all featured instructors
   function getInstructors() {
-    axios.get("instructor/", {}).then((res) => {
+    instance.get("instructor/", {}).then((res) => {
       const instructorList = res.data;
       setInstructorList(instructorList);
       console.log("instructor list fetched in home: " + instructorList);
@@ -99,7 +113,7 @@ function App() {
           <TopViewHome />
         </Grid>
         <Grid item lg={12} sm={12} md={12} xs={12}>
-          <CourseViewHome courses={courseList}/>
+          <CourseViewHome courses={courseList} />
         </Grid>
         <Grid container direction="row">
           <Grid item lg={2}></Grid>
@@ -138,7 +152,10 @@ function App() {
         <Grid container direction="row">
           <Grid item lg={2}></Grid>
           <Grid item lg={8} sm={12} md={12} xs={12}>
-            <Info numberOfCourse={courseList.length} numberOfInstructors={instructorList.length}/>
+            <Info
+              numberOfCourse={courseList.length}
+              numberOfInstructors={instructorList.length}
+            />
           </Grid>
           <Grid item lg={2}></Grid>
         </Grid>
