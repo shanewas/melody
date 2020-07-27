@@ -77,19 +77,19 @@ function App() {
       });
   }
 
-  //login
-  function login() {
-    instance
-      .post("user/login/", {
-        email: "tanzeerhossain@zoho.com",
-        password: "123321",
-      })
-      .then((res) => {
-        console.log("login response: " + JSON.stringify(res.headers));
-        setRes(`${res.headers["set-cookie"]}`);
-        getCourses();
-      });
-  }
+  // //login
+  // function login() {
+  //   instance
+  //     .post("user/login/", {
+  //       email: "tanzeerhossain@zoho.com",
+  //       password: "123321",
+  //     })
+  //     .then((res) => {
+  //       console.log("login response: " + JSON.stringify(res.headers));
+  //       setRes(`${res.headers["set-cookie"]}`);
+  //       getCourses();
+  //     });
+  // }
 
   //get all courses from server later it will be list all featured courses
   function getCourses() {
