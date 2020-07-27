@@ -4,7 +4,6 @@ const bcrypt = require("bcrypt");
 const multer = require("multer");
 const path = require("path");
 const User = require("../models/User.model");
-const { authentication } = require("../middleware/authentication");
 
 const storage = multer.diskStorage({
 	destination: function (req, file, cb) {
@@ -72,7 +71,6 @@ router.route(`/login`).post((req, res) => {
 });
 
 router
-	.use(authentication)
 	.use(user.single("photo"))
 	.route("/signup")
 	.post((req, res) => {
@@ -117,13 +115,10 @@ router
 		});
 	});
 
-router
-	.use(authentication)
-	.route("/")
-	.get((req, res) => {
-		User.find()
-			.then((user) => res.json(user))
-			.catch((err) => res.status(400).json("Error: " + err));
-	});
+router.route("/").get((req, res) => {
+	User.find()
+		.then((user) => res.json(user))
+		.catch((err) => res.status(400).json("Error: " + err));
+});
 
 module.exports = router;

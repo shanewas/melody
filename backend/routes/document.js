@@ -2,7 +2,6 @@ const router = require("express").Router();
 const multer = require("multer");
 const path = require("path");
 const Document = require("../models/Document.model");
-const { authentication } = require("../middleware/authentication");
 
 const storage = multer.diskStorage({
 	destination: function (req, file, cb) {
@@ -26,18 +25,14 @@ const document = multer({
 	fileFilter,
 });
 
-router
-	.use(authentication)
-	.route("/getAll")
-	.get((req, res) => {
-		Document.find()
-			.then((document) => res.json(document))
-			.catch((err) => res.status(400).json("Error: " + err));
-	});
+router.route("/getAll").get((req, res) => {
+	Document.find()
+		.then((document) => res.json(document))
+		.catch((err) => res.status(400).json("Error: " + err));
+});
 
 //add single document
 router
-	.use(authentication)
 	.use(document.single("file"))
 	.route("/add")
 	.post((req, res) => {
@@ -64,7 +59,6 @@ router
 	});
 
 // router
-// 	.use(authentication)
 // 	.use(video.array("file"))
 // 	.route("/addSingle")
 // 	.post((req, res) => {
@@ -75,7 +69,6 @@ router
 //ADD single / multiple
 //POST
 // router
-// 	.use(authentication)
 // 	.route("/addMulti")
 // 	.post(async (req, res) => {
 // 		for (var item in req.body) {
@@ -97,74 +90,62 @@ router
 // 	});
 
 //Search
-router
-	.use(authentication)
-	.route("/search")
-	.get((req, res) => {
-		var query = {};
-		for (var key in req.query) {
-			query[key] = new RegExp(`${req.query[key]}`, "i");
-		}
-		Document.find(query)
-			.then((doc) => {
-				if (doc) {
-					res.status(200).json(doc);
-				} else {
-					res.status(404).json(doc);
-				}
-			})
-			.catch((err) => res.status(400).json("Error: " + err));
-	});
+router.route("/search").get((req, res) => {
+	var query = {};
+	for (var key in req.query) {
+		query[key] = new RegExp(`${req.query[key]}`, "i");
+	}
+	Document.find(query)
+		.then((doc) => {
+			if (doc) {
+				res.status(200).json(doc);
+			} else {
+				res.status(404).json(doc);
+			}
+		})
+		.catch((err) => res.status(400).json("Error: " + err));
+});
 
 //GET by ID
-router
-	.use(authentication)
-	.route("/:documentId")
-	.get((req, res) => {
-		const id = req.params.documentId;
-		Document.findById(id)
-			.then((doc) => {
-				if (doc) {
-					res.status(200).json(doc);
-				} else {
-					res.status(404).json(doc);
-				}
-			})
-			.catch((err) => res.status(400).json("Error: " + err));
-	});
+router.route("/:documentId").get((req, res) => {
+	const id = req.params.documentId;
+	Document.findById(id)
+		.then((doc) => {
+			if (doc) {
+				res.status(200).json(doc);
+			} else {
+				res.status(404).json(doc);
+			}
+		})
+		.catch((err) => res.status(400).json("Error: " + err));
+});
 
 //UPDATE by ID
-router
-	.use(authentication)
-	.route("/:documentId")
-	.put((req, res) => {
-		const id = req.params.documentId;
-		Document.findByIdAndUpdate(
-			id,
-			{ $set: req.body },
-			{ useFindAndModify: false }
-		)
-			.then((doc) => {
-				if (doc) {
-					res.status(200).json(`Document Updated Successfully!`);
-				} else {
-					res.status(404).json(`Document Update Failed!`);
-				}
-			})
-			.catch((err) => res.status(400).json("Error: " + err));
-	});
+router.route("/:documentId").put((req, res) => {
+	const id = req.params.documentId;
+	Document.findByIdAndUpdate(
+		id,
+		{ $set: req.body },
+		{ useFindAndModify: false }
+	)
+		.then((doc) => {
+			if (doc) {
+				res.status(200).json(`Document Updated Successfully!`);
+			} else {
+				res.status(404).json(`Document Update Failed!`);
+			}
+		})
+		.catch((err) => res.status(400).json("Error: " + err));
+});
 
 //DELETE by ID
-router
-	.use(authentication)
-	.route("/:documentId")
-	.delete((req, res) => {
-		const id = req.params.documentId;
-		Document.findByIdAndDelete(id)
-			.then((result) => {
-				res.status(200).json(`${result} Successfully!`);
-			})
-			.catch((err) => res.status(400).json("Error: " + err));
-	});
+router.route("/:documentId").delete((req, res) => {
+	const id = req.params.documentId;
+	Document.findByIdAndDelete(id)
+		.then((result) => {
+			res.status(200).json(`${result} Successfully!`);
+		})
+		.catch((err) => res.status(400).json("Error: " + err));
+});
 
 module.exports = router;

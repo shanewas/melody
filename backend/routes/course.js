@@ -2,7 +2,6 @@ const router = require("express").Router();
 const multer = require("multer");
 const path = require("path");
 const Course = require("../models/Course.model");
-const { authentication } = require("../middleware/authentication");
 
 const storage = multer.diskStorage({
 	destination: function (req, file, cb) {
@@ -26,18 +25,15 @@ const thumbnail = multer({
 	fileFilter,
 });
 
-router
-	.use(authentication)
-	.route("/")
-	.get((req, res) => {
-		Course.find()
-			.then((courses) => res.status(200).json(courses))
-			.catch((err) => res.status(400).json("Error: " + err));
-	});
+router.route("/").get((req, res) => {
+	Course.find()
+		.then((courses) => res.status(200).json(courses))
+		.catch((err) => res.status(400).json("Error: " + err));
+});
 
 //ADD
 router
-	.use(authentication)
+
 	.use(thumbnail.single("thumbnail"))
 	.route("/add")
 	.post((req, res) => {
@@ -89,100 +85,80 @@ router
 			.catch((err) => res.status(400).json("Error: " + err));
 	});
 
-router
-	.use(authentication)
-	.route("/search")
-	.get((req, res) => {
-		var query = {};
-		for (var key in req.query) {
-			query[key] = new RegExp(`${req.query[key]}`, "i");
-		}
-		Course.find(query)
-			.then((doc) => {
-				if (doc) {
-					res.status(200).json(doc);
-				} else {
-					res.status(404).json(doc);
-				}
-			})
-			.catch((err) => res.status(400).json("Error: " + err));
-	});
+router.route("/search").get((req, res) => {
+	var query = {};
+	for (var key in req.query) {
+		query[key] = new RegExp(`${req.query[key]}`, "i");
+	}
+	Course.find(query)
+		.then((doc) => {
+			if (doc) {
+				res.status(200).json(doc);
+			} else {
+				res.status(404).json(doc);
+			}
+		})
+		.catch((err) => res.status(400).json("Error: " + err));
+});
 
 //GET by ID
-router
-	.use(authentication)
-	.route("/:courseId")
-	.get((req, res) => {
-		const id = req.params.courseId;
-		Course.findById(id)
-			.then((doc) => {
-				if (doc) {
-					res.status(200).json(doc);
-				} else {
-					res.status(404).json(doc);
-				}
-			})
-			.catch((err) => res.status(400).json("Error: " + err));
-	});
+router.route("/:courseId").get((req, res) => {
+	const id = req.params.courseId;
+	Course.findById(id)
+		.then((doc) => {
+			if (doc) {
+				res.status(200).json(doc);
+			} else {
+				res.status(404).json(doc);
+			}
+		})
+		.catch((err) => res.status(400).json("Error: " + err));
+});
 
 //UPDATE by ID
-router
-	.use(authentication)
-	.route("/:courseId")
-	.put((req, res) => {
-		const id = req.params.courseId;
-		Course.findByIdAndUpdate(
-			id,
-			{ $set: req.body },
-			{ useFindAndModify: false }
-		)
-			.then((doc) => {
-				if (doc) {
-					res.status(200).json(`Course Updated Successfully!`);
-				} else {
-					res.status(404).json(`Course Update Failed!`);
-				}
-			})
-			.catch((err) => res.status(400).json("Error: " + err));
-	});
+router.route("/:courseId").put((req, res) => {
+	const id = req.params.courseId;
+	Course.findByIdAndUpdate(id, { $set: req.body }, { useFindAndModify: false })
+		.then((doc) => {
+			if (doc) {
+				res.status(200).json(`Course Updated Successfully!`);
+			} else {
+				res.status(404).json(`Course Update Failed!`);
+			}
+		})
+		.catch((err) => res.status(400).json("Error: " + err));
+});
 
 //DELETE
-router
-	.use(authentication)
-	.route("/:courseId")
-	.delete((req, res) => {
-		const id = req.params.courseId;
-		Course.findByIdAndDelete(id)
-			.then((result) => {
-				res.status(200).json(`${result} Successfully!`);
-			})
-			.catch((err) => res.status(400).json("Error: " + err));
-	});
+router.route("/:courseId").delete((req, res) => {
+	const id = req.params.courseId;
+	Course.findByIdAndDelete(id)
+		.then((result) => {
+			res.status(200).json(`${result} Successfully!`);
+		})
+		.catch((err) => res.status(400).json("Error: " + err));
+});
 
 //GET
 // (query); //{ title: 'Course 1' }
 // (req.params); //{ key: 'title', value: 'Course 1' }
 
-router
-	.use(authentication)
-	.route("/:key/:value")
-	.get((req, res) => {
-		var query = {};
-		query[req.params.key] = req.params.value;
-		Course.find(query)
-			.then((doc) => {
-				if (doc) {
-					res.status(200).json(doc);
-				} else {
-					res.status(404).json(doc);
-				}
-			})
-			.catch((err) => res.status(400).json("Error: " + err));
-	});
+router.route("/:key/:value").get((req, res) => {
+	var query = {};
+	query[req.params.key] = req.params.value;
+	Course.find(query)
+		.then((doc) => {
+			if (doc) {
+				res.status(200).json(doc);
+			} else {
+				res.status(404).json(doc);
+			}
+		})
+		.catch((err) => res.status(400).json("Error: " + err));
+});
 
 // //DELETE
 // router
-// 	.use(authentication)
 // 	.route("/:key/:value")
 // 	.delete((req, res) => {
 // 		var query = {};
