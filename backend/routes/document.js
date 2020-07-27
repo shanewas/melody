@@ -1,33 +1,28 @@
 const router = require("express").Router();
 const multer = require("multer");
 const path = require("path");
-const Video = require("../models/Video.model");
+const Document = require("../models/Document.model");
 const { authentication } = require("../middleware/authentication");
 
 const storage = multer.diskStorage({
 	destination: function (req, file, cb) {
-		cb(null, path.join("storage", "video"));
+		cb(null, path.join("storage", "document"));
 	},
 	filename: function (req, file, cb) {
 		cb(null, new Date().toISOString().replace(/:/g, "-") + file.originalname);
 	},
 });
 const fileFilter = (req, file, cb) => {
-	if (
-		file.mimetype === "video/mp4" || //mp4
-		file.mimetype === "video/quicktime" || //mov
-		file.mimetype === "video/quicktimevideo/x-msvideo" || //avi
-		file.mimetype === "video/x-ms-wmv" //wmv
-	) {
+	if (file.mimetype === "image/jpeg" || file.mimetype === "image/png") {
 		cb(null, true);
 	} else {
 		cb(null, false);
 	}
 };
 
-const video = multer({
+const document = multer({
 	storage,
-	limits: { fileSize: 1024 * 1024 * 4096 },
+	limits: { fileSize: 1024 * 1024 * 10 },
 	fileFilter,
 });
 
@@ -35,33 +30,35 @@ router
 	.use(authentication)
 	.route("/getAll")
 	.get((req, res) => {
-		Video.find()
-			.then((video) => res.json(video))
+		Document.find()
+			.then((document) => res.json(document))
 			.catch((err) => res.status(400).json("Error: " + err));
 	});
 
-//add single video
+//add single document
 router
 	.use(authentication)
-	.use(video.single("file"))
+	.use(document.single("file"))
 	.route("/add")
 	.post((req, res) => {
-		const title = req.body.title;
-		const desc = req.body.desc;
 		const file = req.file.path;
-		const duration = req.body.duration;
-		const eligibility = req.body.eligibility;
-		const newVideo = new Video({
-			title,
-			desc,
+		const desc = req.body.desc;
+		const size = req.body.size;
+		const course = req.body.course;
+		const video = req.body.course;
+		const instructor = req.body.course;
+		const newDocument = new Document({
 			file,
-			duration,
-			eligibility,
+			desc,
+			size,
+			course,
+			video,
+			instructor,
 		});
-		newVideo
+		newDocument
 			.save()
 			.then(() => {
-				res.status(200).json(`Video Added Successfully!`);
+				res.status(200).json(`Document Added Successfully!`);
 			})
 			.catch((err) => res.status(400).json("Error: " + err));
 	});
@@ -77,27 +74,27 @@ router
 
 //ADD single / multiple
 //POST
-router
-	.use(authentication)
-	.route("/addMulti")
-	.post(async (req, res) => {
-		for (var item in req.body) {
-			const newVideo = new Video(req.body[item]);
-			await newVideo
-				.save()
-				.then(() => {
-					console.log({
-						message: `Video ${item} : ${req.body[item].title} Added Successfully!`,
-					});
-				})
-				.catch((err) => {
-					res.status(400).json("Error: " + err);
-				});
-		}
-		res.status(200).json({
-			message: `Videos Added Successfully!`,
-		});
-	});
+// router
+// 	.use(authentication)
+// 	.route("/addMulti")
+// 	.post(async (req, res) => {
+// 		for (var item in req.body) {
+// 			const newVideo = new Video(req.body[item]);
+// 			await newVideo
+// 				.save()
+// 				.then(() => {
+// 					console.log({
+// 						message: `Video ${item} : ${req.body[item].title} Added Successfully!`,
+// 					});
+// 				})
+// 				.catch((err) => {
+// 					res.status(400).json("Error: " + err);
+// 				});
+// 		}
+// 		res.status(200).json({
+// 			message: `Videos Added Successfully!`,
+// 		});
+// 	});
 
 //Search
 router
@@ -108,7 +105,7 @@ router
 		for (var key in req.query) {
 			query[key] = new RegExp(`${req.query[key]}`, "i");
 		}
-		Video.find(query)
+		Document.find(query)
 			.then((doc) => {
 				if (doc) {
 					res.status(200).json(doc);
@@ -122,10 +119,10 @@ router
 //GET by ID
 router
 	.use(authentication)
-	.route("/:videoId")
+	.route("/:documentId")
 	.get((req, res) => {
-		const id = req.params.videoId;
-		Video.findById(id)
+		const id = req.params.documentId;
+		Document.findById(id)
 			.then((doc) => {
 				if (doc) {
 					res.status(200).json(doc);
@@ -139,15 +136,19 @@ router
 //UPDATE by ID
 router
 	.use(authentication)
-	.route("/:videoId")
+	.route("/:documentId")
 	.put((req, res) => {
-		const id = req.params.videoId;
-		Video.findByIdAndUpdate(id, { $set: req.body }, { useFindAndModify: false })
+		const id = req.params.documentId;
+		Document.findByIdAndUpdate(
+			id,
+			{ $set: req.body },
+			{ useFindAndModify: false }
+		)
 			.then((doc) => {
 				if (doc) {
-					res.status(200).json(`Video Updated Successfully!`);
+					res.status(200).json(`Document Updated Successfully!`);
 				} else {
-					res.status(404).json(`Video Update Failed!`);
+					res.status(404).json(`Document Update Failed!`);
 				}
 			})
 			.catch((err) => res.status(400).json("Error: " + err));
@@ -156,10 +157,10 @@ router
 //DELETE by ID
 router
 	.use(authentication)
-	.route("/:videoId")
+	.route("/:documentId")
 	.delete((req, res) => {
-		const id = req.params.videoId;
-		Course.findByIdAndDelete(id)
+		const id = req.params.documentId;
+		Document.findByIdAndDelete(id)
 			.then((result) => {
 				res.status(200).json(`${result} Successfully!`);
 			})

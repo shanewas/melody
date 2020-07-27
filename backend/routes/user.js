@@ -47,39 +47,39 @@ router.route(`/login`).post((req, res) => {
 });
 
 router.route("/signup").post((req, res) => {
-  const email = req.body.email;
-  const password = req.body.password;
-  User.find({ email }).then((user) => {
-    if (user.length >= 1) {
-      return res.status(409).json({ message: "Mail exists" });
-    } else {
-      bcrypt.hash(password, 10, (err, hash) => {
-        if (err) {
-          return res.status(500).json({ error: err });
-        } else {
-          const newUser = new User({
-            email,
-            password: hash,
-          });
-          newUser
-            .save()
-            .then(() => {
-              res.json(`user added!`);
-            })
-            .catch((err) => res.status(500).json("Error: " + err));
-        }
-      });
-    }
-  });
+	const email = req.body.email;
+	const password = req.body.password;
+	User.find({ email }).then((user) => {
+		if (user.length >= 1) {
+			return res.status(409).json({ message: "Mail exists" });
+		} else {
+			bcrypt.hash(password, 10, (err, hash) => {
+				if (err) {
+					return res.status(500).json({ error: err });
+				} else {
+					const newUser = new User({
+						email,
+						password: hash,
+					});
+					newUser
+						.save()
+						.then(() => {
+							res.json(`user added!`);
+						})
+						.catch((err) => res.status(500).json("Error: " + err));
+				}
+			});
+		}
+	});
 });
 
 router
-  // .use(authentication)
-  .route("/")
-  .get((req, res) => {
-    User.find()
-      .then((user) => res.json(user))
-      .catch((err) => res.status(400).json("Error: " + err));
-  });
+	.use(authentication)
+	.route("/")
+	.get((req, res) => {
+		User.find()
+			.then((user) => res.json(user))
+			.catch((err) => res.status(400).json("Error: " + err));
+	});
 
 module.exports = router;
