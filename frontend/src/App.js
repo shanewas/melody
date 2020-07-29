@@ -1,9 +1,9 @@
 import React from "react";
 import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  Redirect,
+	BrowserRouter as Router,
+	Switch,
+	Route,
+	Redirect,
 } from "react-router-dom";
 import Home from "./components/Home";
 import Login from "./components/SignIn";
@@ -11,22 +11,25 @@ import Signup from "./components/SignUp";
 import CourseView from "./components/CourseView";
 import CoursesPage from "./components/CoursesPage";
 import CourseUploader from "./components/CourseUploader";
- 
+import { ProtectedRoute } from "./routes/protected.route";
+import NotFound from "./components/NotFound";
+
 // import CourseData from "./data/CoursesData";
 
 export default function App() {
-  return (
-    <Router>
-      <Switch>
-        <Route exact path="/" component={Home} />
-        <Route exact path="/login" component={Login} />
-        <Route exact path="/signup" component={Signup} />
-        <Route exact path="/course" component={CourseView} />
-        <Route exact path="/coursespage" component={CoursesPage} />
-        <Route exact path="/courseupload" component={CourseUploader}/>
-        {/* <Route exact path="/coursedata" component={CourseData} /> */}
-        <Redirect to="/" />
-      </Switch>
-    </Router>
-  );
+	return (
+		<Router>
+			<Switch>
+				<Route exact path='/' component={Home} />
+				<Route exact path='/login' component={Login} />
+				<Route exact path='/signup' component={Signup} />
+				<ProtectedRoute exact path='/course' component={CourseView} />
+				<ProtectedRoute exact path='/coursespage' component={CoursesPage} />
+				<ProtectedRoute exact path='/courseupload' component={CourseUploader} />
+				{/* <Route exact path="/coursedata" component={CourseData} /> */}
+				<Route path='*' component={NotFound} />
+				<Redirect to='/' />
+			</Switch>
+		</Router>
+	);
 }
