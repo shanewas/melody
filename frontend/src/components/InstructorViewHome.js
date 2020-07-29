@@ -56,7 +56,7 @@ export default function InstructorViewHome(props) {
           </Typography>
           <Grid container spacing={2}>
             {instructorList.map((instructor) => (
-              <Grid item key={instructor} xs={12} sm={12} md={2} lg={2}>
+              <Grid item key={instructor} xs={12} sm={4} md={2} lg={2}>
                 <CardThumbnailInstructor instructor={instructor} />
               </Grid>
             ))}

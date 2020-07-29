@@ -240,7 +240,7 @@ export default function CourseUploader() {
                 />
               </Grid>
               <Grid item container direction="row" spacing={3}>
-                <Grid item lg={4}>
+                <Grid item lg={4} md={4} sm={4}>
                   <TextField
                     id="text_instructor"
                     select
@@ -292,7 +292,7 @@ export default function CourseUploader() {
                 />
               </Grid>
               <Grid item container direction="row" spacing={3}>
-                <Grid item lg={4}>
+                <Grid item lg={4} md={4} sm={4}>
                   <TextField
                     id="outlined-select-currency"
                     select
@@ -317,7 +317,7 @@ export default function CourseUploader() {
                     ))}
                   </TextField>
                 </Grid>
-                <Grid item lg={4}>
+                <Grid item lg={4} md={4} sm={4}>
                   <TextField
                     id="outlined-select-currency"
                     select
@@ -342,7 +342,7 @@ export default function CourseUploader() {
                     ))}
                   </TextField>
                 </Grid>
-                <Grid item lg={4}>
+                <Grid item lg={4} md={4} sm={4}>
                   <TextField
                     id="outlined-select-currency"
                     select

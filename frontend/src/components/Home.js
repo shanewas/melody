@@ -123,7 +123,7 @@ function App() {
 
   return (
     <div className="App">
-      <Grid container direction="column" spacing={theme.spacing(1)}>
+      <Grid container direction="column" spacing={theme.spacing(1)} >
         <Grid item lg={12} sm={12} md={12} xs={12}>
           <Navbar />
         </Grid>
