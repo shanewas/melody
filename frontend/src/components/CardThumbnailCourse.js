@@ -79,13 +79,13 @@ export default function CardThumbnailCourse(props) {
 
   const history = useHistory();
   function navigateToCourse() {
-    history.push("/course");
+    history.push("/course",course);
   }
 
   return (
     <CardActionArea
       className={classes.CardActionArea}
-      onClick={navigateToCourse}
+      onClick={((navigateToCourse))}
     >
       <Card className={classes.card}>
         <CardMedia
