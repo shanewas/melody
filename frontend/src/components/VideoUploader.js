@@ -8,8 +8,10 @@ import {
   makeStyles,
   InputAdornment,
   Fab,
+  MenuItem,
 } from "@material-ui/core";
 import { CloudUpload, Remove, Add } from "@material-ui/icons";
+import theme from "../theme";
 
 const useStyles = makeStyles((theme) => ({
   title: {
@@ -59,8 +61,9 @@ const useStyles = makeStyles((theme) => ({
 export default function VideoUploader() {
   const classes = useStyles();
   const [inputFields, setInputField] = useState([
-    { title: "", description: "" },
+    { title: "", description: "", duration: "", eligibility: "" },
   ]);
+  const [eligibility, setEligibility] = React.useState("");
 
   const handleChangeInput = (index, event) => {
     const values = [...inputFields];
@@ -74,13 +77,21 @@ export default function VideoUploader() {
   };
 
   const handleAddFields = () => {
-    setInputField([...inputFields, { title: "", description: "" }]);
+    setInputField([
+      ...inputFields,
+      { title: "", description: "", duration: "" },
+    ]);
   };
 
   const handleRemoveFields = (index) => {
-      const values = [...inputFields];
-      values.splice(index,1);
-      setInputField(values);
+    const values = [...inputFields];
+    values.splice(index, 1);
+    setInputField(values);
+  };
+
+  const eligibilityStatusList = ["Open", "Login", "Subscription"];
+  const handleEligibilityChange = (event) => {
+    setEligibility(event.target.value);
   };
 
   return (
@@ -108,6 +119,8 @@ export default function VideoUploader() {
               name="description"
               type="text"
               variant="outlined"
+              multiline
+              rowsMax={3}
               className={classes.label}
               label="Description"
               fullWidth
@@ -117,32 +130,70 @@ export default function VideoUploader() {
               value={inputField.description}
               onChange={(event) => handleChangeInput(index, event)}
             />
-            <div class="d-flex flex-row">
-              <TextField
-                type="file"
-                variant="outlined"
-                className={classes.label}
-                helperText="Select video for lesson"
-              />
-              <TextField
-                type="file"
-                variant="outlined"
-                className={classes.label}
-                helperText="Select document for lesson"
-              />
-              <TextField
-                type="text"
-                variant="outlined"
-                className={classes.label}
-                label="Duration"
-                InputProps={{
-                  className: classes.input,
-                  endAdornment: (
-                    <InputAdornment position="end">Hrs</InputAdornment>
-                  ),
-                }}
-              />
+            <div className="row">
+              <div className="col">
+                <TextField
+                  type="file"
+                  variant="outlined"
+                  className={classes.label}
+                  helperText="Select video for lesson"
+                  fullWidth
+                />
+              </div>
+              <div className="col">
+                <TextField
+                  type="file"
+                  variant="outlined"
+                  className={classes.label}
+                  helperText="Select document for lesson"
+                  fullWidth
+                />
+              </div>
+              <div className="col">
+                <TextField
+                  name="duration"
+                  type="text"
+                  variant="outlined"
+                  className={classes.label}
+                  label="Duration"
+                  fullWidth
+                  InputProps={{
+                    className: classes.input,
+                    endAdornment: (
+                      <InputAdornment position="end">Mins</InputAdornment>
+                    ),
+                  }}
+                  value={inputField.duration}
+                  onChange={(event) => handleChangeInput(index, event)}
+                />
+              </div>
+              <div className="col">
+                <TextField
+                  name="eligibility"
+                  select
+                  variant="outlined"
+                  label="Eligibility"
+                  className={classes.label}
+                  fullWidth
+                  InputProps={{
+                    className: classes.input,
+                  }}
+                  value={inputField.eligibility}
+                  onChange={(event) => handleChangeInput(index, event)}
+                >
+                  {eligibilityStatusList.map((eligibilityStatus) => (
+                    <MenuItem
+                      key={eligibilityStatus}
+                      value={eligibilityStatus}
+                      style={{ color: theme.palette.primary.light }}
+                    >
+                      {eligibilityStatus}
+                    </MenuItem>
+                  ))}
+                </TextField>
+              </div>
             </div>
+
             <Fab
               type="button"
               size="small"
