@@ -10,18 +10,23 @@ import {
   Button,
   Fab,
   Typography,
+  Divider,
 } from "@material-ui/core";
 import { CloudUpload, Delete, Add } from "@material-ui/icons";
 import theme from "../theme";
 import axios from "../api/Config";
 import Topnav from "./Navbar";
+import VideoUploader from "./VideoUploader";
 
 const useStyles = makeStyles((theme) => ({
   Container: {
     margin: theme.spacing(15),
     background: theme.palette.primary.light,
   },
-
+  Divider: {
+    marginTop: theme.spacing(5),
+    marginBottom: theme.spacing(5),
+  },
   input: {
     color: theme.palette.text.secondary,
   },
@@ -43,6 +48,18 @@ const useStyles = makeStyles((theme) => ({
     "&:active": {
       outline: "none",
     },
+  },
+  Button: {
+    color: theme.palette.primary.light,
+
+    background: "#821518",
+    "&:hover": {
+      //you want this to be the same as the backgroundColor above
+      backgroundColor: theme.palette.primary.dark,
+    },
+
+    marginTop: theme.spacing(5),
+    padding: theme.spacing(2),
   },
 }));
 
@@ -128,6 +145,10 @@ export default function CourseUploader() {
 
   //for video
   const [fields, setFields] = useState([{ value: null }]);
+
+  //array of all uploaded video ids
+  let videoIdArray = [];
+
   function handleChange(i, event) {
     const values = [...fields];
     values[i].value = event.target.value;
@@ -186,6 +207,13 @@ export default function CourseUploader() {
     setThumbnail(event.target.files[0]);
   }
 
+  //callback function send to VideoUploader to upload videoIdArray
+  const setVideoId = (videoId) => {
+    videoIdArray.push(videoId);
+    console.log("stored response for video upload request: " + videoIdArray[0]);
+    console.log("number of videos uploaded: " + videoIdArray.length);
+  };
+
   return (
     <Grid
       container
@@ -199,11 +227,12 @@ export default function CourseUploader() {
             variant="h5"
             style={{
               color: theme.palette.secondary.contrastText,
-              paddingTop: theme.spacing(3),
+              padding: theme.spacing(5, 0, 5, 0),
+              marginLeft: theme.spacing(10),
             }}
-            align="center"
+            align="left"
           >
-            Upload New Course
+            Add New Course
           </Typography>
           <form
             noValidate
@@ -224,7 +253,6 @@ export default function CourseUploader() {
                     className: classes.input,
                   }}
                   className={classes.label}
-                  style={{ marginTop: theme.spacing(5) }}
                 />
               </Grid>
               <Grid item>
@@ -265,7 +293,7 @@ export default function CourseUploader() {
                     ))}
                   </TextField>
                 </Grid>
-                <Grid item lg={4}>
+                <Grid item lg={8}>
                   <TextField
                     id="text_requirements"
                     label="Requirements"
@@ -431,164 +459,39 @@ export default function CourseUploader() {
                   className={classes.label}
                 />
               </Grid>
-              <Grid item container direction="column" spacing={1}>
+              {/* <Grid item lg={12}>
+                <Divider className={classes.Divider} />
+              </Grid> */}
+              <Grid item container direction="column">
                 <Grid item>
                   <Typography
                     variant="h5"
-                    align="center"
+                    align="left"
                     style={{
                       color: theme.palette.secondary.contrastText,
-                      paddingTop: theme.spacing(3),
+                      padding: theme.spacing(5, 0, 5, 0),
                     }}
                   >
-                    Add Course Lessons
+                    Add New Lessons
                   </Typography>
                 </Grid>
-
-                {fields.map((field, idx) => {
-                  return (
-                    <div
-                      key={`${field}-${idx}`}
-                      style={{
-                        marginTop: theme.spacing(5),
-                        marginBottom: theme.spacing(5),
-                      }}
-                    >
-                      <Grid item>
-                        <TextField
-                          id="text_video_title"
-                          type="text"
-                          label="Title"
-                          variant="outlined"
-                          fullWidth
-                          value={field.value || ""}
-                          onChange={(e) => handleChange(idx, e)}
-                          InputProps={{
-                            className: classes.input,
-                          }}
-                          className={classes.label}
-                          style={{ marginTop: theme.spacing(3) }}
-                        />
-                      </Grid>
-                      <Grid item>
-                        <TextField
-                          id="text_video_desc"
-                          type="text"
-                          label="Description"
-                          variant="outlined"
-                          multiline
-                          rowsMax={3}
-                          fullWidth
-                          value={field.value || ""}
-                          onChange={(e) => handleChange(idx, e)}
-                          InputProps={{
-                            className: classes.input,
-                          }}
-                          className={classes.label}
-                          style={{ marginTop: theme.spacing(3) }}
-                        />
-                      </Grid>
-                      <Grid item container direction="row" spacing={3}>
-                        <Grid item lg={6}>
-                          <TextField
-                            id="text_video"
-                            type="file"
-                            variant="outlined"
-                            helperText="Select video for lesson"
-                            InputProps={{
-                              className: classes.input,
-                            }}
-                            className={classes.label}
-                            onChange={fileSelectedHandler}
-                            fullWidth
-                            style={{ marginTop: theme.spacing(3) }}
-                          />
-                        </Grid>
-                        <Grid item lg={6}>
-                          <TextField
-                            id="text_document"
-                            type="file"
-                            variant="outlined"
-                            helperText="Select document for lesson"
-                            InputProps={{
-                              className: classes.input,
-                            }}
-                            className={classes.label}
-                            onChange={fileSelectedHandler}
-                            fullWidth
-                            style={{ marginTop: theme.spacing(3) }}
-                          />
-                        </Grid>
-                      </Grid>
-                      <Grid
-                        item
-                        container
-                        direction="row"
-                        spacing={3}
-                        alignItems="center"
-                      >
-                        <Grid item>
-                          <TextField
-                            id="text_lesson_hour"
-                            label="Lesson Duration"
-                            variant="outlined"
-                            fullWidth
-                            InputProps={{
-                              className: classes.input,
-                              endAdornment: (
-                                <InputAdornment position="end">
-                                  Hrs
-                                </InputAdornment>
-                              ),
-                            }}
-                            className={classes.label}
-                            style={{ marginTop: theme.spacing(3) }}
-                          />
-                        </Grid>
-                        <Grid
-                          item
-                          container
-                          direction="row"
-                          spacing={3}
-                          justify="flex-end"
-                        >
-                          <Grid item>
-                            <Fab
-                              type="button"
-                              size="medium"
-                              className={classes.Fab}
-                              onClick={() => handleAdd()}
-                            >
-                              <Add />
-                            </Fab>
-                          </Grid>
-                          <Grid item>
-                            <Fab
-                              type="button"
-                              size="medium"
-                              className={classes.Fab}
-                              onClick={() => handleRemove(idx)}
-                            >
-                              <Delete />
-                            </Fab>
-                          </Grid>
-                          <Grid item>
-                            <Fab
-                              type="button"
-                              size="medium"
-                              className={classes.Fab}
-                            >
-                              <CloudUpload />
-                            </Fab>
-                          </Grid>
-                        </Grid>
-                      </Grid>
-                    </div>
-                  );
-                })}
+              </Grid>
+              <Grid item>
+                {/* sending callback function for storing videoId */}
+                <VideoUploader videoIdCallback={setVideoId} />
               </Grid>
             </Grid>
           </form>
+          <Button
+            variant="contained"
+            type="submit"
+            className={classes.Button}
+            // onClick={handleSubmit}
+
+            fullWidth
+          >
+            Upload Course
+          </Button>
         </Paper>
       </div>
     </Grid>

@@ -9,18 +9,17 @@ import {
   InputAdornment,
   Fab,
   MenuItem,
+  Divider,
 } from "@material-ui/core";
 import { CloudUpload, Remove, Add } from "@material-ui/icons";
 import theme from "../theme";
+import axios from "../api/Config";
 
 const useStyles = makeStyles((theme) => ({
   title: {
-    margin: theme.spacing(1),
     color: "#821518",
   },
-  div: {
-    marginTop: theme.spacing(5),
-  },
+
   label: {
     "&:hover .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline": {
       borderColor: theme.palette.primary.dark,
@@ -31,7 +30,7 @@ const useStyles = makeStyles((theme) => ({
     "& label.Mui-focused": {
       color: theme.palette.primary.dark,
     },
-    margin: theme.spacing(1),
+    margin: theme.spacing(1, 0, 1, 0),
   },
   input: {
     color: theme.palette.text.secondary,
@@ -43,7 +42,12 @@ const useStyles = makeStyles((theme) => ({
     "&:active": {
       outline: "none",
     },
-    margin: theme.spacing(1),
+    "&:hover": {
+      //you want this to be the same as the backgroundColor above
+      backgroundColor: theme.palette.primary.dark,
+    },
+    margin: theme.spacing(1, 0, 0, 2),
+    backgroundColor: theme.palette.secondary.contrastText,
   },
   Button: {
     color: theme.palette.primary.light,
@@ -53,17 +57,24 @@ const useStyles = makeStyles((theme) => ({
       //you want this to be the same as the backgroundColor above
       backgroundColor: theme.palette.primary.dark,
     },
-    marginLeft: theme.spacing(1),
+
     marginTop: theme.spacing(5),
+  },
+  Divider: {
+    marginTop: theme.spacing(5),
+    marginBottom: theme.spacing(5),
   },
 }));
 
-export default function VideoUploader() {
+export default function VideoUploader(props) {
   const classes = useStyles();
+
   const [inputFields, setInputField] = useState([
     { title: "", description: "", duration: "", eligibility: "" },
   ]);
-  const [eligibility, setEligibility] = React.useState("");
+  const eligibilityStatusList = ["Open", "Login", "Subscription"];
+  const [video, setVideo] = useState(null);
+  const [document, setDocument] = useState(null);
 
   const handleChangeInput = (index, event) => {
     const values = [...inputFields];
@@ -74,6 +85,63 @@ export default function VideoUploader() {
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log("InputFields: ", inputFields);
+
+    const formData = new FormData();
+
+    formData.append("title", inputFields[0].title);
+    formData.append("desc", inputFields[0].description);
+    formData.append("eligibility", inputFields[0].eligibility);
+    formData.append("duration", inputFields[0].duration);
+    formData.append("file", video);
+    // formData.append("document", document);
+
+    uploadVideo(formData);
+  };
+
+  const handleDocumentSubmit = (doc) => {
+    console.log("name of the document file: " + doc.name);
+
+    let size = (doc.size / (1024 * 1024)).toFixed(3);
+    console.log("size of the document file: " + size);
+
+    const formData = new FormData();
+    formData.append("file", doc);
+    formData.append("desc", doc.name);
+    formData.append("size", size);
+
+    uploadDocument(formData);
+  };
+
+  const uploadVideo = (data) => {
+    axios
+      .post("video/add/", data, {
+        headers: {
+          "auth-token": `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InNoYW5ld2FzYWhtZWRAZ21haWwuY29tIiwicGFzc3dvcmQiOiJQb3RhdG83MjYiLCJpYXQiOjE1OTU4NjA3MzYsImV4cCI6MTU5NTg2NDMzNn0.IRPW-1hioz4LZABZrmtYakjmDwORfKnzIWkwK3DzAXc`,
+          "Content-type": "multipart/form-data",
+        },
+      })
+      .then((res) => {
+        const response = res.data;
+
+        console.log("response for video upload request: " + response.id);
+
+        //sending uploaded video id to parent
+        getVideoId(response.id);
+      });
+  };
+
+  const uploadDocument = (data) => {
+    axios
+      .post("document/add", data, {
+        headers: {
+          "auth-token": `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InNoYW5ld2FzYWhtZWRAZ21haWwuY29tIiwicGFzc3dvcmQiOiJQb3RhdG83MjYiLCJpYXQiOjE1OTU4NjA3MzYsImV4cCI6MTU5NTg2NDMzNn0.IRPW-1hioz4LZABZrmtYakjmDwORfKnzIWkwK3DzAXc`,
+          "Content-type": "multipart/form-data",
+        },
+      })
+      .then((res) => {
+        const response = res.data;
+        console.log("response for document upload request: " + response.id);
+      });
   };
 
   const handleAddFields = () => {
@@ -89,19 +157,31 @@ export default function VideoUploader() {
     setInputField(values);
   };
 
-  const eligibilityStatusList = ["Open", "Login", "Subscription"];
-  const handleEligibilityChange = (event) => {
-    setEligibility(event.target.value);
+  //get video selected
+  function videoSelectedHandler(event) {
+    console.log("video selected: " + event.target.files[0]);
+    setVideo(event.target.files[0]);
+  }
+
+  //get document selected
+  function documentSelectedHandler(event) {
+    console.log("document selected: " + event.target.files[0]);
+    setDocument(event.target.files[0]);
+    handleDocumentSubmit(event.target.files[0]);
+  }
+
+  const getVideoId = (videoId) => {
+    props.videoIdCallback(videoId);
   };
 
   return (
     <Container>
-      <Typography className={classes.title} variant="h5">
-        Add New Video
-      </Typography>
       <form onSubmit={handleSubmit}>
         {inputFields.map((inputField, index) => (
-          <div key={index} className={classes.div}>
+          <div key={index}>
+            <Typography className={classes.title} variant="h5">
+              Lesson {index + 1}
+            </Typography>
             <TextField
               name="title"
               type="text"
@@ -130,25 +210,8 @@ export default function VideoUploader() {
               value={inputField.description}
               onChange={(event) => handleChangeInput(index, event)}
             />
+
             <div className="row">
-              <div className="col">
-                <TextField
-                  type="file"
-                  variant="outlined"
-                  className={classes.label}
-                  helperText="Select video for lesson"
-                  fullWidth
-                />
-              </div>
-              <div className="col">
-                <TextField
-                  type="file"
-                  variant="outlined"
-                  className={classes.label}
-                  helperText="Select document for lesson"
-                  fullWidth
-                />
-              </div>
               <div className="col">
                 <TextField
                   name="duration"
@@ -193,31 +256,71 @@ export default function VideoUploader() {
                 </TextField>
               </div>
             </div>
+            <div className="row">
+              <div className="col">
+                <TextField
+                  type="file"
+                  variant="outlined"
+                  className={classes.label}
+                  InputProps={{
+                    className: classes.input,
+                  }}
+                  helperText="Select video for lesson"
+                  fullWidth
+                  onChange={videoSelectedHandler}
+                />
+              </div>
+              <div className="col">
+                <TextField
+                  type="file"
+                  variant="outlined"
+                  className={classes.label}
+                  InputProps={{
+                    className: classes.input,
+                  }}
+                  helperText="Select document for lesson"
+                  fullWidth
+                  onChange={documentSelectedHandler}
+                />
+              </div>
+            </div>
+            <Grid container direction="row" justify="flex-end">
+              <Grid item>
+                {" "}
+                <Fab
+                  type="button"
+                  size="small"
+                  className={classes.Fab}
+                  onClick={() => handleAddFields()}
+                >
+                  <Add style={{ color: theme.palette.primary.light }} />
+                </Fab>
+              </Grid>
+              <Grid item>
+                {" "}
+                <Fab
+                  type="button"
+                  size="small"
+                  className={classes.Fab}
+                  onClick={() => handleRemoveFields(index)}
+                >
+                  <Remove style={{ color: theme.palette.primary.light }} />
+                </Fab>
+              </Grid>
+              <Grid item>
+                {" "}
+                <Fab
+                  type="button"
+                  size="small"
+                  className={classes.Fab}
 
-            <Fab
-              type="button"
-              size="small"
-              className={classes.Fab}
-              onClick={() => handleAddFields()}
-            >
-              <Add />
-            </Fab>
-            <Fab
-              type="button"
-              size="small"
-              className={classes.Fab}
-              onClick={() => handleRemoveFields(index)}
-            >
-              <Remove />
-            </Fab>
-            <Fab
-              type="button"
-              size="small"
-              className={classes.Fab}
-              // onClick={() => handleAdd()}
-            >
-              <CloudUpload />
-            </Fab>
+                  // onClick={() => handleAdd()}
+                >
+                  <CloudUpload style={{ color: theme.palette.primary.light }} />
+                </Fab>
+              </Grid>
+            </Grid>
+            <Divider className={classes.Divider} />
           </div>
         ))}
         <Button
@@ -226,7 +329,7 @@ export default function VideoUploader() {
           className={classes.Button}
           onClick={handleSubmit}
         >
-          Upload Course
+          Upload Videos
         </Button>
       </form>
     </Container>
