@@ -56,7 +56,10 @@ router
 		newInstructor
 			.save()
 			.then(() => {
-				res.status(200).json(`Instructor Added Successfully!`);
+				res.status(200).json({
+					message: `Instructor Added Successfully!`,
+					id: newInstructor._id,
+				});
 			})
 			.catch((err) => res.status(400).json("Error: " + err));
 	});

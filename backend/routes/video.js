@@ -56,7 +56,10 @@ router
 		newVideo
 			.save()
 			.then(() => {
-				res.status(200).json(`Video Added Successfully!`);
+				res.status(200).json({
+					message: `Video Added Successfully!`,
+					id: newVideo._id,
+				});
 			})
 			.catch((err) => res.status(400).json("Error: " + err));
 	});

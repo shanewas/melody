@@ -108,7 +108,10 @@ router
 						newUser
 							.save()
 							.then(() => {
-								res.json(`user added!`);
+								res.status(200).json({
+									message: `user added!`,
+									id: newUser._id,
+								});
 							})
 							.catch((err) => res.status(500).json("Error: " + err));
 					}
