@@ -81,7 +81,12 @@ router
 		});
 		newCourse
 			.save()
-			.then(() => res.status(200).json(`Course Added Successfully!`))
+			.then(() => {
+				res.status(200).json({
+					message: `Course Added Successfully!`,
+					id: newCourse._id,
+				});
+			})
 			.catch((err) => res.status(400).json("Error: " + err));
 	});
 
