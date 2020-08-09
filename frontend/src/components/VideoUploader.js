@@ -10,6 +10,8 @@ import {
   Fab,
   MenuItem,
   Divider,
+  CircularProgress,
+  LinearProgress,
 } from "@material-ui/core";
 import { CloudUpload, Remove, Add } from "@material-ui/icons";
 import theme from "../theme";
@@ -74,7 +76,11 @@ export default function VideoUploader(props) {
   ]);
   const eligibilityStatusList = ["Open", "Login", "Subscription"];
   const [video, setVideo] = useState(null);
-  const [document, setDocument] = useState(null);
+
+  //array of all uploaded document ids
+  let documentIdArray = [];
+
+  let videoFormData, documentFormData;
 
   const handleChangeInput = (index, event) => {
     const values = [...inputFields];
@@ -94,8 +100,9 @@ export default function VideoUploader(props) {
     formData.append("duration", inputFields[0].duration);
     formData.append("file", video);
     // formData.append("document", document);
+    videoFormData = formData;
 
-    uploadVideo(formData);
+    uploadDocument(documentFormData);
   };
 
   const handleDocumentSubmit = (doc) => {
@@ -109,7 +116,7 @@ export default function VideoUploader(props) {
     formData.append("desc", doc.name);
     formData.append("size", size);
 
-    uploadDocument(formData);
+    documentFormData = formData;
   };
 
   const uploadVideo = (data) => {
@@ -141,6 +148,13 @@ export default function VideoUploader(props) {
       .then((res) => {
         const response = res.data;
         console.log("response for document upload request: " + response.id);
+        documentIdArray.push(response.id);
+
+        console.log("document id in video upload: " + documentIdArray[0]);
+        videoFormData.append("document", documentIdArray[0]);
+
+        console.log(videoFormData);
+        uploadVideo(videoFormData);
       });
   };
 
@@ -166,7 +180,7 @@ export default function VideoUploader(props) {
   //get document selected
   function documentSelectedHandler(event) {
     console.log("document selected: " + event.target.files[0]);
-    setDocument(event.target.files[0]);
+
     handleDocumentSubmit(event.target.files[0]);
   }
 
@@ -320,9 +334,13 @@ export default function VideoUploader(props) {
                 </Fab>
               </Grid>
             </Grid>
+            <LinearProgress
+              style={{ background: theme.palette.secondary.contrastText }}
+            />
             <Divider className={classes.Divider} />
           </div>
         ))}
+
         <Button
           variant="contained"
           type="submit"

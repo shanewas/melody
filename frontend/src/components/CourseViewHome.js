@@ -7,6 +7,7 @@ import {
   makeStyles,
   Button,
 } from "@material-ui/core";
+
 import Link from "@material-ui/core/Link";
 import CardThumbnailCourse from "./CardThumbnailCourse";
 import { ChevronRight } from "@material-ui/icons";
@@ -72,8 +73,7 @@ export default function CourseViewHome(props) {
           variant="contained"
           endIcon={<ChevronRight />}
           className={classes.Button}
-          size="large"
-          onClick={navigateToCourse}
+          // onClick={navigateToCourse}
         >
           View All Courses
         </Button>

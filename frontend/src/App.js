@@ -14,6 +14,7 @@ import CourseUploader from "./components/CourseUploader";
 import { ProtectedRoute } from "./routes/protected.route";
 import NotFound from "./components/NotFound";
 import VideoUploader from "./components/VideoUploader";
+import ContactUsForm from "./components/ContactUsForm";
 
 // import CourseData from "./data/CoursesData";
 
@@ -26,7 +27,7 @@ export default function App() {
         <Route exact path="/signup" component={Signup} />
         {/* <ProtectedRoute exact path='/course' component={CourseView} /> */}
         <Route exact path="/course" component={CourseView} />
-        <Route exact path="/test" component={VideoUploader} />
+        <Route exact path="/test" component={ContactUsForm} />
         <ProtectedRoute exact path="/coursespage" component={CoursesPage} />
         {/* <ProtectedRoute exact path="/courseupload" component={CourseUploader} /> */}
 		<Route exact path="/courseupload" component={CourseUploader} />
