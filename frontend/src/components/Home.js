@@ -64,7 +64,7 @@ function App() {
 		instance
 			.get("video/5f147d66d4c1340a1b1ff499/", {
 				headers: {
-					"auth-token": `${process.env.AUTH_SOMETHING}`,
+					"auth-token": `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InNoYW5ld2FzYWhtZWRAZ21haWwuY29tIiwicGFzc3dvcmQiOiJQb3RhdG83MjYiLCJpYXQiOjE1OTU4NjA3MzYsImV4cCI6MTU5NTg2NDMzNn0.IRPW-1hioz4LZABZrmtYakjmDwORfKnzIWkwK3DzAXc`,
 				},
 			})
 			.then((res) => {
@@ -96,13 +96,13 @@ function App() {
 		instance
 			.get("course/", {
 				headers: {
-					"auth-token": `${process.env.AUTH_SOMETHING}`,
+					"auth-token": `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InNoYW5ld2FzYWhtZWRAZ21haWwuY29tIiwicGFzc3dvcmQiOiJQb3RhdG83MjYiLCJpYXQiOjE1OTU4NjA3MzYsImV4cCI6MTU5NTg2NDMzNn0.IRPW-1hioz4LZABZrmtYakjmDwORfKnzIWkwK3DzAXc`,
 				},
 			})
-			.then((res) => {
+			.then((res,err) => {
 				const courseList = res.data;
 				setCourseList(courseList);
-				console.log("course list fetched in home: " + courseList);
+				console.log("course list fetched in home: " + err);
 			});
 	}
 
@@ -111,7 +111,7 @@ function App() {
 		instance
 			.get("instructor/", {
 				headers: {
-					"auth-token": `${process.env.AUTH_SOMETHING}`,
+					"auth-token": `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InNoYW5ld2FzYWhtZWRAZ21haWwuY29tIiwicGFzc3dvcmQiOiJQb3RhdG83MjYiLCJpYXQiOjE1OTU4NjA3MzYsImV4cCI6MTU5NTg2NDMzNn0.IRPW-1hioz4LZABZrmtYakjmDwORfKnzIWkwK3DzAXc`,
 				},
 			})
 			.then((res) => {

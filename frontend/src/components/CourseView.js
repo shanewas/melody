@@ -118,7 +118,7 @@ const StyledMenuItem = withStyles((theme) => ({
   },
 }))(MenuItem);
 
-export default function CourseVIew() {
+export default function CourseVIew(props) {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState(null);
 
@@ -129,28 +129,17 @@ export default function CourseVIew() {
 
   const [instructor, setInstructor] = useState("");
 
+  const state = props.location.state;
+
+  console.log("course name inside single course view: " + state);
+
   useEffect(() => {
     getCourseData();
     getVideoData();
-  });
+  }, []);
 
   function getCourseData() {
-    axios
-      .get("course/", {
-        headers: {
-          "auth-token": `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InNoYW5ld2FzYWhtZWRAZ21haWwuY29tIiwicGFzc3dvcmQiOiJQb3RhdG83MjYiLCJpYXQiOjE1OTU4NjA3MzYsImV4cCI6MTU5NTg2NDMzNn0.IRPW-1hioz4LZABZrmtYakjmDwORfKnzIWkwK3DzAXc`,
-        },
-      })
-      .then((res) => {
-        const data = res.data;
-
-        // setState({ video: url });
-        setCourse(data[data.length - 1]);
-        console.log(data[data.length - 1]);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    setCourse(state);
   }
 
   function getVideoData() {
@@ -165,22 +154,6 @@ export default function CourseVIew() {
         // console.log(data.file);
         // setState({ video: url });
         setVideo(data.file);
-        getInstructorData();
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }
-
-  function getInstructorData() {
-    axios
-      .get("instructor/", {})
-      .then((res) => {
-        const data = res.data;
-
-        // setState({ video: url });
-        setInstructor(data[data.length - 4]);
-        console.log(data[data.length - 4]);
       })
       .catch((error) => {
         console.log(error);
@@ -218,7 +191,7 @@ export default function CourseVIew() {
             </Typography>
           </Grid>
           <Grid item lg={8} sm={12}>
-            <InstructorView />
+            <InstructorView instructorId={course.instructor} />
           </Grid>
           <Grid item container direction="row" lg={4} sm={12}>
             <Grid item lg={6}>
@@ -230,12 +203,12 @@ export default function CourseVIew() {
                 </Grid>
                 <Grid item>
                   <Typography variant="body1" className={classes.Typography}>
-                    subscribing with $15
+                    subscribing with {course.price}
                   </Typography>
                 </Grid>
                 <Grid item>
                   <Typography variant="body1" className={classes.Typography}>
-                    (for a month)
+                    (for {course.validity} days)
                   </Typography>
                 </Grid>
               </Grid>

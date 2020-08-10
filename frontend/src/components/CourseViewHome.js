@@ -59,7 +59,7 @@ export default function CourseViewHome(props) {
           </Typography>
           <Grid container spacing={2}>
             {courseList.map((course) => (
-              <Grid item key={course} xs={12} sm={12} md={2} lg={2}>
+              <Grid item key={course} xs={12} sm={4} md={2} lg={2}>
                 <CardThumbnailCourse course={course} />
               </Grid>
             ))}
