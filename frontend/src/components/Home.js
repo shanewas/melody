@@ -28,22 +28,13 @@ const useStyles = makeStyles((theme) => ({
 		width: "100%",
 		margin: "0px",
 	},
-	Divider: {
-		background: theme.palette.secondary.light,
-		// marginTop: theme.spacing(10),
-	},
-	Divider2: {
-		background: theme.palette.primary.light,
-		// marginTop: theme.spacing(10),
-		// marginBottom: theme.spacing(10),
-	},
 	Carousel: {
-		color: theme.palette.primary.light,
+		// color: theme.palette.primary.light,
 		// marginTop: theme.spacing(8),
 	},
 	Typography: {
 		// marginBottom: theme.spacing(4),
-		color: theme.palette.secondary.contrastText,
+		// color: theme.palette.secondary.contrastText,
 	},
 }));
 

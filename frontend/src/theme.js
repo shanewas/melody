@@ -5,7 +5,7 @@ const theme = createMuiTheme({
 		primary: {
 			// light: "#191c21",
 			light: "#ffffff",
-			main: "#f2f2f2", //page background color - primary 
+			main: "#f2f2f2", //page background color - primary
 			dark: "#000a12",
 			contrastText: "#fff",
 		},
@@ -13,14 +13,14 @@ const theme = createMuiTheme({
 			light: "#ffffff",
 			main: "#ffffff", //nav bar color - secondary
 			dark: "#c7c7c7",
-			contrastText: "#8b1115", //button, text color - accent 
+			contrastText: "#8b1115", //button, text color - accent
 		},
 		background: {
 			paper: "#000",
 			default: "#f2f2f2",
 		},
 		text: {
-			primary: "rgba(255, 255, 255, 0.54)",
+			primary: "rgba(139, 17, 21, 0.54)",
 			secondary: "rgba(0, 0, 0, 1)",
 			disabled: "rgba(255, 255, 255, 0.38)",
 			hint: "rgba(255, 255, 255, 0.38)",
