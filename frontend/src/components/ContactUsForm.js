@@ -8,7 +8,9 @@ import {
   Typography,
 } from "@material-ui/core";
 
+import theme from "../theme";
 import axios from "../api/Config";
+import { useForm } from "react-hook-form";
 
 const useStyles = makeStyles((theme) => ({
   Typography: {
@@ -45,12 +47,43 @@ const useStyles = makeStyles((theme) => ({
 
 export default function ContactUsForm(props) {
   const classes = useStyles();
+  const { register, handleSubmit, errors } = useForm();
+
+  function sendMessage(data, e) {
+    console.log(data);
+    axios
+      .post(
+        "contact/add/",
+        {
+          name: data.name,
+          email: data.email,
+          message: data.message,
+        },
+        {
+          headers: {
+            "auth-token": `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InNoYW5ld2FzYWhtZWRAZ21haWwuY29tIiwicGFzc3dvcmQiOiJQb3RhdG83MjYiLCJpYXQiOjE1OTU4NjA3MzYsImV4cCI6MTU5NTg2NDMzNn0.IRPW-1hioz4LZABZrmtYakjmDwORfKnzIWkwK3DzAXc`,
+            "Content-type": "multipart/form-data",
+          },
+        }
+      )
+      .then((res) => {
+        console.log(res);
+        e.target.reset(); // reset after form submit
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
   return (
     <Container>
       <Typography className={classes.Typography} variant="h4" align="center">
         Contact Us
       </Typography>
-      <form>
+      <form
+        className={classes.form}
+        noValidate
+        onSubmit={handleSubmit(sendMessage)}
+      >
         <div className={classes.Div}>
           <TextField
             name="name"
@@ -62,10 +95,16 @@ export default function ContactUsForm(props) {
             InputProps={{
               className: classes.input,
             }}
+            inputRef={register({ required: true })}
           />
+          {errors.name && (
+            <p style={{ color: theme.palette.secondary.contrastText }}>
+              Name is required
+            </p>
+          )}
           <TextField
             name="email"
-            type="text"
+            type="email"
             variant="outlined"
             className={classes.label}
             label="Email"
@@ -73,7 +112,17 @@ export default function ContactUsForm(props) {
             InputProps={{
               className: classes.input,
             }}
+            inputRef={register({
+              required: true,
+              pattern: /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/,
+            })}
           />
+          {errors.email && (
+            <p style={{ color: theme.palette.secondary.contrastText }}>
+              Email is invalid
+            </p>
+          )}
+
           <TextField
             name="message"
             type="text"
@@ -87,8 +136,19 @@ export default function ContactUsForm(props) {
             InputProps={{
               className: classes.input,
             }}
+            inputRef={register({ required: true })}
           />
-          <Button variant="contained" className={classes.Button} fullWidth>
+          {errors.message && (
+            <p style={{ color: theme.palette.secondary.contrastText }}>
+              Message is required
+            </p>
+          )}
+          <Button
+            type="submit"
+            variant="contained"
+            className={classes.Button}
+            fullWidth
+          >
             Send
           </Button>
         </div>
