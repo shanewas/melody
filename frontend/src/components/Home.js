@@ -15,7 +15,7 @@ import theme from "../theme";
 import StudentFeedbackCarousel from "./StudentFeedbackCarousel";
 
 import instance from "../api/Config";
-import ContactUsForm from "./ContactUsForm";
+import ContactUsForm from "./Forms/ContactUsForm";
 
 const useStyles = makeStyles((theme) => ({
   Divider: {

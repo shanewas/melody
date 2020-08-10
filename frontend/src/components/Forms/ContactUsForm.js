@@ -8,8 +8,8 @@ import {
   Typography,
 } from "@material-ui/core";
 
-import theme from "../theme";
-import axios from "../api/Config";
+import theme from "../../theme";
+import axios from "../../api/Config";
 import { useForm } from "react-hook-form";
 
 const useStyles = makeStyles((theme) => ({
