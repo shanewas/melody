@@ -36,15 +36,23 @@ import CoursesCategories from "../data/CourseCategoryData";
 import MusiciansList from "../data/MusiciansListData";
 import axios from "../api/Config";
 import auth from "../routes/auth";
+import { positions } from "@material-ui/system";
 
 const ITEM_HEIGHT = 48;
 
 const useStyles = makeStyles((theme) => ({
 	root: {
 		flexGrow: 1,
-		background: theme.palette.secondary.main,
+		width: "100%",
+		margin: "0px",
+		// background: theme.palette.secondary.main,
 	},
-
+	logo: {
+		flexGrow: 1,
+		[theme.breakpoints.up("md")]: {
+			flexGrow: 1,
+		},
+	},
 	button: {
 		color: theme.palette.secondary.contrastText,
 		"&:focus": {
@@ -52,6 +60,12 @@ const useStyles = makeStyles((theme) => ({
 		},
 		"&:active": {
 			outline: "none",
+		},
+	},
+	sectionLogoLeftDesktop: {
+		display: "none",
+		[theme.breakpoints.up("md")]: {
+			display: "flex",
 		},
 	},
 	sectionDesktop: {
@@ -224,197 +238,145 @@ export default function Navbar(props) {
 		<div className={classes.root}>
 			<AppBar position='fixed' style={{ background: "#fff" }}>
 				<Toolbar>
-					<Grid container direction='row'>
-						<Grid
-							item
-							container
-							justify='flex-start'
-							className={classes.sectionDesktop}
-							lg={4}
+					<div className={classes.sectionLogoLeftDesktop}>
+						<img
+							src={logo}
+							alt='MethodMelody'
+							height='auto'
+							width='100ch'
+							onClick={navigateToHome}
+						/>
+					</div>
+					<div className={classes.logo}>
+						<img src={logoShort} alt='MethodMelody' height='auto' width='40' />
+					</div>
+					<div className={classes.sectionDesktop}>
+						<Button
+							color='inherit'
+							variant='text'
+							endIcon={<ExpandMore />}
+							onClick={handleClick}
+							className={classes.button}
 						>
-							<img
-								src={logo}
-								alt='MethodMelody'
-								height='auto'
-								width='100ch'
-								onClick={navigateToHome}
-							/>
-						</Grid>
-						<Grid item container justify='center' lg={4}>
-							<img
-								src={logoShort}
-								alt='MethodMelody'
-								height='auto'
-								width='40'
-							/>
-						</Grid>
-						<Grid
-							lg={4}
-							item
-							container
-							justify='flex-end'
-							className={classes.sectionDesktop}
+							Courses
+						</Button>
+						<StyledMenu
+							id='customized-menu'
+							anchorEl={anchorEl}
+							keepMounted
+							open={Boolean(anchorEl)}
+							onClose={handleClose}
+							TransitionComponent={Fade}
+							PaperProps={{
+								style: {
+									maxHeight: ITEM_HEIGHT * 4.5,
+									width: "40ch",
+								},
+							}}
 						>
-							<Grid item>
-								<Button
-									color='inherit'
-									variant='text'
-									endIcon={<ExpandMore />}
-									onClick={handleClick}
-									className={classes.button}
-								>
-									Courses
-								</Button>
-								<StyledMenu
-									id='customized-menu'
-									anchorEl={anchorEl}
-									keepMounted
-									open={Boolean(anchorEl)}
-									onClose={handleClose}
-									TransitionComponent={Fade}
-									PaperProps={{
-										style: {
-											maxHeight: ITEM_HEIGHT * 4.5,
-											width: "40ch",
-										},
-									}}
-								>
-									{CoursesCategories.map((courseCategory, index) => (
-										<StyledMenuItem
-											alignItems='center'
-											onClick={navigateToCourse}
-										>
-											<ListItemAvatar>
-												<Avatar
-													alt={courseCategory.alt}
-													src={courseCategory.src}
-												/>
-											</ListItemAvatar>
-											<ListItemText primary={courseCategory.primary} />
-										</StyledMenuItem>
-									))}
-								</StyledMenu>
-							</Grid>
-							<Grid item>
-								<Button
-									color='inherit'
-									variant='text'
-									endIcon={<ExpandMore />}
-									onClick={handleMusiciansClick}
-									className={classes.button}
-								>
-									Musicians
-								</Button>
+							{CoursesCategories.map((courseCategory, index) => (
+								<StyledMenuItem alignItems='center' onClick={navigateToCourse}>
+									<ListItemAvatar>
+										<Avatar alt={courseCategory.alt} src={courseCategory.src} />
+									</ListItemAvatar>
+									<ListItemText primary={courseCategory.primary} />
+								</StyledMenuItem>
+							))}
+						</StyledMenu>
+					</div>
+					<div className={classes.sectionDesktop}>
+						<Button
+							color='inherit'
+							variant='text'
+							endIcon={<ExpandMore />}
+							onClick={handleMusiciansClick}
+							className={classes.button}
+						>
+							Musicians
+						</Button>
 
-								<StyledMenuMusicians
-									id='customized-menu'
-									anchorEl={mucisiansAnchorEl}
-									keepMounted
-									open={Boolean(mucisiansAnchorEl)}
-									onClose={handleMusiciansClose}
-									TransitionComponent={Fade}
-									//setting menu height and width
-									PaperProps={{
-										style: {
-											maxHeight: ITEM_HEIGHT * 4.5,
-											width: "50ch",
-										},
-									}}
-								>
-									{instructorList.map((instructor, index) => (
-										<StyledMenuItem
-											alignItems='center'
-											onClick={navigateToCourse}
-										>
-											<ListItemAvatar>
-												<Avatar
-													alt={instructor.name}
-													src={"http://162.0.231.67/" + instructor.photo}
-												/>
-											</ListItemAvatar>
-											<ListItemText primary={instructor.name} />
-										</StyledMenuItem>
-									))}
-								</StyledMenuMusicians>
-							</Grid>
-							<Grid item>
-								<Button
-									color='inherit'
-									variant='text'
-									className={classes.sectionDesktop && classes.button}
-									onClick={() => {
-										history.push("/courseupload");
-									}}
-								>
-									Course Upload
-								</Button>
-							</Grid>
-							<Grid item>
-								<Button
-									color='inherit'
-									variant='text'
-									className={classes.sectionDesktop && classes.button}
-								>
-									Cart
-								</Button>
-							</Grid>
-							<Grid item>
-								<Button
-									color='inherit'
-									variant='text'
-									className={classes.button}
-									onClick={loginControl}
-								>
-									{auth.isAuthenticated() ? "Logout" : "Login"}
-								</Button>
-							</Grid>
-						</Grid>
-						<Grid
-							item
-							container
-							justify='flex-end'
-							className={classes.sectionMobile}
-							lg={2}
+						<StyledMenuMusicians
+							id='customized-menu'
+							anchorEl={mucisiansAnchorEl}
+							keepMounted
+							open={Boolean(mucisiansAnchorEl)}
+							onClose={handleMusiciansClose}
+							TransitionComponent={Fade}
+							//setting menu height and width
+							PaperProps={{
+								style: {
+									maxHeight: ITEM_HEIGHT * 4.5,
+									width: "50ch",
+								},
+							}}
 						>
-							<IconButton
-								aria-label='show more'
-								// aria-controls={mobileMenuId}
-								aria-haspopup='true'
-								onClick={handleMobileMenuOpen}
-								color='inherit'
-								className={classes.button}
-							>
-								<MenuIcon />
-							</IconButton>
-							<StyledMenuMobile
-								id='customized-menu'
-								anchorEl={mobileMoreAnchorEl}
-								keepMounted
-								open={Boolean(mobileMoreAnchorEl)}
-								onClose={handleMobileMenuClose}
-								TransitionComponent={Fade}
-							>
-								<StyledMenuItem>
-									<ListItemIcon>
-										<AccountCircle fontSize='small' />
-									</ListItemIcon>
-									<ListItemText primary='Login' />
+							{instructorList.map((instructor, index) => (
+								<StyledMenuItem alignItems='center' onClick={navigateToCourse}>
+									<ListItemAvatar>
+										<Avatar
+											alt={instructor.name}
+											src={"http://162.0.231.67/" + instructor.photo}
+										/>
+									</ListItemAvatar>
+									<ListItemText primary={instructor.name} />
 								</StyledMenuItem>
-								<StyledMenuItem>
-									<ListItemIcon>
-										<ShoppingCart fontSize='small' />
-									</ListItemIcon>
-									<ListItemText primary='Cart' />
-								</StyledMenuItem>
-								<StyledMenuItem onClick={handleClick}>
-									<ListItemIcon>
-										<ArrowBackIos fontSize='small' />
-									</ListItemIcon>
-									<ListItemText primary='Browse' />
-								</StyledMenuItem>
-							</StyledMenuMobile>
-						</Grid>
-					</Grid>
+							))}
+						</StyledMenuMusicians>
+					</div>
+					<div className={classes.sectionDesktop}>
+						<Button color='inherit' variant='text' className={classes.button}>
+							Cart
+						</Button>
+					</div>
+					<div className={classes.sectionDesktop}>
+						<Button
+							color='inherit'
+							variant='text'
+							className={classes.button}
+							onClick={loginControl}
+						>
+							{auth.isAuthenticated() ? "Logout" : "Login"}
+						</Button>
+					</div>
+					<div className={classes.sectionMobile}>
+						<IconButton
+							aria-label='show more'
+							// aria-controls={mobileMenuId}
+							aria-haspopup='true'
+							onClick={handleMobileMenuOpen}
+							color='inherit'
+							className={classes.button}
+						>
+							<MenuIcon />
+						</IconButton>
+						<StyledMenuMobile
+							id='customized-menu'
+							anchorEl={mobileMoreAnchorEl}
+							keepMounted
+							open={Boolean(mobileMoreAnchorEl)}
+							onClose={handleMobileMenuClose}
+							TransitionComponent={Fade}
+						>
+							<StyledMenuItem>
+								<ListItemIcon>
+									<AccountCircle fontSize='small' />
+								</ListItemIcon>
+								<ListItemText primary='Login' />
+							</StyledMenuItem>
+							<StyledMenuItem>
+								<ListItemIcon>
+									<ShoppingCart fontSize='small' />
+								</ListItemIcon>
+								<ListItemText primary='Cart' />
+							</StyledMenuItem>
+							<StyledMenuItem onClick={handleClick}>
+								<ListItemIcon>
+									<ArrowBackIos fontSize='small' />
+								</ListItemIcon>
+								<ListItemText primary='Browse' />
+							</StyledMenuItem>
+						</StyledMenuMobile>
+					</div>
 				</Toolbar>
 			</AppBar>
 		</div>
