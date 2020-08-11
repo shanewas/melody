@@ -76,7 +76,7 @@ export default function SimplePaper() {
 						variant='h2'
 						component='h2'
 						align='left'
-						className={classes.TypographyTitle}
+						// className={classes.TypographyTitle}
 					>
 						TODAY'S <br />
 						THE DAY
@@ -87,7 +87,7 @@ export default function SimplePaper() {
 						variant='h6'
 						component='h6'
 						align='left'
-						className={classes.TypographyText}
+						// className={classes.TypographyText}
 					>
 						Learn from 10+ of Bangladesh’s most acclaimed Musicians
 					</Typography>

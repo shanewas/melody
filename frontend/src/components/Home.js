@@ -29,12 +29,12 @@ const useStyles = makeStyles((theme) => ({
 		margin: "0px",
 	},
 	Carousel: {
-		// color: theme.palette.primary.light,
+		color: theme.palette.primary.light,
 		// marginTop: theme.spacing(8),
 	},
 	Typography: {
 		// marginBottom: theme.spacing(4),
-		// color: theme.palette.secondary.contrastText,
+		color: theme.palette.secondary.contrastText,
 	},
 }));
 
