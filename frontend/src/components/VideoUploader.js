@@ -102,7 +102,8 @@ export default function VideoUploader(props) {
     // formData.append("document", document);
     videoFormData = formData;
 
-    uploadDocument(documentFormData);
+    // uploadDocument(documentFormData);
+    uploadVideo(videoFormData);
   };
 
   const handleDocumentSubmit = (doc) => {
@@ -153,7 +154,7 @@ export default function VideoUploader(props) {
         console.log("document id in video upload: " + documentIdArray[0]);
         videoFormData.append("document", documentIdArray[0]);
 
-        console.log(videoFormData);
+        
         uploadVideo(videoFormData);
       });
   };
@@ -334,21 +335,21 @@ export default function VideoUploader(props) {
                 </Fab>
               </Grid>
             </Grid>
-            <LinearProgress
+            {/* <LinearProgress
               style={{ background: theme.palette.secondary.contrastText }}
-            />
+            /> */}
             <Divider className={classes.Divider} />
           </div>
         ))}
 
-        <Button
+        {/* <Button
           variant="contained"
           type="submit"
           className={classes.Button}
           onClick={handleSubmit}
         >
           Upload Videos
-        </Button>
+        </Button> */}
       </form>
     </Container>
   );

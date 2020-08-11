@@ -21,7 +21,7 @@ const useStyles = makeStyles({
     background: theme.palette.secondary.main,
   },
   cardMedia: {
-    paddingTop: "66.25%", // 16:9
+    paddingTop: "120%", // 16:9
   },
   cardContent: {
     flexGrow: 1,

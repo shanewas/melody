@@ -4,7 +4,7 @@ import {
   Container,
   TextField,
   makeStyles,
-  Divider,
+  Paper,
   Typography,
 } from "@material-ui/core";
 
@@ -14,7 +14,7 @@ import { useForm } from "react-hook-form";
 
 const useStyles = makeStyles((theme) => ({
   Typography: {
-    marginTop: theme.spacing(5),
+    marginTop: theme.spacing(10),
     color: theme.palette.secondary.contrastText,
   },
   label: {
@@ -40,8 +40,11 @@ const useStyles = makeStyles((theme) => ({
       backgroundColor: theme.palette.primary.dark,
     },
   },
-  Div: {
+
+  Paper: {
+    backgroundColor: theme.palette.primary.light,
     marginTop: theme.spacing(5),
+    padding: theme.spacing(5),
   },
 }));
 
@@ -76,83 +79,85 @@ export default function ContactUsForm(props) {
   }
   return (
     <Container>
-      <Typography className={classes.Typography} variant="h4" align="center">
+      <Typography className={classes.Typography} variant="h4" component="h4" align="center">
         Contact Us
       </Typography>
-      <form
-        className={classes.form}
-        noValidate
-        onSubmit={handleSubmit(sendMessage)}
-      >
-        <div className={classes.Div}>
-          <TextField
-            name="name"
-            type="text"
-            variant="outlined"
-            className={classes.label}
-            label="Name"
-            fullWidth
-            InputProps={{
-              className: classes.input,
-            }}
-            inputRef={register({ required: true })}
-          />
-          {errors.name && (
-            <p style={{ color: theme.palette.secondary.contrastText }}>
-              Name is required
-            </p>
-          )}
-          <TextField
-            name="email"
-            type="email"
-            variant="outlined"
-            className={classes.label}
-            label="Email"
-            fullWidth
-            InputProps={{
-              className: classes.input,
-            }}
-            inputRef={register({
-              required: true,
-              pattern: /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/,
-            })}
-          />
-          {errors.email && (
-            <p style={{ color: theme.palette.secondary.contrastText }}>
-              Email is invalid
-            </p>
-          )}
+      <Paper className={classes.Paper}>
+        <form
+          className={classes.form}
+          noValidate
+          onSubmit={handleSubmit(sendMessage)}
+        >
+          <div>
+            <TextField
+              name="name"
+              type="text"
+              variant="outlined"
+              className={classes.label}
+              label="Name"
+              fullWidth
+              InputProps={{
+                className: classes.input,
+              }}
+              inputRef={register({ required: true })}
+            />
+            {errors.name && (
+              <p style={{ color: theme.palette.secondary.contrastText }}>
+                Name is required
+              </p>
+            )}
+            <TextField
+              name="email"
+              type="email"
+              variant="outlined"
+              className={classes.label}
+              label="Email"
+              fullWidth
+              InputProps={{
+                className: classes.input,
+              }}
+              inputRef={register({
+                required: true,
+                pattern: /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/,
+              })}
+            />
+            {errors.email && (
+              <p style={{ color: theme.palette.secondary.contrastText }}>
+                Email is invalid
+              </p>
+            )}
 
-          <TextField
-            name="message"
-            type="text"
-            variant="outlined"
-            className={classes.label}
-            label="Message"
-            fullWidth
-            multiline
-            rowsMax={10}
-            rows={10}
-            InputProps={{
-              className: classes.input,
-            }}
-            inputRef={register({ required: true })}
-          />
-          {errors.message && (
-            <p style={{ color: theme.palette.secondary.contrastText }}>
-              Message is required
-            </p>
-          )}
-          <Button
-            type="submit"
-            variant="contained"
-            className={classes.Button}
-            fullWidth
-          >
-            Send
-          </Button>
-        </div>
-      </form>
+            <TextField
+              name="message"
+              type="text"
+              variant="outlined"
+              className={classes.label}
+              label="Message"
+              fullWidth
+              multiline
+              rowsMax={10}
+              rows={10}
+              InputProps={{
+                className: classes.input,
+              }}
+              inputRef={register({ required: true })}
+            />
+            {errors.message && (
+              <p style={{ color: theme.palette.secondary.contrastText }}>
+                Message is required
+              </p>
+            )}
+            <Button
+              type="submit"
+              variant="contained"
+              className={classes.Button}
+              fullWidth
+            >
+              Send
+            </Button>
+          </div>
+        </form>
+      </Paper>
     </Container>
   );
 }

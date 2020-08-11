@@ -9,6 +9,7 @@ import Home from "./components/Home";
 import Login from "./components/SignIn";
 import Signup from "./components/SignUp";
 import CourseView from "./components/CourseView";
+import InstructorPage from "./components/InstructorPage";
 import CoursesPage from "./components/CoursesPage";
 import CourseUploader from "./components/CourseUploader";
 import { ProtectedRoute } from "./routes/protected.route";
@@ -26,7 +27,7 @@ export default function App() {
         <Route exact path="/signup" component={Signup} />
         {/* <ProtectedRoute exact path='/course' component={CourseView} /> */}
         <Route exact path="/course" component={CourseView} />
-
+        <Route exact path="/instructor" component={InstructorPage} />
         <ProtectedRoute exact path="/coursespage" component={CoursesPage} />
         {/* <ProtectedRoute exact path="/courseupload" component={CourseUploader} /> */}
         <Route exact path="/courseupload" component={CourseUploader} />
