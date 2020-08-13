@@ -1,88 +1,42 @@
-import instance from "../api/Config";
+import axios from "../api/Config";
 
 class Auth {
 	constructor() {
 		this.authenticated = false;
 	}
 
-	login(cb) {
+	login() {
 		this.authenticated = true;
-		cb();
 	}
 
-	logout(cb) {
+	logout() {
 		this.authenticated = false;
-		cb();
+		localStorage.removeItem("v_token");
+		localStorage.removeItem("v_auth");
 	}
 
 	isAuthenticated() {
-		return this.authenticated;
+		let _id = localStorage.getItem("v_token");
+		axios
+			.get(`user/_ga/${_id}`, {
+				headers: {
+					"auth-token": `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InNoYW5ld2FzYWhtZWRAZ21haWwuY29tIiwicGFzc3dvcmQiOiJQb3RhdG83MjYiLCJpYXQiOjE1OTU4NjA3MzYsImV4cCI6MTU5NTg2NDMzNn0.IRPW-1hioz4LZABZrmtYakjmDwORfKnzIWkwK3DzAXc`,
+				},
+			})
+			.then((res) => {
+				if (res.data.status === "OK") {
+					console.log("authas" + JSON.stringify(res.data.status));
+					return this.authenticated;
+				} else {
+					this.authenticated = false;
+					return this.authenticated;
+				}
+			})
+			.catch((err) => {
+				// localStorage.removeItem("v_token");
+				// localStorage.removeItem("v_auth");
+			});
 	}
-
-	// authentication(req, res, next) {
-	// 	try {
-	// 		if (req.headers.cookie) {
-	// 			const token = req.headers.cookie
-	// 				.split("; ")
-	// 				.find((c) => c.startsWith("token"))
-	// 				.split("=")[1];
-	// 			if (token !== "token" && token !== null) {
-	// 				var email, password;
-	// 				try {
-	// 					const decoded = jwt.verify(token, process.env.SECRET_KEY);
-	// 					email = decoded.email;
-	// 					password = decoded.password;
-	// 				} catch (error) {
-	// 					console.log("Auth error !");
-	// 				}
-
-	// 				User.find({ email })
-	// 					.then((user) => {
-	// 						if (user.length < 1) {
-	// 							console.log({ message: "Not Found ..." });
-	// 						}
-	// 						bcrypt.compare(password, user[0].password, (err, result) => {
-	// 							if (err) {
-	// 								console.log({ message: "Auth failed!" });
-	// 								return res.sendStatus(403);
-	// 							}
-	// 							if (result) {
-	// 								// console.log({ message: `Welcome back ${email} !` });
-	// 								next();
-	// 							} else {
-	// 								console.log({ message: `Auth Failed !` });
-	// 								return res.sendStatus(403);
-	// 							}
-	// 						});
-	// 					})
-	// 					.catch((err) => {
-	// 						console.log({
-	// 							error: err,
-	// 							message: "Error !!",
-	// 						});
-	// 						return res.sendStatus(403);
-	// 					});
-	// 			} else {
-	// 				return res.sendStatus(403);
-	// 			}
-	// 		}
-	// 		//  else if (req.headers["set-cookie"][0]) {
-	// 		// 	token = req.headers["set-cookie"][0]
-	// 		// 		.split("; ")
-	// 		// 		.find((c) => c.startsWith("token"))
-	// 		// 		.split("=")[1];
-	// 		// }
-	// 		else {
-	// 			return res.status(403).json({
-	// 				message: `Blah!!!`,
-	// 			});
-	// 		}
-	// 	} catch (error) {
-	// 		return res.status(403).json({
-	// 			message: `Forbidden!!!`,
-	// 		});
-	// 	}
-	// }
 }
 
 export default new Auth();

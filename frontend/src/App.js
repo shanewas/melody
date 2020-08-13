@@ -25,7 +25,7 @@ export default function App() {
 				<Route exact path='/login' component={Login} />
 				<Route exact path='/signup' component={Signup} />
 				{/* <ProtectedRoute exact path='/course' component={CourseView} /> */}
-				<Route exact path='/course' component={CourseView} />
+				<ProtectedRoute exact path='/course' component={CourseView} />
 				<Route exact path='/test' component={VideoUploader} />
 				<ProtectedRoute exact path='/coursespage' component={CoursesPage} />
 				{/* <ProtectedRoute exact path="/courseupload" component={CourseUploader} /> */}

@@ -217,13 +217,9 @@ export default function Navbar(props) {
 	const history = useHistory();
 	function loginControl() {
 		if (auth.isAuthenticated()) {
-			auth.logout(() => {
-				history.push("/");
-			});
+			auth.logout();
 		} else {
-			auth.login(() => {
-				history.push("/login");
-			});
+			history.push("/login");
 		}
 	}
 

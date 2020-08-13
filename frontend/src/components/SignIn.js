@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
@@ -13,6 +13,7 @@ import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import auth from "../routes/auth";
+import axios from "../api/Config";
 import "../theme";
 import theme from "../theme";
 import { useHistory } from "react-router-dom";
@@ -73,10 +74,33 @@ const useStyles = makeStyles((theme) => ({
 export default function SignIn() {
 	const classes = useStyles();
 
+	const [email, setEmail] = useState(null);
+	const [password, setPassword] = useState(null);
+
 	const history = useHistory();
 	function navigateToSignup() {
 		history.push("/signup");
 	}
+
+	const userLogin = (data) => {
+		axios
+			.post("user/login/", data, {
+				headers: {
+					"auth-token": `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InNoYW5ld2FzYWhtZWRAZ21haWwuY29tIiwicGFzc3dvcmQiOiJQb3RhdG83MjYiLCJpYXQiOjE1OTU4NjA3MzYsImV4cCI6MTU5NTg2NDMzNn0.IRPW-1hioz4LZABZrmtYakjmDwORfKnzIWkwK3DzAXc`,
+					"Content-type": "application/json",
+				},
+			})
+			.then((res) => {
+				auth.login();
+				localStorage.setItem("v_token", res.data.v_token);
+				localStorage.setItem("v_auth", "OK");
+			})
+			.catch((res) => {
+				auth.logout();
+				localStorage.removeItem("v_token");
+				localStorage.removeItem("v_auth");
+			});
+	};
 
 	return (
 		<Container component='main' maxWidth='xs' className={classes.root}>
@@ -106,6 +130,9 @@ export default function SignIn() {
 						InputProps={{
 							className: classes.input,
 						}}
+						onChange={(event) => {
+							setEmail(event.target.value);
+						}}
 					/>
 					<TextField
 						variant='outlined'
@@ -119,6 +146,9 @@ export default function SignIn() {
 						autoComplete='current-password'
 						InputProps={{
 							className: classes.input,
+						}}
+						onChange={(event) => {
+							setPassword(event.target.value);
 						}}
 					/>
 					<FormControlLabel
@@ -137,9 +167,8 @@ export default function SignIn() {
 						color='primary'
 						className={classes.submit}
 						onClick={() => {
-							auth.login(() => {
-								history.push("/course");
-							});
+							userLogin({ email, password });
+							history.push("/");
 						}}
 					>
 						Sign In
