@@ -90,7 +90,7 @@ export default function InstructorUploader(props) {
             color: theme.palette.secondary.contrastText,
             padding: theme.spacing(5, 0, 5, 5),
           }}
-          align="left"
+          align="center"
         >
           Add New Instructor
         </Typography>

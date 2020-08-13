@@ -16,7 +16,7 @@ const theme = createMuiTheme({
 			contrastText: "#8b1115", //button, text color - accent
 		},
 		background: {
-			paper: "#000",
+			paper: "#ffffff",
 			default: "#f2f2f2",
 		},
 		text: {
