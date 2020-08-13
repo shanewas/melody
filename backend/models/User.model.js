@@ -18,6 +18,7 @@ var UserSchema = new Schema(
 		password: { type: String, required: true },
 		course: [{ type: Schema.Types.ObjectId }],
 		previousCourse: [{ type: Schema.Types.ObjectId }],
+		v_token: { type: String },
 	},
 	{ timestamps: true }
 );

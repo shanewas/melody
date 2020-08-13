@@ -28,38 +28,70 @@ const user = multer({
 	fileFilter,
 });
 
+//GET by ID
+router.route("/:userId").get((req, res) => {
+	const id = req.params.userId;
+	User.findById(id)
+		.then((doc) => {
+			if (doc) {
+				res.status(200).json(doc);
+			} else {
+				res.status(404).json(doc);
+			}
+		})
+		.catch((err) => res.status(400).json("Error: " + err));
+});
+
+//GET by TOKEN
+router.route("/_ga/:token").get((req, res) => {
+	const v_token = req.params.token;
+	User.find({ v_token })
+		.then((doc) => {
+			if (doc < 1) {
+				res.status(200).json({ status: "CREEP" });
+			} else {
+				res.status(200).json({ status: "OK" });
+			}
+		})
+		.catch((err) => res.status(400).json("Error: " + err));
+});
+
 router.route(`/login`).post((req, res) => {
 	const email = req.body.email;
 	const password = req.body.password;
 	User.find({ email })
-		.then((user) => {
-			if (user.length < 1) {
-				res.cookie("token", "token", { httpOnly: true });
-				return res.status(404).json({ message: "Not Found ..." });
-			} else {
-				bcrypt.compare(password, user[0].password, (err, result) => {
-					if (err) {
-						return res.status(401).json({ message: "Auth failed!" });
-					}
+		.then((docs) => {
+			if (docs.length > 0) {
+				bcrypt.compare(password, docs[0].password, (err, result) => {
+					// if (err) {
+					// 	return res.status(401).json({ message: "Auth failed!" });
+					// }
 					if (result) {
 						jwt.sign(
 							{ email, password },
 							process.env.SECRET_KEY,
 							{ expiresIn: "1h" },
 							(err, token) => {
-								res.cookie("token", token, { httpOnly: true });
-								// res.header("auth-token", token).send(token);
+								User.findByIdAndUpdate(
+									docs[0]._id,
+									{ $set: { v_token: token } },
+									{ useFindAndModify: false }
+								).catch((err) => res.status(400).json("v_token error: " + err));
 								return res.status(200).json({
 									message: "Authentication Successful !",
+									v_token: token,
 								});
 							}
 						);
 					} else {
-						res.cookie("token", "token", { httpOnly: true });
 						return res.status(401).json({
-							message: "Auth Failed !!!",
+							message: "Authentication Failed !!!",
 						});
 					}
+				});
+			} else {
+				return res.status(401).json({
+					message: "Authentication Failed !!!",
 				});
 			}
 		})
