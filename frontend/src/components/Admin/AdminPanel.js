@@ -16,6 +16,13 @@ import {
   Toolbar,
   CssBaseline,
 } from "@material-ui/core";
+import {
+  ShoppingBasketOutlined,
+  Person,
+  PersonOutline,
+  LocalLibrary,
+  LocalLibraryOutlined,
+} from "@material-ui/icons";
 import theme from "../../theme";
 import axios from "../../api/Config";
 
@@ -23,6 +30,7 @@ import { useHistory } from "react-router-dom";
 
 import Drawer from "./Drawer";
 import Appbar from "./Appbar";
+import ListIcon from "@material-ui/icons/List";
 
 const ITEM_HEIGHT = 48;
 
@@ -52,6 +60,16 @@ const useStyles = makeStyles((theme) => ({
   content: {
     flexGrow: 1,
     padding: theme.spacing(3),
+  },
+  Icon: {
+    color: theme.palette.secondary.contrastText,
+    fontSize: 30,
+  },
+  TitleText: {
+    color: theme.palette.text,
+  },
+  ValueText: {
+    color: theme.palette.secondary.contrastText,
   },
 }));
 
@@ -102,6 +120,138 @@ export default function AdminPanel() {
           direction="row"
           style={{ backgroundColor: theme.palette.primary.main }}
         >
+          <Grid
+            item
+            container
+            direction="row"
+            xs={12}
+            style={{ marginLeft: theme.spacing(3) }}
+          >
+            <Grid item xs={2}>
+              <Paper
+                style={{
+                  marginLeft: theme.spacing(2),
+                  padding: theme.spacing(2, 1, 2, 1),
+                }}
+              >
+                <Grid
+                  container
+                  direction="column"
+                  justify="center"
+                  alignItems="center"
+                  spacing={1}
+                >
+                  <Grid item>
+                    <ShoppingBasketOutlined className={classes.Icon} />
+                  </Grid>
+                  <Grid item>
+                    <Typography variant="body2" className={classes.TitleText}>
+                      Purchased Courses
+                    </Typography>
+                  </Grid>
+                  <Grid item>
+                    {" "}
+                    <Typography variant="h5" className={classes.ValueText}>
+                      14
+                    </Typography>
+                  </Grid>
+                </Grid>
+              </Paper>
+            </Grid>
+            <Grid item xs={2}>
+              <Paper
+                style={{
+                  marginLeft: theme.spacing(2),
+                  padding: theme.spacing(2, 1, 2, 1),
+                }}
+              >
+                <Grid
+                  container
+                  direction="column"
+                  justify="center"
+                  alignItems="center"
+                  spacing={1}
+                >
+                  <Grid item>
+                    <LocalLibraryOutlined className={classes.Icon} />
+                  </Grid>
+                  <Grid item>
+                    <Typography variant="body2" className={classes.TitleText}>
+                      Number of Students
+                    </Typography>
+                  </Grid>
+                  <Grid item>
+                    {" "}
+                    <Typography variant="h5" className={classes.ValueText}>
+                      221
+                    </Typography>
+                  </Grid>
+                </Grid>
+              </Paper>
+            </Grid>
+            <Grid item xs={2}>
+              <Paper
+                style={{
+                  marginLeft: theme.spacing(2),
+                  padding: theme.spacing(2, 1, 2, 1),
+                }}
+              >
+                <Grid
+                  container
+                  direction="column"
+                  justify="center"
+                  alignItems="center"
+                  spacing={1}
+                >
+                  <Grid item>
+                    <ListIcon className={classes.Icon} />
+                  </Grid>
+                  <Grid item>
+                    <Typography variant="body2" className={classes.TitleText}>
+                      Total Courses
+                    </Typography>
+                  </Grid>
+                  <Grid item>
+                    {" "}
+                    <Typography variant="h5" className={classes.ValueText}>
+                      45
+                    </Typography>
+                  </Grid>
+                </Grid>
+              </Paper>
+            </Grid>
+            <Grid item xs={2}>
+              <Paper
+                style={{
+                  marginLeft: theme.spacing(5),
+                  padding: theme.spacing(2, 1, 2, 1),
+                }}
+              >
+                <Grid
+                  container
+                  direction="column"
+                  justify="center"
+                  alignItems="center"
+                  spacing={1}
+                >
+                  <Grid item>
+                    <PersonOutline className={classes.Icon} />
+                  </Grid>
+                  <Grid item>
+                    <Typography variant="body2" className={classes.TitleText}>
+                      Total Instructors
+                    </Typography>
+                  </Grid>
+                  <Grid item>
+                    {" "}
+                    <Typography variant="h5" className={classes.ValueText}>
+                      5
+                    </Typography>
+                  </Grid>
+                </Grid>
+              </Paper>
+            </Grid>
+          </Grid>
           <Grid item xs={12}>
             <Paper className={classes.Paper}>
               <Typography variant="h5">Messages</Typography>
