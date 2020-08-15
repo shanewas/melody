@@ -79,6 +79,7 @@ router.route(`/login`).post((req, res) => {
 								).catch((err) => res.status(400).json("v_token error: " + err));
 								return res.status(200).json({
 									message: "Authentication Successful !",
+									email: docs[0].email,
 									v_token: token,
 								});
 							}
