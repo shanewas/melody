@@ -18,6 +18,7 @@ import {
   Contacts,
   LocalActivity,
   Stars,
+  EditOutlined,
   Dashboard,
 } from "@material-ui/icons";
 import ListIcon from "@material-ui/icons/List";
@@ -55,9 +56,19 @@ const DrawerCustom = (props) => {
       onClick: () => history.push("/courseupload"),
     },
     {
+      text: "Edit Course",
+      icon: <EditOutlined />,
+      // onClick: () => history.push("/courseedit"),
+    },
+    {
       text: "Add Instructor",
       icon: <PersonAdd />,
       onClick: () => history.push("/instructorupload"),
+    },
+    {
+      text: "Edit Instructor",
+      icon: <EditOutlined />,
+      onClick: () => history.push("/instructoredit"),
     },
   ];
   const drawerItemList2 = [

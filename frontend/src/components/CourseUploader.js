@@ -344,7 +344,6 @@ export default function CourseUploader() {
                           name="instructor"
                           key={option.name}
                           value={option._id}
-                          style={{ color: theme.palette.primary.light }}
                           inputRef={register({ required: true })}
                         >
                           {option.name}
@@ -395,11 +394,7 @@ export default function CourseUploader() {
                       className={classes.label}
                     >
                       {categories.map((option) => (
-                        <MenuItem
-                          key={option.value}
-                          value={option.value}
-                          style={{ color: theme.palette.primary.light }}
-                        >
+                        <MenuItem key={option.value} value={option.value}>
                           {option.label}
                         </MenuItem>
                       ))}
@@ -420,11 +415,7 @@ export default function CourseUploader() {
                       className={classes.label}
                     >
                       {levels.map((option) => (
-                        <MenuItem
-                          key={option.value}
-                          value={option.value}
-                          style={{ color: theme.palette.primary.light }}
-                        >
+                        <MenuItem key={option.value} value={option.value}>
                           {option.label}
                         </MenuItem>
                       ))}
@@ -445,11 +436,7 @@ export default function CourseUploader() {
                       className={classes.label}
                     >
                       {modules.map((option) => (
-                        <MenuItem
-                          key={option.value}
-                          value={option.value}
-                          style={{ color: theme.palette.primary.light }}
-                        >
+                        <MenuItem key={option.value} value={option.value}>
                           {option.label}
                         </MenuItem>
                       ))}

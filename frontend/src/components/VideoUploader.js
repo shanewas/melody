@@ -154,7 +154,6 @@ export default function VideoUploader(props) {
         console.log("document id in video upload: " + documentIdArray[0]);
         videoFormData.append("document", documentIdArray[0]);
 
-        
         uploadVideo(videoFormData);
       });
   };
@@ -260,11 +259,7 @@ export default function VideoUploader(props) {
                   onChange={(event) => handleChangeInput(index, event)}
                 >
                   {eligibilityStatusList.map((eligibilityStatus) => (
-                    <MenuItem
-                      key={eligibilityStatus}
-                      value={eligibilityStatus}
-                      style={{ color: theme.palette.primary.light }}
-                    >
+                    <MenuItem key={eligibilityStatus} value={eligibilityStatus}>
                       {eligibilityStatus}
                     </MenuItem>
                   ))}

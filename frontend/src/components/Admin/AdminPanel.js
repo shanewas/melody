@@ -364,6 +364,7 @@ export default function AdminPanel() {
                   <TableHead>
                     <TableRow>
                       <TableCell>Instructor Name</TableCell>
+                      <TableCell align="center">Earnings (BDT)</TableCell>
                       <TableCell align="right">Sales</TableCell>
                     </TableRow>
                   </TableHead>
@@ -371,6 +372,9 @@ export default function AdminPanel() {
                     {instructorList.map((instructor) => (
                       <TableRow key={instructor.name}>
                         <TableCell component="th">{instructor.name}</TableCell>
+                        <TableCell component="th" align="center">
+                          {instructor.earnings}
+                        </TableCell>
                         <TableCell align="right">
                           {Math.floor(Math.random() * (20 - 5)) + 5}
                         </TableCell>

@@ -12,7 +12,7 @@ const useStyles = makeStyles((theme) => ({
     color: theme.palette.secondary.contrastText,
   },
   ExpansionPanel: {
-    background: theme.palette.primary.light,
+    color: theme.palette.primary.light,
   },
 }));
 
@@ -50,7 +50,6 @@ export default function FAQView() {
             learn your desired musical instrument. 
             Whether you want to learn singing, playing instrument or music production, MethodMelody is 
             your one stop solution to get into music."
-          className={classes.ExpansionPanel}
         />
       </Grid>
       <Grid item lg={6} md={6} sm={6} xs={12}>
