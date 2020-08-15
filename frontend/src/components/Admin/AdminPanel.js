@@ -88,7 +88,15 @@ const useStyles = makeStyles((theme) => ({
 export default function AdminPanel() {
   const classes = useStyles();
   const [messageList, setMessageList] = useState([]);
+  const [instructorList, setInstructorList] = useState([]);
+  const [courseList, setCourseList] = useState([]);
   const theme = useTheme();
+
+  useEffect(() => {
+    getInstructors();
+    getMessages();
+    getCourses();
+  }, []);
 
   function getMessages() {
     axios
@@ -109,7 +117,37 @@ export default function AdminPanel() {
       });
   }
 
-  getMessages();
+  //get all instructor list from server later it will be list of all popular instructors
+  function getInstructors() {
+    axios
+      .get("instructor/", {
+        headers: {
+          "auth-token": `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InNoYW5ld2FzYWhtZWRAZ21haWwuY29tIiwicGFzc3dvcmQiOiJQb3RhdG83MjYiLCJpYXQiOjE1OTU4NjA3MzYsImV4cCI6MTU5NTg2NDMzNn0.IRPW-1hioz4LZABZrmtYakjmDwORfKnzIWkwK3DzAXc`,
+        },
+      })
+      .then((res) => {
+        const instructorList = res.data;
+        setInstructorList(instructorList);
+        console.log(
+          "instructor list fetched in admin: " + instructorList.length
+        );
+      });
+  }
+
+  //get all courses from server later it will be list all best selling courses
+  function getCourses() {
+    axios
+      .get("course/", {
+        headers: {
+          "auth-token": `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InNoYW5ld2FzYWhtZWRAZ21haWwuY29tIiwicGFzc3dvcmQiOiJQb3RhdG83MjYiLCJpYXQiOjE1OTU4NjA3MzYsImV4cCI6MTU5NTg2NDMzNn0.IRPW-1hioz4LZABZrmtYakjmDwORfKnzIWkwK3DzAXc`,
+        },
+      })
+      .then((res, err) => {
+        const courseList = res.data;
+        setCourseList(courseList);
+        console.log("course list fetched in admin: " + courseList.length);
+      });
+  }
 
   const history = useHistory();
   function navigateToCourseUploader() {
@@ -245,7 +283,7 @@ export default function AdminPanel() {
                   <Grid item>
                     {" "}
                     <Typography variant="h5" className={classes.ValueText}>
-                      45
+                      {courseList.length}
                     </Typography>
                   </Grid>
                 </Grid>
@@ -276,7 +314,7 @@ export default function AdminPanel() {
                   <Grid item>
                     {" "}
                     <Typography variant="h5" className={classes.ValueText}>
-                      5
+                      {instructorList.length}
                     </Typography>
                   </Grid>
                 </Grid>
@@ -300,10 +338,42 @@ export default function AdminPanel() {
                     </TableRow>
                   </TableHead>
                   <TableBody>
-                    {courses.map((course) => (
-                      <TableRow key={course.name}>
-                        <TableCell component="th">{course.name}</TableCell>
-                        <TableCell align="right">{course.sales}</TableCell>
+                    {courseList.map((course) => (
+                      <TableRow key={course.title}>
+                        <TableCell component="th">{course.title}</TableCell>
+                        <TableCell align="right">
+                          {Math.floor(Math.random() * (50 - 10)) + 10}
+                        </TableCell>
+                      </TableRow>
+                    ))}
+                  </TableBody>
+                </Table>
+              </div>
+            </Paper>
+          </Grid>
+          <Grid item xs={6}>
+            <Paper className={classes.Paper}>
+              <Typography
+                variant="h5"
+                style={{ color: theme.palette.secondary.contrastText }}
+              >
+                Popular Instructors
+              </Typography>
+              <div className={classes.root1}>
+                <Table className={classes.table} aria-label="simple table">
+                  <TableHead>
+                    <TableRow>
+                      <TableCell>Instructor Name</TableCell>
+                      <TableCell align="right">Sales</TableCell>
+                    </TableRow>
+                  </TableHead>
+                  <TableBody>
+                    {instructorList.map((instructor) => (
+                      <TableRow key={instructor.name}>
+                        <TableCell component="th">{instructor.name}</TableCell>
+                        <TableCell align="right">
+                          {Math.floor(Math.random() * (20 - 5)) + 5}
+                        </TableCell>
                       </TableRow>
                     ))}
                   </TableBody>
@@ -312,7 +382,7 @@ export default function AdminPanel() {
             </Paper>
           </Grid>
 
-          <Grid item xs={6}>
+          <Grid item xs={12}>
             <Paper className={classes.Paper}>
               <Typography
                 variant="h5"
@@ -354,7 +424,7 @@ export default function AdminPanel() {
               </div>
             </Paper>
           </Grid>
-          <Grid item xs={8}>
+          <Grid item xs={6}>
             <Paper className={classes.Paper}>
               <Typography
                 variant="h5"
