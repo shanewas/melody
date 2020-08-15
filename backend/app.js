@@ -48,6 +48,7 @@ const videoRouter = require("./routes/video");
 const instructorRouter = require("./routes/instructor");
 const documentRouter = require("./routes/document");
 const contactRouter = require("./routes/contact");
+const analyticsRouter = require("./routes/analytics");
 
 const { apiAuth } = require("./middleware/authentication");
 
@@ -61,7 +62,11 @@ app.use(
 );
 app.use(`/api/${process.env.API_VERSION}/document`, apiAuth, documentRouter);
 app.use(`/api/${process.env.API_VERSION}/contact`, apiAuth, contactRouter);
+app.use(`/api/${process.env.API_VERSION}/analytics`, apiAuth, analyticsRouter);
 
+app.get("/storage(/*)?", (req, res) => {
+	res.sendStatus(403);
+});
 app.get("/", function (req, res) {
 	res.sendFile(path.join(__dirname, "../frontend/build", "index.html"));
 });

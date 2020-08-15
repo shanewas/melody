@@ -5,6 +5,8 @@ const multer = require("multer");
 const path = require("path");
 const User = require("../models/User.model");
 const { authentication, apiAuth } = require("../middleware/authentication");
+const { registerValidation, loginValidation } = require("../validation");
+const Analytics = require("../models/Analytics.model");
 
 const storage = multer.diskStorage({
 	destination: function (req, file, cb) {
@@ -77,6 +79,7 @@ router.route(`/login`).post((req, res) => {
 									{ $set: { v_token: token } },
 									{ useFindAndModify: false }
 								).catch((err) => res.status(400).json("v_token error: " + err));
+								res.header("auth-token", token);
 								return res.status(200).json({
 									message: "Authentication Successful !",
 									email: docs[0].email,
@@ -109,6 +112,9 @@ router
 	.use(user.single("photo"))
 	.route("/signup")
 	.post((req, res) => {
+		const { error } = registerValidation(req.body);
+		if (error) return res.status(400).send(error.details[0].message);
+
 		const name = req.body.name;
 		const photo = req.file.path;
 		const age = req.body.age;
@@ -141,6 +147,11 @@ router
 						newUser
 							.save()
 							.then(() => {
+								Analytics.findOneAndUpdate(
+									{ _id: "5f37f0b2c5e1655598887cb8" },
+									{ $inc: { user: 1 } },
+									{ useFindAndModify: false }
+								).exec();
 								res.status(200).json({
 									message: `user added!`,
 									id: newUser._id,

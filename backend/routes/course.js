@@ -2,6 +2,7 @@ const router = require("express").Router();
 const multer = require("multer");
 const path = require("path");
 const Course = require("../models/Course.model");
+const Analytics = require("../models/Analytics.model");
 
 const storage = multer.diskStorage({
 	destination: function (req, file, cb) {
@@ -82,6 +83,11 @@ router
 		newCourse
 			.save()
 			.then(() => {
+				Analytics.findOneAndUpdate(
+					{ _id: "5f37f0b2c5e1655598887cb8" },
+					{ $inc: { course: 1 } },
+					{ useFindAndModify: false }
+				).exec();
 				res.status(200).json({
 					message: `Course Added Successfully!`,
 					id: newCourse._id,
