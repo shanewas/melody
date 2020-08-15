@@ -14,6 +14,7 @@ var InstructorSchema = new Schema(
 				type: Schema.Types.ObjectId,
 			},
 		],
+		sold: { type: Number, default: 0 },
 	},
 	{ timestamps: true }
 );
