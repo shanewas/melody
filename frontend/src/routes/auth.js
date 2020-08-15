@@ -5,18 +5,23 @@ class Auth {
 		this.authenticated = false;
 	}
 
-	login() {
+	login(v_token, email) {
 		this.authenticated = true;
+		localStorage.setItem("v_token", v_token);
+		localStorage.setItem("email", email);
+		localStorage.setItem("v_auth", "OK");
 	}
 
 	logout() {
 		this.authenticated = false;
 		localStorage.removeItem("v_token");
+		localStorage.removeItem("email");
 		localStorage.removeItem("v_auth");
 	}
 
 	isAuthenticated() {
 		let _id = localStorage.getItem("v_token");
+		console.log("_id" + _id);
 		axios
 			.get(`user/_ga/${_id}`, {
 				headers: {
@@ -26,16 +31,15 @@ class Auth {
 			.then((res) => {
 				if (res.data.status === "OK") {
 					console.log("authas" + JSON.stringify(res.data.status));
-					return this.authenticated;
+					this.authenticated = true;
 				} else {
+					// localStorage.removeItem("v_token");
+					// localStorage.removeItem("email");
+					// localStorage.removeItem("v_auth");
 					this.authenticated = false;
-					return this.authenticated;
 				}
-			})
-			.catch((err) => {
-				// localStorage.removeItem("v_token");
-				// localStorage.removeItem("v_auth");
 			});
+		return this.authenticated;
 	}
 }
 

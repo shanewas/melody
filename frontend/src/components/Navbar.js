@@ -218,6 +218,7 @@ export default function Navbar(props) {
 	function loginControl() {
 		if (auth.isAuthenticated()) {
 			auth.logout();
+			history.push("/");
 		} else {
 			history.push("/login");
 		}

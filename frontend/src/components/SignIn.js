@@ -91,14 +91,10 @@ export default function SignIn() {
 				},
 			})
 			.then((res) => {
-				auth.login();
-				localStorage.setItem("v_token", res.data.v_token);
-				localStorage.setItem("v_auth", "OK");
+				auth.login(res.data.v_token, res.data.email);
 			})
 			.catch((res) => {
 				auth.logout();
-				localStorage.removeItem("v_token");
-				localStorage.removeItem("v_auth");
 			});
 	};
 
