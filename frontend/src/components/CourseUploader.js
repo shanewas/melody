@@ -11,6 +11,8 @@ import {
   Fab,
   Typography,
   Divider,
+  Toolbar,
+  CssBaseline,
 } from "@material-ui/core";
 import { CloudUpload, Delete, Add } from "@material-ui/icons";
 import theme from "../theme";
@@ -18,10 +20,11 @@ import axios from "../api/Config";
 import Topnav from "./Navbar";
 import VideoUploader from "./VideoUploader";
 import { useForm } from "react-hook-form";
+import Appbar from "./Admin/Appbar";
+import Drawer from "./Admin/Drawer";
 
 const useStyles = makeStyles((theme) => ({
   Container: {
-    margin: theme.spacing(15),
     background: theme.palette.primary.light,
   },
   Divider: {
@@ -61,6 +64,13 @@ const useStyles = makeStyles((theme) => ({
 
     marginTop: theme.spacing(5),
     padding: theme.spacing(2),
+  },
+  content: {
+    flexGrow: 1,
+    padding: theme.spacing(3),
+  },
+  root: {
+    display: "flex",
   },
 }));
 
@@ -260,286 +270,291 @@ export default function CourseUploader() {
       direction="column"
       style={{ background: theme.palette.background.default }}
     >
-      <div>
-        <Topnav />
-        <Paper className={classes.Container}>
-          <Typography
-            variant="h5"
-            style={{
-              color: theme.palette.secondary.contrastText,
-              padding: theme.spacing(5, 0, 5, 0),
-              marginLeft: theme.spacing(10),
-            }}
-            align="center"
-          >
-            Add New Course
-          </Typography>
-          <form
-            noValidate
-            className={classes.form}
-            style={{
-              marginLeft: theme.spacing(10),
-              marginRight: theme.spacing(10),
-            }}
-            onSubmit={handleSubmit(addCourse)}
-          >
-            <Grid container direction="column" spacing={3}>
-              <Grid item>
-                <TextField
-                  name="title"
-                  label="Title"
-                  variant="outlined"
-                  fullWidth
-                  InputProps={{
-                    className: classes.input,
-                  }}
-                  className={classes.label}
-                  inputRef={register({ required: true })}
-                />
-              </Grid>
-              <Grid item>
-                <TextField
-                  name="subtitle"
-                  label="Sub-Title"
-                  variant="outlined"
-                  fullWidth
-                  InputProps={{
-                    className: classes.input,
-                  }}
-                  className={classes.label}
-                  inputRef={register({ required: true })}
-                />
-              </Grid>
-              <Grid item container direction="row" spacing={3}>
-                <Grid item lg={4} md={4} sm={4}>
-                  <TextField
-                    id="text_instructor"
-                    select
-                    label="Instructor"
-                    value={instructor}
-                    onChange={handleInstructorChange}
-                    variant="outlined"
-                    fullWidth
-                    InputProps={{
-                      className: classes.input,
-                    }}
-                    className={classes.label}
-                  >
-                    {instructorList.map((option) => (
-                      <MenuItem
-                        name="instructor"
-                        key={option.name}
-                        value={option._id}
-                        style={{ color: theme.palette.primary.light }}
-                        inputRef={register({ required: true })}
-                      >
-                        {option.name}
-                      </MenuItem>
-                    ))}
-                  </TextField>
-                </Grid>
-                <Grid item lg={8}>
-                  <TextField
-                    name="requirements"
-                    label="Requirements"
-                    variant="outlined"
-                    fullWidth
-                    InputProps={{
-                      className: classes.input,
-                    }}
-                    className={classes.label}
-                    inputRef={register({ required: true })}
-                  />
-                </Grid>
-              </Grid>
-              <Grid item lg={4}>
-                <TextField
-                  name="thumbnail"
-                  type="file"
-                  variant="outlined"
-                  helperText="Select image for course thumbnail"
-                  InputProps={{
-                    className: classes.input,
-                  }}
-                  className={classes.label}
-                  inputRef={register({ required: true })}
-                />
-              </Grid>
-              <Grid item container direction="row" spacing={3}>
-                <Grid item lg={4} md={4} sm={4}>
-                  <TextField
-                    id="outlined-select-currency"
-                    select
-                    label="Category"
-                    value={category}
-                    onChange={handleCategoryChange}
-                    variant="outlined"
-                    fullWidth
-                    InputProps={{
-                      className: classes.input,
-                    }}
-                    className={classes.label}
-                  >
-                    {categories.map((option) => (
-                      <MenuItem
-                        key={option.value}
-                        value={option.value}
-                        style={{ color: theme.palette.primary.light }}
-                      >
-                        {option.label}
-                      </MenuItem>
-                    ))}
-                  </TextField>
-                </Grid>
-                <Grid item lg={4} md={4} sm={4}>
-                  <TextField
-                    id="outlined-select-currency"
-                    select
-                    label="Level"
-                    value={level}
-                    onChange={handleLevelChange}
-                    variant="outlined"
-                    fullWidth
-                    InputProps={{
-                      className: classes.input,
-                    }}
-                    className={classes.label}
-                  >
-                    {levels.map((option) => (
-                      <MenuItem
-                        key={option.value}
-                        value={option.value}
-                        style={{ color: theme.palette.primary.light }}
-                      >
-                        {option.label}
-                      </MenuItem>
-                    ))}
-                  </TextField>
-                </Grid>
-                <Grid item lg={4} md={4} sm={4}>
-                  <TextField
-                    id="outlined-select-currency"
-                    select
-                    label="Module"
-                    value={module}
-                    onChange={handleModuleChange}
-                    variant="outlined"
-                    fullWidth
-                    InputProps={{
-                      className: classes.input,
-                    }}
-                    className={classes.label}
-                  >
-                    {modules.map((option) => (
-                      <MenuItem
-                        key={option.value}
-                        value={option.value}
-                        style={{ color: theme.palette.primary.light }}
-                      >
-                        {option.label}
-                      </MenuItem>
-                    ))}
-                  </TextField>
-                </Grid>
-              </Grid>
-              <Grid item container direction="row" spacing={3}>
-                <Grid item lg={4}>
-                  <TextField
-                    name="price"
-                    label="Price"
-                    variant="outlined"
-                    fullWidth
-                    InputProps={{
-                      className: classes.input,
-                      endAdornment: (
-                        <InputAdornment position="end">Tk</InputAdornment>
-                      ),
-                    }}
-                    className={classes.label}
-                    inputRef={register({ required: true })}
-                  />
-                </Grid>
-                <Grid item lg={4}>
-                  <TextField
-                    name="validity"
-                    label="Validity"
-                    variant="outlined"
-                    fullWidth
-                    InputProps={{
-                      className: classes.input,
-                      endAdornment: (
-                        <InputAdornment position="end">Days</InputAdornment>
-                      ),
-                    }}
-                    className={classes.label}
-                    inputRef={register({ required: true })}
-                  />
-                </Grid>
-                <Grid item lg={4}>
-                  <TextField
-                    name="coursehour"
-                    label="Course Duration"
-                    variant="outlined"
-                    fullWidth
-                    InputProps={{
-                      className: classes.input,
-                      endAdornment: (
-                        <InputAdornment position="end">Hrs</InputAdornment>
-                      ),
-                    }}
-                    className={classes.label}
-                    inputRef={register({ required: true })}
-                  />
-                </Grid>
-              </Grid>
-              <Grid item>
-                <TextField
-                  name="description"
-                  label="Description"
-                  multiline
-                  rowsMax={3}
-                  //   value={value}
-                  //   onChange={handleChange}
-                  variant="outlined"
-                  fullWidth
-                  InputProps={{
-                    className: classes.input,
-                  }}
-                  className={classes.label}
-                  inputRef={register({ required: true })}
-                />
-              </Grid>
-
-              <Grid item container direction="column">
-                <Grid item>
-                  <Typography
-                    variant="h5"
-                    align="center"
-                    style={{
-                      color: theme.palette.secondary.contrastText,
-                      padding: theme.spacing(5, 0, 5, 0),
-                    }}
-                  >
-                    Add New Lessons
-                  </Typography>
-                </Grid>
-                <Grid item lg={12}>
-                  <VideoUploader videoIdCallback={setVideoId} />
-                </Grid>
-              </Grid>
-            </Grid>
-            <Button
-              variant="contained"
-              type="submit"
-              className={classes.Button}
-              // onClick={handleSubmit}
-
-              fullWidth
+      <div className={classes.root}>
+        <CssBaseline />
+        <Appbar />
+        <Drawer />
+        <main className={classes.content}>
+          <Toolbar />
+          <Paper className={classes.Container}>
+            <Typography
+              variant="h5"
+              style={{
+                color: theme.palette.secondary.contrastText,
+                padding: theme.spacing(5, 0, 5, 0),
+                marginLeft: theme.spacing(10),
+              }}
+              align="center"
             >
-              Upload Course
-            </Button>
-          </form>
-        </Paper>
+              Add New Course
+            </Typography>
+            <form
+              noValidate
+              className={classes.form}
+              style={{
+                marginLeft: theme.spacing(10),
+                marginRight: theme.spacing(10),
+              }}
+              onSubmit={handleSubmit(addCourse)}
+            >
+              <Grid container direction="column" spacing={3}>
+                <Grid item>
+                  <TextField
+                    name="title"
+                    label="Title"
+                    variant="outlined"
+                    fullWidth
+                    InputProps={{
+                      className: classes.input,
+                    }}
+                    className={classes.label}
+                    inputRef={register({ required: true })}
+                  />
+                </Grid>
+                <Grid item>
+                  <TextField
+                    name="subtitle"
+                    label="Sub-Title"
+                    variant="outlined"
+                    fullWidth
+                    InputProps={{
+                      className: classes.input,
+                    }}
+                    className={classes.label}
+                    inputRef={register({ required: true })}
+                  />
+                </Grid>
+                <Grid item container direction="row" spacing={3}>
+                  <Grid item lg={4} md={4} sm={4}>
+                    <TextField
+                      id="text_instructor"
+                      select
+                      label="Instructor"
+                      value={instructor}
+                      onChange={handleInstructorChange}
+                      variant="outlined"
+                      fullWidth
+                      InputProps={{
+                        className: classes.input,
+                      }}
+                      className={classes.label}
+                    >
+                      {instructorList.map((option) => (
+                        <MenuItem
+                          name="instructor"
+                          key={option.name}
+                          value={option._id}
+                          style={{ color: theme.palette.primary.light }}
+                          inputRef={register({ required: true })}
+                        >
+                          {option.name}
+                        </MenuItem>
+                      ))}
+                    </TextField>
+                  </Grid>
+                  <Grid item lg={8}>
+                    <TextField
+                      name="requirements"
+                      label="Requirements"
+                      variant="outlined"
+                      fullWidth
+                      InputProps={{
+                        className: classes.input,
+                      }}
+                      className={classes.label}
+                      inputRef={register({ required: true })}
+                    />
+                  </Grid>
+                </Grid>
+                <Grid item lg={4}>
+                  <TextField
+                    name="thumbnail"
+                    type="file"
+                    variant="outlined"
+                    helperText="Select image for course thumbnail"
+                    InputProps={{
+                      className: classes.input,
+                    }}
+                    className={classes.label}
+                    inputRef={register({ required: true })}
+                  />
+                </Grid>
+                <Grid item container direction="row" spacing={3}>
+                  <Grid item lg={4} md={4} sm={4}>
+                    <TextField
+                      id="outlined-select-currency"
+                      select
+                      label="Category"
+                      value={category}
+                      onChange={handleCategoryChange}
+                      variant="outlined"
+                      fullWidth
+                      InputProps={{
+                        className: classes.input,
+                      }}
+                      className={classes.label}
+                    >
+                      {categories.map((option) => (
+                        <MenuItem
+                          key={option.value}
+                          value={option.value}
+                          style={{ color: theme.palette.primary.light }}
+                        >
+                          {option.label}
+                        </MenuItem>
+                      ))}
+                    </TextField>
+                  </Grid>
+                  <Grid item lg={4} md={4} sm={4}>
+                    <TextField
+                      id="outlined-select-currency"
+                      select
+                      label="Level"
+                      value={level}
+                      onChange={handleLevelChange}
+                      variant="outlined"
+                      fullWidth
+                      InputProps={{
+                        className: classes.input,
+                      }}
+                      className={classes.label}
+                    >
+                      {levels.map((option) => (
+                        <MenuItem
+                          key={option.value}
+                          value={option.value}
+                          style={{ color: theme.palette.primary.light }}
+                        >
+                          {option.label}
+                        </MenuItem>
+                      ))}
+                    </TextField>
+                  </Grid>
+                  <Grid item lg={4} md={4} sm={4}>
+                    <TextField
+                      id="outlined-select-currency"
+                      select
+                      label="Module"
+                      value={module}
+                      onChange={handleModuleChange}
+                      variant="outlined"
+                      fullWidth
+                      InputProps={{
+                        className: classes.input,
+                      }}
+                      className={classes.label}
+                    >
+                      {modules.map((option) => (
+                        <MenuItem
+                          key={option.value}
+                          value={option.value}
+                          style={{ color: theme.palette.primary.light }}
+                        >
+                          {option.label}
+                        </MenuItem>
+                      ))}
+                    </TextField>
+                  </Grid>
+                </Grid>
+                <Grid item container direction="row" spacing={3}>
+                  <Grid item lg={4}>
+                    <TextField
+                      name="price"
+                      label="Price"
+                      variant="outlined"
+                      fullWidth
+                      InputProps={{
+                        className: classes.input,
+                        endAdornment: (
+                          <InputAdornment position="end">Tk</InputAdornment>
+                        ),
+                      }}
+                      className={classes.label}
+                      inputRef={register({ required: true })}
+                    />
+                  </Grid>
+                  <Grid item lg={4}>
+                    <TextField
+                      name="validity"
+                      label="Validity"
+                      variant="outlined"
+                      fullWidth
+                      InputProps={{
+                        className: classes.input,
+                        endAdornment: (
+                          <InputAdornment position="end">Days</InputAdornment>
+                        ),
+                      }}
+                      className={classes.label}
+                      inputRef={register({ required: true })}
+                    />
+                  </Grid>
+                  <Grid item lg={4}>
+                    <TextField
+                      name="coursehour"
+                      label="Course Duration"
+                      variant="outlined"
+                      fullWidth
+                      InputProps={{
+                        className: classes.input,
+                        endAdornment: (
+                          <InputAdornment position="end">Hrs</InputAdornment>
+                        ),
+                      }}
+                      className={classes.label}
+                      inputRef={register({ required: true })}
+                    />
+                  </Grid>
+                </Grid>
+                <Grid item>
+                  <TextField
+                    name="description"
+                    label="Description"
+                    multiline
+                    rowsMax={3}
+                    //   value={value}
+                    //   onChange={handleChange}
+                    variant="outlined"
+                    fullWidth
+                    InputProps={{
+                      className: classes.input,
+                    }}
+                    className={classes.label}
+                    inputRef={register({ required: true })}
+                  />
+                </Grid>
+
+                <Grid item container direction="column">
+                  <Grid item>
+                    <Typography
+                      variant="h5"
+                      align="center"
+                      style={{
+                        color: theme.palette.secondary.contrastText,
+                        padding: theme.spacing(5, 0, 5, 0),
+                      }}
+                    >
+                      Add New Lessons
+                    </Typography>
+                  </Grid>
+                  <Grid item lg={12}>
+                    <VideoUploader videoIdCallback={setVideoId} />
+                  </Grid>
+                </Grid>
+              </Grid>
+              <Button
+                variant="contained"
+                type="submit"
+                className={classes.Button}
+                // onClick={handleSubmit}
+
+                fullWidth
+              >
+                Upload Course
+              </Button>
+            </form>
+          </Paper>
+        </main>
       </div>
     </Grid>
   );

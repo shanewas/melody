@@ -223,7 +223,7 @@ export default function AdminPanel() {
             <Grid item xs={2}>
               <Paper
                 style={{
-                  marginLeft: theme.spacing(5),
+                  marginLeft: theme.spacing(2),
                   padding: theme.spacing(2, 1, 2, 1),
                 }}
               >

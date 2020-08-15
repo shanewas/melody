@@ -17,7 +17,8 @@ import {
   Group,
   Contacts,
   LocalActivity,
-  Stars
+  Stars,
+  Dashboard,
 } from "@material-ui/icons";
 import ListIcon from "@material-ui/icons/List";
 import theme from "../../theme";
@@ -40,6 +41,13 @@ const useStyles = makeStyles((theme) => ({
 const DrawerCustom = (props) => {
   const classes = useStyles();
   const { history } = props;
+  const drawerItemList0 = [
+    {
+      text: "Dashboard",
+      icon: <Dashboard />,
+      onClick: () => history.push("/admin"),
+    },
+  ];
   const drawerItemList1 = [
     {
       text: "Add Course",
@@ -92,6 +100,15 @@ const DrawerCustom = (props) => {
     >
       <Toolbar />
       <div className={classes.drawerContainer}>
+        <List>
+          {drawerItemList0.map((item, index) => (
+            <ListItem button key={item.text} onClick={item.onClick}>
+              <ListItemIcon>{item.icon}</ListItemIcon>
+              <ListItemText primary={item.text} />
+            </ListItem>
+          ))}
+        </List>
+        <Divider />
         <List>
           {drawerItemList1.map((item, index) => (
             <ListItem button key={item.text} onClick={item.onClick}>

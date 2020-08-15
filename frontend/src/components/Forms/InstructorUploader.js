@@ -11,14 +11,16 @@ import {
   Fab,
   Typography,
   Divider,
+  Toolbar,
 } from "@material-ui/core";
 import theme from "../../theme";
 import axios from "../../api/Config";
 import { useForm } from "react-hook-form";
 import Topnav from "../Navbar";
+import Drawer from "../Admin/Drawer";
+import Appbar from "../Admin/Appbar";
 const useStyles = makeStyles((theme) => ({
   Container: {
-    margin: theme.spacing(15),
     background: theme.palette.primary.light,
   },
   label: {
@@ -45,6 +47,13 @@ const useStyles = makeStyles((theme) => ({
       backgroundColor: theme.palette.primary.dark,
     },
     marginTop: theme.spacing(5),
+  },
+  root: {
+    display: "flex",
+  },
+  content: {
+    flexGrow: 1,
+    padding: theme.spacing(3),
   },
 }));
 
@@ -81,90 +90,94 @@ export default function InstructorUploader(props) {
   }
 
   return (
-    <div>
-      <Topnav />
-      <Paper className={classes.Container}>
-        <Typography
-          variant="h5"
-          style={{
-            color: theme.palette.secondary.contrastText,
-            padding: theme.spacing(5, 0, 5, 5),
-          }}
-          align="center"
-        >
-          Add New Instructor
-        </Typography>
-        <form
-          className={classes.form}
-          noValidate
-          onSubmit={handleSubmit(addInstructor)}
-        >
-          <div style={{ padding: theme.spacing(0, 5, 5, 5) }}>
-            <TextField
-              name="name"
-              type="text"
-              variant="outlined"
-              className={classes.label}
-              label="Name"
-              fullWidth
-              InputProps={{
-                className: classes.input,
-              }}
-              inputRef={register({ required: true })}
-            />
-            {errors.name && (
-              <p style={{ color: theme.palette.secondary.contrastText }}>
-                Name is required
-              </p>
-            )}
-            <TextField
-              name="bio"
-              type="text"
-              variant="outlined"
-              className={classes.label}
-              label="Bio"
-              multiline
-              rowsMax={3}
-              rows={3}
-              fullWidth
-              InputProps={{
-                className: classes.input,
-              }}
-              inputRef={register({
-                required: true,
-              })}
-            />
-            {errors.email && (
-              <p style={{ color: theme.palette.secondary.contrastText }}>
-                Bio is invalid
-              </p>
-            )}
-            <TextField
-              name="photo"
-              type="file"
-              variant="outlined"
-              className={classes.label}
-              fullWidth
-              helperText="Select instructor photo"
-              InputProps={{
-                className: classes.input,
-              }}
-              inputRef={register({
-                required: true,
-              })}
-            />
+    <div className={classes.root}>
+      <Appbar />
+      <Drawer />
+      <main className={classes.content}>
+        <Toolbar />
+        <Paper className={classes.Container}>
+          <Typography
+            variant="h5"
+            style={{
+              color: theme.palette.secondary.contrastText,
+              padding: theme.spacing(5, 0, 5, 5),
+            }}
+            align="center"
+          >
+            Add New Instructor
+          </Typography>
+          <form
+            className={classes.form}
+            noValidate
+            onSubmit={handleSubmit(addInstructor)}
+          >
+            <div style={{ padding: theme.spacing(0, 5, 5, 5) }}>
+              <TextField
+                name="name"
+                type="text"
+                variant="outlined"
+                className={classes.label}
+                label="Name"
+                fullWidth
+                InputProps={{
+                  className: classes.input,
+                }}
+                inputRef={register({ required: true })}
+              />
+              {errors.name && (
+                <p style={{ color: theme.palette.secondary.contrastText }}>
+                  Name is required
+                </p>
+              )}
+              <TextField
+                name="bio"
+                type="text"
+                variant="outlined"
+                className={classes.label}
+                label="Bio"
+                multiline
+                rowsMax={3}
+                rows={3}
+                fullWidth
+                InputProps={{
+                  className: classes.input,
+                }}
+                inputRef={register({
+                  required: true,
+                })}
+              />
+              {errors.email && (
+                <p style={{ color: theme.palette.secondary.contrastText }}>
+                  Bio is invalid
+                </p>
+              )}
+              <TextField
+                name="photo"
+                type="file"
+                variant="outlined"
+                className={classes.label}
+                fullWidth
+                helperText="Select instructor photo"
+                InputProps={{
+                  className: classes.input,
+                }}
+                inputRef={register({
+                  required: true,
+                })}
+              />
 
-            <Button
-              type="submit"
-              variant="contained"
-              className={classes.Button}
-              fullWidth
-            >
-              Upload Instructor
-            </Button>
-          </div>
-        </form>
-      </Paper>
+              <Button
+                type="submit"
+                variant="contained"
+                className={classes.Button}
+                fullWidth
+              >
+                Upload Instructor
+              </Button>
+            </div>
+          </form>
+        </Paper>
+      </main>
     </div>
   );
 }
