@@ -15,6 +15,12 @@ import {
   useTheme,
   Toolbar,
   CssBaseline,
+  Table,
+  TableCell,
+  TableRow,
+  TableHead,
+  Row,
+  TableBody,
 } from "@material-ui/core";
 import {
   ShoppingBasketOutlined,
@@ -31,12 +37,13 @@ import { useHistory } from "react-router-dom";
 import Drawer from "./Drawer";
 import Appbar from "./Appbar";
 import ListIcon from "@material-ui/icons/List";
+import SalesChart from "./SalesChart";
 
 const ITEM_HEIGHT = 48;
 
 const useStyles = makeStyles((theme) => ({
   Paper: {
-    margin: theme.spacing(5),
+    margin: theme.spacing(5, 5, 0, 5),
 
     padding: theme.spacing(5),
   },
@@ -70,6 +77,11 @@ const useStyles = makeStyles((theme) => ({
   },
   ValueText: {
     color: theme.palette.secondary.contrastText,
+  },
+  root1: {
+    flexGrow: 1,
+    maxHeight: ITEM_HEIGHT * 7.5,
+    overflow: "auto",
   },
 }));
 
@@ -107,6 +119,25 @@ export default function AdminPanel() {
   function navigateToInstructorUploader() {
     history.push("/instructorupload");
   }
+
+  const courses = [
+    {
+      name: "Creative Acoustic Guitar",
+      sales: "42",
+    },
+    {
+      name: "Learn To Play Easy Acoustic Rock Volume 2",
+      sales: "26",
+    },
+    {
+      name: "51 Extreme Tapping Licks",
+      sales: "12",
+    },
+    {
+      name: "12 Bar Blues For Absolute Beginners",
+      sales: "7",
+    },
+  ];
 
   return (
     <div className={classes.root}>
@@ -252,40 +283,88 @@ export default function AdminPanel() {
               </Paper>
             </Grid>
           </Grid>
-          <Grid item xs={12}>
+          <Grid item xs={6}>
             <Paper className={classes.Paper}>
-              <Typography variant="h5">Messages</Typography>
+              <Typography
+                variant="h5"
+                style={{ color: theme.palette.secondary.contrastText }}
+              >
+                Best Sellers
+              </Typography>
+              <div className={classes.root1}>
+                <Table className={classes.table} aria-label="simple table">
+                  <TableHead>
+                    <TableRow>
+                      <TableCell>Course Name</TableCell>
+                      <TableCell align="right">Sales</TableCell>
+                    </TableRow>
+                  </TableHead>
+                  <TableBody>
+                    {courses.map((course) => (
+                      <TableRow key={course.name}>
+                        <TableCell component="th">{course.name}</TableCell>
+                        <TableCell align="right">{course.sales}</TableCell>
+                      </TableRow>
+                    ))}
+                  </TableBody>
+                </Table>
+              </div>
+            </Paper>
+          </Grid>
 
-              {messageList.map((message) => (
-                <List>
-                  <ListItem alignItems="flex-start">
-                    <ListItemAvatar>
-                      <Avatar
-                        alt={message.name}
-                        src="/static/images/avatar/1.jpg"
+          <Grid item xs={6}>
+            <Paper className={classes.Paper}>
+              <Typography
+                variant="h5"
+                style={{ color: theme.palette.secondary.contrastText }}
+              >
+                Messages
+              </Typography>
+              <div className={classes.root1}>
+                {messageList.map((message) => (
+                  <List>
+                    <ListItem alignItems="flex-start">
+                      <ListItemAvatar>
+                        <Avatar
+                          alt={message.name}
+                          src="/static/images/avatar/1.jpg"
+                        />
+                      </ListItemAvatar>
+                      <ListItemText
+                        primary={message.name}
+                        secondary={
+                          <React.Fragment>
+                            <Typography
+                              component="span"
+                              variant="body2"
+                              className={classes.inline}
+                              color="textPrimary"
+                            >
+                              {message.email}
+                            </Typography>
+                            <br />
+                            {` - ${message.message}`}
+                          </React.Fragment>
+                        }
                       />
-                    </ListItemAvatar>
-                    <ListItemText
-                      primary={message.name}
-                      secondary={
-                        <React.Fragment>
-                          <Typography
-                            component="span"
-                            variant="body2"
-                            className={classes.inline}
-                            color="textPrimary"
-                          >
-                            {message.email}
-                          </Typography>
-                          <br />
-                          {` - ${message.message}`}
-                        </React.Fragment>
-                      }
-                    />
-                  </ListItem>
-                  <Divider variant="inset" component="li" />
-                </List>
-              ))}
+                    </ListItem>
+                    <Divider variant="inset" component="li" />
+                  </List>
+                ))}
+              </div>
+            </Paper>
+          </Grid>
+          <Grid item xs={8}>
+            <Paper className={classes.Paper}>
+              <Typography
+                variant="h5"
+                style={{ color: theme.palette.secondary.contrastText }}
+              >
+                Sales Report
+              </Typography>
+              <div>
+                <SalesChart />
+              </div>
             </Paper>
           </Grid>
         </Grid>
