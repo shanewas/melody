@@ -31,31 +31,34 @@ const useStyles = makeStyles((theme) => ({
 export default function InstructorView(props) {
   const classes = useStyles();
 
-  const [instructor, setInstructor] = useState(null);
+  const [instructor, setInstructor] = useState("");
 
   const instructorId = props.instructorId;
-  console.log("instructor id in InstructorView: " + instructorId);
-
-  const endpoint = "instructor/"+instructorId+"/";
-  console.log("instructor id endpoint in InstructorView: " + endpoint);
 
   useEffect(() => {
-		
-		getInstructor();
-	}, []);
+    getInstructor();
+  });
 
-  function getInstructor(){
+  function getInstructor() {
+    let endpoint = "instructor/" + instructorId;
+    console.log("Endpoint to send in request = " + endpoint);
     axios
-			.get(endpoint, {
-				headers: {
-					"auth-token": `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InNoYW5ld2FzYWhtZWRAZ21haWwuY29tIiwicGFzc3dvcmQiOiJQb3RhdG83MjYiLCJpYXQiOjE1OTU4NjA3MzYsImV4cCI6MTU5NTg2NDMzNn0.IRPW-1hioz4LZABZrmtYakjmDwORfKnzIWkwK3DzAXc`,
-				},
-			})
-			.then((res) => {
-				const instructor = res.data;
-				// setInstructorList(instructorList);
-				console.log("instructor fetched in instructorView: " + instructor);
-			});
+      .get(endpoint, {
+        headers: {
+          "auth-token": `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InNoYW5ld2FzYWhtZWRAZ21haWwuY29tIiwicGFzc3dvcmQiOiJQb3RhdG83MjYiLCJpYXQiOjE1OTU4NjA3MzYsImV4cCI6MTU5NTg2NDMzNn0.IRPW-1hioz4LZABZrmtYakjmDwORfKnzIWkwK3DzAXc`,
+        },
+      })
+      .then((res) => {
+        const instructorGot = res.data;
+        // setInstructorList(instructorList);
+        console.log(
+          "instructor fetched in instructorView: " +
+            JSON.stringify(instructorGot)
+        );
+        if (instructor === "") {
+          setInstructor(instructorGot);
+        }
+      });
   }
 
   return (
@@ -63,7 +66,7 @@ export default function InstructorView(props) {
       <Grid item>
         <Avatar
           alt="Tom Morello"
-          src="https://images-na.ssl-images-amazon.com/images/I/B1GPYA32OiS._CR0,0,3840,2880_._SL1000_.png"
+          src={"http://162.0.231.67/" + instructor.photo}
           className={classes.large}
         />
       </Grid>
@@ -71,7 +74,7 @@ export default function InstructorView(props) {
         <Grid container direction="column">
           <Grid item>
             <Typography variant="h6" className={classes.Typography}>
-              Tom Morello
+              {instructor.name}
             </Typography>
           </Grid>
           <Grid item>

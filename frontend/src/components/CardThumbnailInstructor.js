@@ -9,9 +9,11 @@ import {
   CardActions,
   makeStyles,
   Button,
+  CardActionArea
 } from "@material-ui/core";
 
 import axios from "../api/Config";
+import { useHistory } from "react-router-dom";
 
 const useStyles = makeStyles({
   card: {
@@ -22,7 +24,7 @@ const useStyles = makeStyles({
     color: theme.palette.text.secondary,
   },
   cardMedia: {
-    paddingTop: "66.25%", // 16:9
+    paddingTop: "76.25%", // 16:9
   },
   cardContent: {
     flexGrow: 1,
@@ -44,11 +46,16 @@ export default function CardThumbnailInstructor(props) {
   // const [instructor, setInstructor] = useState("");
 
   const instructor = props.instructor;
-  console.log("course inside CardThumbnailCourse: "+instructor.name);
+  console.log("course inside CardThumbnailCourse: " + instructor.name);
+
+  const history = useHistory();
+  function navigateToInstructor() {
+    history.push("/instructor", instructor);
+  }
 
   useEffect(() => {
     // getInstructorData();
-  },[]);
+  }, []);
 
   // function getInstructorData() {
   //   axios
@@ -66,29 +73,34 @@ export default function CardThumbnailInstructor(props) {
   // }
 
   return (
-    <Card className={classes.card}>
-      <CardMedia
-        className={classes.cardMedia}
-        image={"http://162.0.231.67/" + instructor.photo}
-        // title={"Image title"}
-      />
-      <CardContent className={classes.cardContent}>
-        <Typography variant="h6" component="h6">
-          {instructor.name}
-          {console.log("instructor name: "+instructor.name)}
-        </Typography>
-        <Typography>12 lessons</Typography>
-      </CardContent>
-      <CardActions>
-        <Button
-          size="large"
-          className={classes.button}
-          fullWidth="true"
-          variant="text"
-        >
-          See more
-        </Button>
-      </CardActions>
-    </Card>
+    <CardActionArea
+      className={classes.CardActionArea}
+      onClick={navigateToInstructor}
+    >
+      <Card className={classes.card}>
+        <CardMedia
+          className={classes.cardMedia}
+          image={"http://162.0.231.67/" + instructor.photo}
+          // title={"Image title"}
+        />
+        <CardContent className={classes.cardContent}>
+          <Typography variant="h6" component="h6">
+            {instructor.name}
+            {console.log("instructor name: " + instructor.name)}
+          </Typography>
+          <Typography>12 lessons</Typography>
+        </CardContent>
+        <CardActions>
+          <Button
+            size="large"
+            className={classes.button}
+            fullWidth="true"
+            variant="text"
+          >
+            See more
+          </Button>
+        </CardActions>
+      </Card>
+    </CardActionArea>
   );
 }

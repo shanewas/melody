@@ -54,7 +54,7 @@ const useStyles = makeStyles((theme) => ({
     color: "rgba(255,255,255,.87)",
     "&:hover": {
       //you want this to be the same as the backgroundColor above
-      backgroundColor: theme.palette.primary.light,
+      backgroundColor: theme.palette.primary.dark,
     },
   },
 
@@ -139,6 +139,7 @@ export default function CourseVIew(props) {
   }, []);
 
   function getCourseData() {
+    console.log("state data inside: "+state);
     setCourse(state);
   }
 

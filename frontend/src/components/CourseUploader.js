@@ -17,6 +17,7 @@ import theme from "../theme";
 import axios from "../api/Config";
 import Topnav from "./Navbar";
 import VideoUploader from "./VideoUploader";
+import { useForm } from "react-hook-form";
 
 const useStyles = makeStyles((theme) => ({
   Container: {
@@ -111,23 +112,23 @@ const levels = [
 
 const modules = [
   {
-    value: "Level 1",
+    value: "1",
     label: "Level 1",
   },
   {
-    value: "Level 2",
+    value: "2",
     label: "Level 2",
   },
   {
-    value: "Level 3",
+    value: "3",
     label: "Level 3",
   },
   {
-    value: "Level 4",
+    value: "4",
     label: "Level 4",
   },
   {
-    value: "Level 5",
+    value: "5",
     label: "Level 5",
   },
 ];
@@ -148,6 +149,45 @@ export default function CourseUploader() {
 
   //array of all uploaded video ids
   let videoIdArray = [];
+
+  const { register, handleSubmit, errors } = useForm();
+  function addCourse(data, e) {
+    console.log(data);
+
+    let formData = new FormData();
+    formData.append("title", data.title);
+    formData.append("subtitle", data.subtitle);
+    formData.append("instructor", instructor);
+    formData.append("requirements", data.requirements);
+    formData.append("thumbnail", data.thumbnail[0]);
+    formData.append("catagory", category);
+    formData.append("level", level);
+    formData.append("sublevel", module);
+    formData.append("price", data.price);
+    formData.append("validity", data.validity);
+    formData.append("courseHour", data.coursehour);
+    formData.append("desc", data.description);
+
+    for (var pair of formData.entries()) console.log(pair[0] + ", " + pair[1]);
+
+    uploadCourse(formData, e);
+  }
+  function uploadCourse(data, e) {
+    axios
+      .post("course/add", data, {
+        headers: {
+          "auth-token": `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InNoYW5ld2FzYWhtZWRAZ21haWwuY29tIiwicGFzc3dvcmQiOiJQb3RhdG83MjYiLCJpYXQiOjE1OTU4NjA3MzYsImV4cCI6MTU5NTg2NDMzNn0.IRPW-1hioz4LZABZrmtYakjmDwORfKnzIWkwK3DzAXc`,
+          "Content-type": "multipart/form-data",
+        },
+      })
+      .then((res) => {
+        console.log(JSON.stringify(res.data));
+        e.target.reset();
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
 
   function handleChange(i, event) {
     const values = [...fields];
@@ -210,7 +250,7 @@ export default function CourseUploader() {
   //callback function send to VideoUploader to upload videoIdArray
   const setVideoId = (videoId) => {
     videoIdArray.push(videoId);
-    console.log("stored response for video upload request: " + videoIdArray[0]);
+    console.log("stored response for video upload request: " + videoIdArray);
     console.log("number of videos uploaded: " + videoIdArray.length);
   };
 
@@ -230,22 +270,23 @@ export default function CourseUploader() {
               padding: theme.spacing(5, 0, 5, 0),
               marginLeft: theme.spacing(10),
             }}
-            align="left"
+            align="center"
           >
             Add New Course
           </Typography>
           <form
             noValidate
-            autoComplete="off"
+            className={classes.form}
             style={{
               marginLeft: theme.spacing(10),
               marginRight: theme.spacing(10),
             }}
+            onSubmit={handleSubmit(addCourse)}
           >
             <Grid container direction="column" spacing={3}>
               <Grid item>
                 <TextField
-                  id="text_title"
+                  name="title"
                   label="Title"
                   variant="outlined"
                   fullWidth
@@ -253,11 +294,12 @@ export default function CourseUploader() {
                     className: classes.input,
                   }}
                   className={classes.label}
+                  inputRef={register({ required: true })}
                 />
               </Grid>
               <Grid item>
                 <TextField
-                  id="text_sub_title"
+                  name="subtitle"
                   label="Sub-Title"
                   variant="outlined"
                   fullWidth
@@ -265,6 +307,7 @@ export default function CourseUploader() {
                     className: classes.input,
                   }}
                   className={classes.label}
+                  inputRef={register({ required: true })}
                 />
               </Grid>
               <Grid item container direction="row" spacing={3}>
@@ -284,9 +327,11 @@ export default function CourseUploader() {
                   >
                     {instructorList.map((option) => (
                       <MenuItem
+                        name="instructor"
                         key={option.name}
-                        value={option.name}
+                        value={option._id}
                         style={{ color: theme.palette.primary.light }}
+                        inputRef={register({ required: true })}
                       >
                         {option.name}
                       </MenuItem>
@@ -295,7 +340,7 @@ export default function CourseUploader() {
                 </Grid>
                 <Grid item lg={8}>
                   <TextField
-                    id="text_requirements"
+                    name="requirements"
                     label="Requirements"
                     variant="outlined"
                     fullWidth
@@ -303,12 +348,13 @@ export default function CourseUploader() {
                       className: classes.input,
                     }}
                     className={classes.label}
+                    inputRef={register({ required: true })}
                   />
                 </Grid>
               </Grid>
               <Grid item lg={4}>
                 <TextField
-                  id="text_thumbnail"
+                  name="thumbnail"
                   type="file"
                   variant="outlined"
                   helperText="Select image for course thumbnail"
@@ -316,7 +362,7 @@ export default function CourseUploader() {
                     className: classes.input,
                   }}
                   className={classes.label}
-                  onChange={fileSelectedHandler}
+                  inputRef={register({ required: true })}
                 />
               </Grid>
               <Grid item container direction="row" spacing={3}>
@@ -399,7 +445,7 @@ export default function CourseUploader() {
               <Grid item container direction="row" spacing={3}>
                 <Grid item lg={4}>
                   <TextField
-                    id="text_price"
+                    name="price"
                     label="Price"
                     variant="outlined"
                     fullWidth
@@ -410,11 +456,12 @@ export default function CourseUploader() {
                       ),
                     }}
                     className={classes.label}
+                    inputRef={register({ required: true })}
                   />
                 </Grid>
                 <Grid item lg={4}>
                   <TextField
-                    id="text_validity"
+                    name="validity"
                     label="Validity"
                     variant="outlined"
                     fullWidth
@@ -425,11 +472,12 @@ export default function CourseUploader() {
                       ),
                     }}
                     className={classes.label}
+                    inputRef={register({ required: true })}
                   />
                 </Grid>
                 <Grid item lg={4}>
                   <TextField
-                    id="text_course_hour"
+                    name="coursehour"
                     label="Course Duration"
                     variant="outlined"
                     fullWidth
@@ -440,12 +488,13 @@ export default function CourseUploader() {
                       ),
                     }}
                     className={classes.label}
+                    inputRef={register({ required: true })}
                   />
                 </Grid>
               </Grid>
               <Grid item>
                 <TextField
-                  id="text_desc"
+                  name="description"
                   label="Description"
                   multiline
                   rowsMax={3}
@@ -457,16 +506,15 @@ export default function CourseUploader() {
                     className: classes.input,
                   }}
                   className={classes.label}
+                  inputRef={register({ required: true })}
                 />
               </Grid>
-              {/* <Grid item lg={12}>
-                <Divider className={classes.Divider} />
-              </Grid> */}
+
               <Grid item container direction="column">
                 <Grid item>
                   <Typography
                     variant="h5"
-                    align="left"
+                    align="center"
                     style={{
                       color: theme.palette.secondary.contrastText,
                       padding: theme.spacing(5, 0, 5, 0),
@@ -475,23 +523,22 @@ export default function CourseUploader() {
                     Add New Lessons
                   </Typography>
                 </Grid>
-              </Grid>
-              <Grid item>
-                {/* sending callback function for storing videoId */}
-                <VideoUploader videoIdCallback={setVideoId} />
+                <Grid item lg={12}>
+                  <VideoUploader videoIdCallback={setVideoId} />
+                </Grid>
               </Grid>
             </Grid>
-          </form>
-          <Button
-            variant="contained"
-            type="submit"
-            className={classes.Button}
-            // onClick={handleSubmit}
+            <Button
+              variant="contained"
+              type="submit"
+              className={classes.Button}
+              // onClick={handleSubmit}
 
-            fullWidth
-          >
-            Upload Course
-          </Button>
+              fullWidth
+            >
+              Upload Course
+            </Button>
+          </form>
         </Paper>
       </div>
     </Grid>
