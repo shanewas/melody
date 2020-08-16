@@ -13,6 +13,7 @@ import { Avatar } from "@material-ui/core";
 import React, { useState, useEffect } from "react";
 import axios from "../../api/Config";
 import theme from "../../theme";
+import { SaveOutlined } from "@material-ui/icons";
 
 const ITEM_HEIGHT = 48;
 
@@ -105,20 +106,74 @@ export default function CourseFeatureList() {
       .then((res) => {
         const courserList = res.data;
         setInstructorList(instructorList);
-        //setting all instructors to unfeatured list later will filter base on the feature property
-        setLeft(courserList);
+
         console.log(
-          "instructor list fetched in feature list: " + courserList.length
+          "course list fetched in feature list: " + courserList.length
         );
+
+        const tempRight = [];
+        const tempLeft = [];
+        for (var i = 0; i < courserList.length; i++) {
+          if (courserList[i].featured === true) {
+            console.log(courserList[i].name);
+            // setRight([...right, instructorList[i]]);
+            tempRight.push(courserList[i]);
+          } else {
+            tempLeft.push(courserList[i]);
+          }
+        }
+        if (tempRight !== []) {
+          setRight(tempRight);
+        }
+        if (tempLeft !== []) {
+          setLeft(tempLeft);
+        }
+
+        console.log("right array length = " + right.length);
       });
   }
 
-  uploadFeaturedInstructorList();
-  //function to upload all featured courses
-  function uploadFeaturedInstructorList() {
-    if (right.length > 0) {
-      console.log("size of course featured list to upload = " + right.length);
+  // uploadFeaturedInstructorList();
+  //function to upload all featured instructos
+  function uploadFeaturedCourseList() {
+    console.log("size of instructor featured list to upload = " + right.length);
+    for (let i = 0; i < right.length; i++) {
+      var temp = right[i].featured;
+      right[i].featured = true;
+      console.log(
+        `previous value: ${temp} and current value: ${right[i].featured}`
+      );
     }
+    for (let j = 0; j < left.length; j++) {
+      var temp = left[j].featured;
+      left[j].featured = false;
+      console.log(
+        `previous value: ${temp} and current value: ${left[j].featured}`
+      );
+    }
+    var tempArray = left.concat(right);
+    for (var k = 0; k < tempArray.length; k++) {
+      console.log(
+        `finaly value for ${tempArray[k].name} featured = ${tempArray[k].featured}`
+      );
+      pushUpdate(tempArray[k]);
+    }
+  }
+
+  function pushUpdate(item) {
+    var url = "course/" + item._id;
+    const data = new FormData();
+    data.append("featured", item.featured);
+    axios
+      .put(url, data, {
+        headers: {
+          "auth-token": `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InNoYW5ld2FzYWhtZWRAZ21haWwuY29tIiwicGFzc3dvcmQiOiJQb3RhdG83MjYiLCJpYXQiOjE1OTU4NjA3MzYsImV4cCI6MTU5NTg2NDMzNn0.IRPW-1hioz4LZABZrmtYakjmDwORfKnzIWkwK3DzAXc`,
+          "Content-type": "multipart/form-data",
+        },
+      })
+      .then((res) => {
+        console.log("response in CourseFeatureList = " + res.data);
+      });
   }
 
   const customList = (title, items) => (
@@ -137,7 +192,8 @@ export default function CourseFeatureList() {
             }
             disabled={items.length === 0}
             inputProps={{ "aria-label": "all items selected" }}
-            style={{ color: theme.palette.secondary.contrastText }}
+            style={{ color: theme.palette.primary.dark }}
+            size="small"
           />
         }
         title={title}
@@ -161,7 +217,8 @@ export default function CourseFeatureList() {
                   tabIndex={-1}
                   disableRipple
                   inputProps={{ "aria-labelledby": labelId }}
-                  style={{ color: theme.palette.secondary.contrastText }}
+                  style={{ color: theme.palette.primary.dark }}
+                  size="small"
                 />
               </ListItemIcon>
               <ListItemIcon>
@@ -206,6 +263,15 @@ export default function CourseFeatureList() {
             aria-label="move selected left"
           >
             &lt;
+          </Button>
+          <Button
+            variant="outlined"
+            size="small"
+            className={classes.button}
+            onClick={uploadFeaturedCourseList}
+            aria-label="move selected left"
+          >
+            <SaveOutlined />
           </Button>
         </Grid>
       </Grid>

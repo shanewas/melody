@@ -92,13 +92,35 @@ export default function AdminPanel() {
   const [messageList, setMessageList] = useState([]);
   const [instructorList, setInstructorList] = useState([]);
   const [courseList, setCourseList] = useState([]);
+  const [analytics, setAnalytics] = useState([]);
   const theme = useTheme();
 
   useEffect(() => {
     getInstructors();
     getMessages();
     getCourses();
+    getAnalytics();
   }, []);
+
+  //get analytics for the site
+  function getAnalytics() {
+    axios
+      .get("analytics/", {
+        headers: {
+          "auth-token": `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InNoYW5ld2FzYWhtZWRAZ21haWwuY29tIiwicGFzc3dvcmQiOiJQb3RhdG83MjYiLCJpYXQiOjE1OTU4NjA3MzYsImV4cCI6MTU5NTg2NDMzNn0.IRPW-1hioz4LZABZrmtYakjmDwORfKnzIWkwK3DzAXc`,
+          "Content-type": "multipart/form-data",
+        },
+      })
+      .then((res) => {
+        console.log(
+          "analytics fetched in admin: " + JSON.stringify(res.data[0])
+        );
+        setAnalytics(res.data[0]);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
 
   function getMessages() {
     axios
@@ -223,7 +245,7 @@ export default function AdminPanel() {
                   <Grid item>
                     {" "}
                     <Typography variant="h5" className={classes.ValueText}>
-                      14
+                      {analytics.sold}
                     </Typography>
                   </Grid>
                 </Grid>
@@ -254,7 +276,7 @@ export default function AdminPanel() {
                   <Grid item>
                     {" "}
                     <Typography variant="h5" className={classes.ValueText}>
-                      221
+                      {analytics.user}
                     </Typography>
                   </Grid>
                 </Grid>
@@ -285,7 +307,7 @@ export default function AdminPanel() {
                   <Grid item>
                     {" "}
                     <Typography variant="h5" className={classes.ValueText}>
-                      {courseList.length}
+                      {analytics.course}
                     </Typography>
                   </Grid>
                 </Grid>
@@ -316,7 +338,7 @@ export default function AdminPanel() {
                   <Grid item>
                     {" "}
                     <Typography variant="h5" className={classes.ValueText}>
-                      {instructorList.length}
+                      {analytics.instructor}
                     </Typography>
                   </Grid>
                 </Grid>
@@ -343,9 +365,7 @@ export default function AdminPanel() {
                     {courseList.map((course) => (
                       <TableRow key={course.title}>
                         <TableCell component="th">{course.title}</TableCell>
-                        <TableCell align="right">
-                          {Math.floor(Math.random() * (50 - 10)) + 10}
-                        </TableCell>
+                        <TableCell align="right">{course.sold}</TableCell>
                       </TableRow>
                     ))}
                   </TableBody>
@@ -377,9 +397,7 @@ export default function AdminPanel() {
                         <TableCell component="th" align="center">
                           {instructor.earnings}
                         </TableCell>
-                        <TableCell align="right">
-                          {Math.floor(Math.random() * (20 - 5)) + 5}
-                        </TableCell>
+                        <TableCell align="right">{instructor.sold}</TableCell>
                       </TableRow>
                     ))}
                   </TableBody>
