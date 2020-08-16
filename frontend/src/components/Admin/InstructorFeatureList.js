@@ -105,11 +105,30 @@ export default function InstructorFeatureList() {
       .then((res) => {
         const instructorList = res.data;
         setInstructorList(instructorList);
-        //setting all instructors to unfeatured list later will filter base on the feature property
-        setLeft(instructorList);
+
         console.log(
           "instructor list fetched in feature list: " + instructorList.length
         );
+
+        const tempRight = [];
+        const tempLeft = [];
+        for (var i = 0; i < instructorList.length; i++) {
+          if (instructorList[i].featured === true) {
+            console.log(instructorList[i].name);
+            // setRight([...right, instructorList[i]]);
+            tempRight.push(instructorList[i]);
+          } else {
+            tempLeft.push(instructorList[i]);
+          }
+        }
+        if (tempRight !== []) {
+          setRight(tempRight);
+        }
+        if (tempLeft !== []) {
+          setLeft(tempLeft);
+        }
+
+        console.log("right array length = " + right.length);
       });
   }
 
@@ -117,7 +136,9 @@ export default function InstructorFeatureList() {
   //function to upload all featured instructos
   function uploadFeaturedInstructorList() {
     if (right.length > 0) {
-      console.log("size of instructor featured list to upload = " + right.length);
+      console.log(
+        "size of instructor featured list to upload = " + right.length
+      );
     }
   }
 

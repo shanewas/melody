@@ -365,9 +365,7 @@ export default function AdminPanel() {
                     {courseList.map((course) => (
                       <TableRow key={course.title}>
                         <TableCell component="th">{course.title}</TableCell>
-                        <TableCell align="right">
-                          {Math.floor(Math.random() * (50 - 10)) + 10}
-                        </TableCell>
+                        <TableCell align="right">{course.sold}</TableCell>
                       </TableRow>
                     ))}
                   </TableBody>
@@ -399,9 +397,7 @@ export default function AdminPanel() {
                         <TableCell component="th" align="center">
                           {instructor.earnings}
                         </TableCell>
-                        <TableCell align="right">
-                          {Math.floor(Math.random() * (20 - 5)) + 5}
-                        </TableCell>
+                        <TableCell align="right">{instructor.sold}</TableCell>
                       </TableRow>
                     ))}
                   </TableBody>

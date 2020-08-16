@@ -105,11 +105,30 @@ export default function CourseFeatureList() {
       .then((res) => {
         const courserList = res.data;
         setInstructorList(instructorList);
-        //setting all instructors to unfeatured list later will filter base on the feature property
-        setLeft(courserList);
+
         console.log(
-          "instructor list fetched in feature list: " + courserList.length
+          "course list fetched in feature list: " + courserList.length
         );
+
+        const tempRight = [];
+        const tempLeft = [];
+        for (var i = 0; i < courserList.length; i++) {
+          if (courserList[i].featured === true) {
+            console.log(courserList[i].name);
+            // setRight([...right, instructorList[i]]);
+            tempRight.push(courserList[i]);
+          } else {
+            tempLeft.push(courserList[i]);
+          }
+        }
+        if (tempRight !== []) {
+          setRight(tempRight);
+        }
+        if (tempLeft !== []) {
+          setLeft(tempLeft);
+        }
+
+        console.log("right array length = " + right.length);
       });
   }
 
