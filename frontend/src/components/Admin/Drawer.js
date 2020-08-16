@@ -75,7 +75,7 @@ const DrawerCustom = (props) => {
     {
       text: "All Courses",
       icon: <ListIcon />,
-      onClick: () => history.push("/"),
+      onClick: () => history.push("/admin/viewcourse", "All Courses"),
     },
     {
       text: "All Instructors",
@@ -92,7 +92,7 @@ const DrawerCustom = (props) => {
     {
       text: "Featured Courses",
       icon: <LocalActivity />,
-      onClick: () => history.push("/"),
+      onClick: () => history.push("/admin/viewcourse", "Featured Courses"),
     },
     {
       text: "Featured Instructors",

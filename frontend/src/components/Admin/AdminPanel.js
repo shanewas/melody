@@ -204,7 +204,7 @@ export default function AdminPanel() {
   return (
     <div className={classes.root}>
       <CssBaseline />
-      <Appbar />
+      <Appbar title="Admin Dashboard" />
       <Drawer />
       <main className={classes.content}>
         <Toolbar />

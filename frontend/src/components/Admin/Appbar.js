@@ -8,13 +8,13 @@ const useStyles = makeStyles((theme) => ({
     color: theme.palette.secondary.contrastText
   },
 }));
-export default function Appbar () {
+export default function Appbar (props) {
   const classes = useStyles();
   return (
     <AppBar position="fixed" className={classes.appBar}>
       <Toolbar>
         <Typography variant="h6" noWrap>
-          Admin Dashboard
+          {props.title}
         </Typography>
       </Toolbar>
     </AppBar>
