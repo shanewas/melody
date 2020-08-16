@@ -26,6 +26,7 @@ const useStyles = makeStyles({
   root: {
     paddingBottom: theme.spacing(3),
     // paddingTop: theme.spacing(3),
+    backgroundColor: theme.palette.primary.main,
   },
   Button: {
     background: theme.palette.secondary.contrastText,

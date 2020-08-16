@@ -38,6 +38,8 @@ import Drawer from "./Drawer";
 import Appbar from "./Appbar";
 import ListIcon from "@material-ui/icons/List";
 import SalesChart from "./SalesChart";
+import InstructorFeatureList from "./InstructorFeatureList";
+import CourseFeatureList from "./CourseFeatureList";
 
 const ITEM_HEIGHT = 48;
 
@@ -385,7 +387,36 @@ export default function AdminPanel() {
               </div>
             </Paper>
           </Grid>
+          <Grid item xs={12}>
+            <Paper className={classes.Paper}>
+              <Typography
+                variant="h5"
+                style={{
+                  color: theme.palette.secondary.contrastText,
+                  marginBottom: theme.spacing(2),
+                }}
+              >
+                Feature Instructors
+              </Typography>
 
+              <InstructorFeatureList />
+            </Paper>
+          </Grid>
+          <Grid item xs={12}>
+            <Paper className={classes.Paper}>
+              <Typography
+                variant="h5"
+                style={{
+                  color: theme.palette.secondary.contrastText,
+                  marginBottom: theme.spacing(2),
+                }}
+              >
+                Feature Courses
+              </Typography>
+
+              <CourseFeatureList />
+            </Paper>
+          </Grid>
           <Grid item xs={12}>
             <Paper className={classes.Paper}>
               <Typography
@@ -436,7 +467,7 @@ export default function AdminPanel() {
               >
                 Sales Report
               </Typography>
-              <div>
+              <div className={classes.root1}>
                 <SalesChart />
               </div>
             </Paper>
