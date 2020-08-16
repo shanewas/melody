@@ -50,6 +50,7 @@ const documentRouter = require("./routes/document");
 const contactRouter = require("./routes/contact");
 const analyticsRouter = require("./routes/analytics");
 const buyRouter = require("./routes/buy");
+const featuredRouter = require("./routes/featured");
 
 const { apiAuth } = require("./middleware/authentication");
 
@@ -65,6 +66,7 @@ app.use(`/api/${process.env.API_VERSION}/document`, apiAuth, documentRouter);
 app.use(`/api/${process.env.API_VERSION}/contact`, apiAuth, contactRouter);
 app.use(`/api/${process.env.API_VERSION}/analytics`, apiAuth, analyticsRouter);
 app.use(`/api/${process.env.API_VERSION}/buy`, apiAuth, buyRouter);
+app.use(`/api/${process.env.API_VERSION}/featured`, apiAuth, featuredRouter);
 
 app.get("/storage(/*)?", (req, res) => {
 	res.sendStatus(403);

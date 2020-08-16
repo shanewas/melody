@@ -1,8 +1,10 @@
 const router = require("express").Router();
 const multer = require("multer");
 const path = require("path");
+const Mongoose = require("mongoose");
 const Course = require("../models/Course.model");
 const Analytics = require("../models/Analytics.model");
+const Featured = require("../models/Featured.model");
 
 const storage = multer.diskStorage({
 	destination: function (req, file, cb) {
@@ -27,14 +29,13 @@ const thumbnail = multer({
 });
 
 router.route("/").get((req, res) => {
-	Course.find()
+	Course.find({ published: true })
 		.then((courses) => res.status(200).json(courses))
 		.catch((err) => res.status(400).json("Error: " + err));
 });
 
 //ADD
 router
-
 	.use(thumbnail.single("thumbnail"))
 	.route("/add")
 	.post((req, res) => {
@@ -112,6 +113,82 @@ router.route("/search").get((req, res) => {
 		.catch((err) => res.status(400).json("Error: " + err));
 });
 
+router.route("/featured").get((req, res) => {
+	Course.find({ featured: true })
+		.then((featured) => res.status(200).json(featured))
+		.catch((err) => res.status(400).json("Error: " + err));
+});
+
+router.route("/unfeatured").get((req, res) => {
+	Course.find({ featured: false })
+		.then((unfeatured) => res.status(200).json(unfeatured))
+		.catch((err) => res.status(400).json("Error: " + err));
+});
+
+//POST add featured
+router.route("/featured/add").post((req, res) => {
+	const featured = req.body["featured"];
+	const unFeatured = req.body["unFeatured"];
+	try {
+		for (let index = 0; index < featured.length; index++) {
+			const id = Mongoose.Types.ObjectId(featured[index]);
+			Course.findByIdAndUpdate(
+				id,
+				{ $set: { featured: true } },
+				{ useFindAndModify: false }
+			)
+				.exec()
+				.then(() => {
+					Featured.findByIdAndUpdate(
+						"5f3941d99591ab30a0848f61",
+						{ $addToSet: { course: id } },
+						{ useFindAndModify: false }
+					)
+						.exec()
+						.catch((err) => {
+							throw err;
+						});
+				})
+				.catch((err) => {
+					throw err;
+				});
+
+			if (index + 1 === featured.length) {
+				res.status(200).json(`Featured Course Added Successfully!`);
+			}
+		}
+		for (let index = 0; index < unFeatured.length; index++) {
+			const id = Mongoose.Types.ObjectId(unFeatured[index]);
+			Course.findByIdAndUpdate(
+				id,
+				{ $set: { featured: false } },
+				{ useFindAndModify: false }
+			)
+				.exec()
+				.then(() => {
+					Featured.findByIdAndUpdate(
+						"5f3941d99591ab30a0848f61",
+						{ $pull: { course: id } },
+						{ useFindAndModify: false }
+					)
+						.exec()
+						.catch((err) => {
+							throw err;
+						});
+				})
+				.catch((err) => {
+					throw err;
+				});
+
+			if (index + 1 === unFeatured.length) {
+				res.status(200).json(`Featured Course Removed Successfully!`);
+			}
+		}
+	} catch (err) {
+		res.status(400).json("Error: " + err);
+	}
+});
+
 //GET by ID
 router.route("/:courseId").get((req, res) => {
 	const id = req.params.courseId;
@@ -143,9 +220,13 @@ router.route("/:courseId").put((req, res) => {
 //DELETE
 router.route("/:courseId").delete((req, res) => {
 	const id = req.params.courseId;
-	Course.findByIdAndDelete(id)
+	Course.findByIdAndUpdate(
+		id,
+		{ $set: { published: false } },
+		{ useFindAndModify: false }
+	)
 		.then((result) => {
-			res.status(200).json(`${result} Successfully!`);
+			res.status(200).json(`Course Deleted Successfully!`);
 		})
 		.catch((err) => res.status(400).json("Error: " + err));
 });
