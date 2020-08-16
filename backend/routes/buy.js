@@ -3,6 +3,7 @@ const Mongoose = require("mongoose");
 const User = require("../models/User.model");
 const Course = require("../models/Course.model");
 const Instructor = require("../models/Instructor.model");
+const Analytics = require("../models/Analytics.model");
 
 //BUY
 router.route("/").post((req, res) => {
@@ -39,6 +40,15 @@ router.route("/").post((req, res) => {
 	)
 		.then((doc) => {
 			if (doc) {
+				Analytics.findByIdAndUpdate(
+					{ _id: "5f37f0b2c5e1655598887cb8" },
+					{ $inc: { sold: 1 } },
+					{ useFindAndModify: false }
+				)
+					.exec()
+					.catch((err) => {
+						throw err;
+					});
 				Instructor.findByIdAndUpdate(
 					{ _id: Mongoose.Types.ObjectId(doc["instructor"]) },
 					{ $inc: { sold: 1 } },

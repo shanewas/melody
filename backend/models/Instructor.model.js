@@ -15,6 +15,7 @@ var InstructorSchema = new Schema(
 			},
 		],
 		sold: { type: Number, default: 0 },
+		featured: { type: Boolean, default: false },
 	},
 	{ timestamps: true }
 );

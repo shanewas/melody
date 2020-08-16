@@ -35,6 +35,7 @@ var CourseSchema = new Schema(
 		],
 		certificate: { type: String },
 		sold: { type: Number, default: 0 },
+		featured: { type: Boolean, default: false },
 	},
 	{ timestamps: true }
 );
