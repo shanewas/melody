@@ -80,7 +80,7 @@ const DrawerCustom = (props) => {
     {
       text: "All Instructors",
       icon: <Group />,
-      onClick: () => history.push("/"),
+      onClick: () => history.push("/admin/viewinstructor", "All Instructors"),
     },
     {
       text: "All Users",
@@ -97,7 +97,8 @@ const DrawerCustom = (props) => {
     {
       text: "Featured Instructors",
       icon: <Stars />,
-      onClick: () => history.push("/"),
+      onClick: () =>
+        history.push("/admin/viewinstructor", "Featured Instructors"),
     },
   ];
 
