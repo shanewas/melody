@@ -5,16 +5,20 @@ class Auth {
 		this.authenticated = false;
 	}
 
-	login(v_token, email) {
+	login(v_token, email, name, id) {
 		this.authenticated = true;
 		localStorage.setItem("v_token", v_token);
 		localStorage.setItem("email", email);
+		localStorage.setItem("name", name);
+		localStorage.setItem("id", id);
 		localStorage.setItem("v_auth", "OK");
 	}
 
 	logout() {
 		this.authenticated = false;
 		localStorage.removeItem("v_token");
+		localStorage.removeItem("name");
+		localStorage.removeItem("id");
 		localStorage.removeItem("email");
 		localStorage.removeItem("v_auth");
 	}

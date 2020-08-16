@@ -82,7 +82,11 @@ router.route(`/login`).post((req, res) => {
 								res.header("auth-token", token);
 								return res.status(200).json({
 									message: "Authentication Successful !",
+									id: docs[0]._id,
+									name: docs[0].name,
 									email: docs[0].email,
+									course: docs[0].course,
+									previousCourse: docs[0].previousCourse,
 									v_token: token,
 								});
 							}
