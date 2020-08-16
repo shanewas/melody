@@ -15,7 +15,9 @@ import CourseUploader from "./components/CourseUploader";
 import { ProtectedRoute } from "./routes/protected.route";
 import NotFound from "./components/NotFound";
 import InstructorUploader from "./components/Forms/InstructorUploader";
+import InstructorEdit from "./components/Forms/InstructorEdit";
 import AdminPanel from "./components/Admin/AdminPanel";
+import FeatureList from "./components/Admin/InstructorFeatureList";
 
 // import CourseData from "./data/CoursesData";
 
@@ -33,7 +35,11 @@ export default function App() {
         {/* <ProtectedRoute exact path="/courseupload" component={CourseUploader} /> */}
         <Route exact path="/courseupload" component={CourseUploader} />
         <Route exact path="/instructorupload" component={InstructorUploader} />
+        <Route exact path="/instructoredit" component={InstructorEdit} />
         <Route exact path="/admin" component={AdminPanel} />
+
+        <Route exact path="/test" component={FeatureList} />
+
         {/* <Route exact path="/coursedata" component={CourseData} /> */}
         <Route path="*" component={NotFound} />
         <Redirect to="/" />

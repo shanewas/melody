@@ -57,31 +57,67 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function InstructorUploader(props) {
+export default function InstructorUpdate(props) {
   const classes = useStyles();
   const { register, handleSubmit, errors } = useForm();
+  const [instructorList, setInstructorList] = useState([]);
+  const [instructor, setInstructor] = React.useState("");
 
-  function addInstructor(data, e) {
-    console.log(data);
+  useEffect(() => {
+    getInstructors();
+  }, []);
 
+  //get all instructor list from server
+  function getInstructors() {
+    axios
+      .get("instructor/", {
+        headers: {
+          "auth-token": `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InNoYW5ld2FzYWhtZWRAZ21haWwuY29tIiwicGFzc3dvcmQiOiJQb3RhdG83MjYiLCJpYXQiOjE1OTU4NjA3MzYsImV4cCI6MTU5NTg2NDMzNn0.IRPW-1hioz4LZABZrmtYakjmDwORfKnzIWkwK3DzAXc`,
+        },
+      })
+      .then((res) => {
+        const instructorList = res.data;
+        setInstructorList(instructorList);
+        console.log(
+          "instructor list fetched in courseuploader: " + instructorList
+        );
+      });
+  }
+
+  const handleInstructorChange = (event) => {
+    setInstructor(event.target.value);
+  };
+
+  function updateInstructor(data, e) {
     const formData = new FormData();
-    formData.append("name", data.name);
-    formData.append("bio", data.bio);
-    formData.append("photo", data.photo[0]);
 
-    uploadInstructor(formData, e);
+    if (instructor !== undefined) {
+      if (data.bio !== undefined) {
+        formData.append("bio", data.bio);
+      }
+      if (data.photo !== undefined) {
+        formData.append("photo", data.photo[0]);
+      }
+
+      console.log(...formData);
+
+      uploadInstructor(formData, e);
+    }
   }
 
   function uploadInstructor(data, e) {
+    const url = "instructor/" + instructor;
     axios
-      .post("instructor/add", data, {
+      .put(url, data, {
         headers: {
           "auth-token": `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InNoYW5ld2FzYWhtZWRAZ21haWwuY29tIiwicGFzc3dvcmQiOiJQb3RhdG83MjYiLCJpYXQiOjE1OTU4NjA3MzYsImV4cCI6MTU5NTg2NDMzNn0.IRPW-1hioz4LZABZrmtYakjmDwORfKnzIWkwK3DzAXc`,
           "Content-type": "multipart/form-data",
         },
       })
       .then((res) => {
-        console.log(JSON.stringify(res));
+        console.log(
+          "response got from instructor edit: " + JSON.stringify(res)
+        );
         e.target.reset();
       })
       .catch((err) => {
@@ -104,31 +140,40 @@ export default function InstructorUploader(props) {
             }}
             align="left"
           >
-            Add New Instructor
+            Update Instructor
           </Typography>
           <form
             className={classes.form}
             noValidate
-            onSubmit={handleSubmit(addInstructor)}
+            onSubmit={handleSubmit(updateInstructor)}
           >
             <div style={{ padding: theme.spacing(0, 5, 5, 5) }}>
               <TextField
-                name="name"
-                type="text"
+                id="text_instructor"
+                select
                 variant="outlined"
                 className={classes.label}
+                onChange={handleInstructorChange}
                 label="Name"
+                value={instructor}
                 fullWidth
                 InputProps={{
                   className: classes.input,
                 }}
-                inputRef={register({ required: true })}
-              />
-              {errors.name && (
-                <p style={{ color: theme.palette.secondary.contrastText }}>
-                  Name is required
-                </p>
-              )}
+              >
+                {instructorList.map((option) => (
+                  <MenuItem
+                    name="instructor"
+                    key={option.name}
+                    value={option._id}
+                    // style={{ color: theme.palette.primary.light }}
+                    inputRef={register({ required: true })}
+                  >
+                    {option.name}
+                  </MenuItem>
+                ))}
+              </TextField>
+
               <TextField
                 name="bio"
                 type="text"
@@ -142,9 +187,10 @@ export default function InstructorUploader(props) {
                 InputProps={{
                   className: classes.input,
                 }}
-                inputRef={register({
-                  required: true,
-                })}
+                inputRef={register}
+                // inputRef={register({
+                //   required: true,
+                // })}
               />
               {errors.email && (
                 <p style={{ color: theme.palette.secondary.contrastText }}>
@@ -161,9 +207,9 @@ export default function InstructorUploader(props) {
                 InputProps={{
                   className: classes.input,
                 }}
-                inputRef={register({
-                  required: true,
-                })}
+                // inputRef={register({
+                //   required: true,
+                // })}
               />
 
               <Button
@@ -172,7 +218,7 @@ export default function InstructorUploader(props) {
                 className={classes.Button}
                 fullWidth
               >
-                Upload Instructor
+                Update Instructor
               </Button>
             </div>
           </form>

@@ -21,7 +21,7 @@ const theme = createMuiTheme({
     },
     text: {
       primary: "rgba(0, 0, 0, 1)",
-      secondary: "#acacac",
+      secondary: "rgba(0, 0, 0, .74)",
       disabled: "rgba(255, 255, 255, 0.38)",
       hint: "rgba(255, 255, 255, 0.38)",
     },

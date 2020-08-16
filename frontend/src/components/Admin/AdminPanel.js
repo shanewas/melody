@@ -15,6 +15,12 @@ import {
   useTheme,
   Toolbar,
   CssBaseline,
+  Table,
+  TableCell,
+  TableRow,
+  TableHead,
+  Row,
+  TableBody,
 } from "@material-ui/core";
 import {
   ShoppingBasketOutlined,
@@ -31,12 +37,15 @@ import { useHistory } from "react-router-dom";
 import Drawer from "./Drawer";
 import Appbar from "./Appbar";
 import ListIcon from "@material-ui/icons/List";
+import SalesChart from "./SalesChart";
+import InstructorFeatureList from "./InstructorFeatureList";
+import CourseFeatureList from "./CourseFeatureList";
 
 const ITEM_HEIGHT = 48;
 
 const useStyles = makeStyles((theme) => ({
   Paper: {
-    margin: theme.spacing(5),
+    margin: theme.spacing(5, 5, 0, 5),
 
     padding: theme.spacing(5),
   },
@@ -71,12 +80,25 @@ const useStyles = makeStyles((theme) => ({
   ValueText: {
     color: theme.palette.secondary.contrastText,
   },
+  root1: {
+    flexGrow: 1,
+    maxHeight: ITEM_HEIGHT * 7.5,
+    overflow: "auto",
+  },
 }));
 
 export default function AdminPanel() {
   const classes = useStyles();
   const [messageList, setMessageList] = useState([]);
+  const [instructorList, setInstructorList] = useState([]);
+  const [courseList, setCourseList] = useState([]);
   const theme = useTheme();
+
+  useEffect(() => {
+    getInstructors();
+    getMessages();
+    getCourses();
+  }, []);
 
   function getMessages() {
     axios
@@ -97,7 +119,37 @@ export default function AdminPanel() {
       });
   }
 
-  getMessages();
+  //get all instructor list from server later it will be list of all popular instructors
+  function getInstructors() {
+    axios
+      .get("instructor/", {
+        headers: {
+          "auth-token": `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InNoYW5ld2FzYWhtZWRAZ21haWwuY29tIiwicGFzc3dvcmQiOiJQb3RhdG83MjYiLCJpYXQiOjE1OTU4NjA3MzYsImV4cCI6MTU5NTg2NDMzNn0.IRPW-1hioz4LZABZrmtYakjmDwORfKnzIWkwK3DzAXc`,
+        },
+      })
+      .then((res) => {
+        const instructorList = res.data;
+        setInstructorList(instructorList);
+        console.log(
+          "instructor list fetched in admin: " + instructorList.length
+        );
+      });
+  }
+
+  //get all courses from server later it will be list all best selling courses
+  function getCourses() {
+    axios
+      .get("course/", {
+        headers: {
+          "auth-token": `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InNoYW5ld2FzYWhtZWRAZ21haWwuY29tIiwicGFzc3dvcmQiOiJQb3RhdG83MjYiLCJpYXQiOjE1OTU4NjA3MzYsImV4cCI6MTU5NTg2NDMzNn0.IRPW-1hioz4LZABZrmtYakjmDwORfKnzIWkwK3DzAXc`,
+        },
+      })
+      .then((res, err) => {
+        const courseList = res.data;
+        setCourseList(courseList);
+        console.log("course list fetched in admin: " + courseList.length);
+      });
+  }
 
   const history = useHistory();
   function navigateToCourseUploader() {
@@ -107,6 +159,25 @@ export default function AdminPanel() {
   function navigateToInstructorUploader() {
     history.push("/instructorupload");
   }
+
+  const courses = [
+    {
+      name: "Creative Acoustic Guitar",
+      sales: "42",
+    },
+    {
+      name: "Learn To Play Easy Acoustic Rock Volume 2",
+      sales: "26",
+    },
+    {
+      name: "51 Extreme Tapping Licks",
+      sales: "12",
+    },
+    {
+      name: "12 Bar Blues For Absolute Beginners",
+      sales: "7",
+    },
+  ];
 
   return (
     <div className={classes.root}>
@@ -214,7 +285,7 @@ export default function AdminPanel() {
                   <Grid item>
                     {" "}
                     <Typography variant="h5" className={classes.ValueText}>
-                      45
+                      {courseList.length}
                     </Typography>
                   </Grid>
                 </Grid>
@@ -223,7 +294,7 @@ export default function AdminPanel() {
             <Grid item xs={2}>
               <Paper
                 style={{
-                  marginLeft: theme.spacing(5),
+                  marginLeft: theme.spacing(2),
                   padding: theme.spacing(2, 1, 2, 1),
                 }}
               >
@@ -245,47 +316,160 @@ export default function AdminPanel() {
                   <Grid item>
                     {" "}
                     <Typography variant="h5" className={classes.ValueText}>
-                      5
+                      {instructorList.length}
                     </Typography>
                   </Grid>
                 </Grid>
               </Paper>
             </Grid>
           </Grid>
+          <Grid item xs={6}>
+            <Paper className={classes.Paper}>
+              <Typography
+                variant="h5"
+                style={{ color: theme.palette.secondary.contrastText }}
+              >
+                Best Sellers
+              </Typography>
+              <div className={classes.root1}>
+                <Table className={classes.table} aria-label="simple table">
+                  <TableHead>
+                    <TableRow>
+                      <TableCell>Course Name</TableCell>
+                      <TableCell align="right">Sales</TableCell>
+                    </TableRow>
+                  </TableHead>
+                  <TableBody>
+                    {courseList.map((course) => (
+                      <TableRow key={course.title}>
+                        <TableCell component="th">{course.title}</TableCell>
+                        <TableCell align="right">
+                          {Math.floor(Math.random() * (50 - 10)) + 10}
+                        </TableCell>
+                      </TableRow>
+                    ))}
+                  </TableBody>
+                </Table>
+              </div>
+            </Paper>
+          </Grid>
+          <Grid item xs={6}>
+            <Paper className={classes.Paper}>
+              <Typography
+                variant="h5"
+                style={{ color: theme.palette.secondary.contrastText }}
+              >
+                Popular Instructors
+              </Typography>
+              <div className={classes.root1}>
+                <Table className={classes.table} aria-label="simple table">
+                  <TableHead>
+                    <TableRow>
+                      <TableCell>Instructor Name</TableCell>
+                      <TableCell align="center">Earnings (BDT)</TableCell>
+                      <TableCell align="right">Sales</TableCell>
+                    </TableRow>
+                  </TableHead>
+                  <TableBody>
+                    {instructorList.map((instructor) => (
+                      <TableRow key={instructor.name}>
+                        <TableCell component="th">{instructor.name}</TableCell>
+                        <TableCell component="th" align="center">
+                          {instructor.earnings}
+                        </TableCell>
+                        <TableCell align="right">
+                          {Math.floor(Math.random() * (20 - 5)) + 5}
+                        </TableCell>
+                      </TableRow>
+                    ))}
+                  </TableBody>
+                </Table>
+              </div>
+            </Paper>
+          </Grid>
           <Grid item xs={12}>
             <Paper className={classes.Paper}>
-              <Typography variant="h5">Messages</Typography>
+              <Typography
+                variant="h5"
+                style={{
+                  color: theme.palette.secondary.contrastText,
+                  marginBottom: theme.spacing(2),
+                }}
+              >
+                Feature Instructors
+              </Typography>
 
-              {messageList.map((message) => (
-                <List>
-                  <ListItem alignItems="flex-start">
-                    <ListItemAvatar>
-                      <Avatar
-                        alt={message.name}
-                        src="/static/images/avatar/1.jpg"
+              <InstructorFeatureList />
+            </Paper>
+          </Grid>
+          <Grid item xs={12}>
+            <Paper className={classes.Paper}>
+              <Typography
+                variant="h5"
+                style={{
+                  color: theme.palette.secondary.contrastText,
+                  marginBottom: theme.spacing(2),
+                }}
+              >
+                Feature Courses
+              </Typography>
+
+              <CourseFeatureList />
+            </Paper>
+          </Grid>
+          <Grid item xs={12}>
+            <Paper className={classes.Paper}>
+              <Typography
+                variant="h5"
+                style={{ color: theme.palette.secondary.contrastText }}
+              >
+                Messages
+              </Typography>
+              <div className={classes.root1}>
+                {messageList.map((message) => (
+                  <List>
+                    <ListItem alignItems="flex-start">
+                      <ListItemAvatar>
+                        <Avatar
+                          alt={message.name}
+                          src="/static/images/avatar/1.jpg"
+                        />
+                      </ListItemAvatar>
+                      <ListItemText
+                        primary={message.name}
+                        secondary={
+                          <React.Fragment>
+                            <Typography
+                              component="span"
+                              variant="body2"
+                              className={classes.inline}
+                              color="textPrimary"
+                            >
+                              {message.email}
+                            </Typography>
+                            <br />
+                            {` - ${message.message}`}
+                          </React.Fragment>
+                        }
                       />
-                    </ListItemAvatar>
-                    <ListItemText
-                      primary={message.name}
-                      secondary={
-                        <React.Fragment>
-                          <Typography
-                            component="span"
-                            variant="body2"
-                            className={classes.inline}
-                            color="textPrimary"
-                          >
-                            {message.email}
-                          </Typography>
-                          <br />
-                          {` - ${message.message}`}
-                        </React.Fragment>
-                      }
-                    />
-                  </ListItem>
-                  <Divider variant="inset" component="li" />
-                </List>
-              ))}
+                    </ListItem>
+                    <Divider variant="inset" component="li" />
+                  </List>
+                ))}
+              </div>
+            </Paper>
+          </Grid>
+          <Grid item xs={6}>
+            <Paper className={classes.Paper}>
+              <Typography
+                variant="h5"
+                style={{ color: theme.palette.secondary.contrastText }}
+              >
+                Sales Report
+              </Typography>
+              <div className={classes.root1}>
+                <SalesChart />
+              </div>
             </Paper>
           </Grid>
         </Grid>
