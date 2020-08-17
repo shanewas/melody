@@ -331,8 +331,9 @@ export default function Navbar(props) {
               variant="text"
               className={classes.button}
               onClick={loginControl}
+              endIcon={<ExpandMore />}
             >
-              {auth.isAuthenticated() ? localStorage.getItem("email") : "Login"}
+              {auth.isAuthenticated() ? localStorage.getItem("name") : "Login"}
             </Button>
           </div>
           <div className={classes.sectionMobile}>

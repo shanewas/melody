@@ -19,10 +19,6 @@ import { useHistory } from "react-router-dom";
 import Navbar from "./Navbar";
 
 const useStyles = makeStyles((theme) => ({
-  cardGrid: {
-    paddingTop: theme.spacing(8),
-    paddingBottom: theme.spacing(8),
-  },
   cardContent: {
     flexGrow: 1,
   },
@@ -40,7 +36,6 @@ const useStyles = makeStyles((theme) => ({
   },
   content: {
     flexGrow: 1,
-    marginTop: theme.spacing(2),
   },
   Typography: {
     marginBottom: theme.spacing(8),
@@ -70,9 +65,8 @@ export default function CourseViewHome(props) {
 
   return (
     <div>
-      <Navbar />
       <main className={classes.content}>
-        <Container className={classes.cardGrid} maxWidth="xl">
+        <Container maxWidth="xl">
           <Typography
             variant="h4"
             component="h4"

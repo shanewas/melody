@@ -131,9 +131,15 @@ function App() {
         <Grid item xs={12}>
           <CourseViewHome courses={courseList} />
         </Grid>
+        <Grid item xs={12}>
+          <Divider />
+        </Grid>
         {/* video player mid page */}
-        <Grid item xs={6}>
+        <Grid item xs={12}>
           <VideoPlayer url={"http://162.0.231.67/" + video} />
+        </Grid>
+        <Grid item xs={12}>
+          <Divider />
         </Grid>
         {/* instructorList */}
         <Grid item xs={12}>
@@ -150,22 +156,34 @@ function App() {
         <Grid item xs={6} className={classes.Carousel}>
           <InstructorCarousel />
         </Grid>
+        <Grid item xs={12}>
+          <Divider />
+        </Grid>
         <Grid item xs={8}>
           <Info
             numberOfCourse={courseList.length}
             numberOfInstructors={instructorList.length}
           />
         </Grid>
+        <Grid item xs={12}>
+          <Divider />
+        </Grid>
         <Grid item lg={12}>
           <Typography variant="h4" className={classes.Typography}>
             Our Student's Feedback
           </Typography>
         </Grid>
-        <Grid item lg={4}>
+        <Grid item lg={6}>
           <StudentFeedbackCarousel />
         </Grid>
         <Grid item xs={12}>
+          <Divider />
+        </Grid>
+        <Grid item xs={12}>
           <FAQView />
+        </Grid>
+        <Grid item xs={12}>
+          <Divider />
         </Grid>
         <Grid item xs={12}>
           <ContactUsForm />
