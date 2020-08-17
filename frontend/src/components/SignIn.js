@@ -91,7 +91,12 @@ export default function SignIn() {
 				},
 			})
 			.then((res) => {
-				auth.login(res.data.v_token, res.data.email);
+				auth.login(
+					res.data.v_token,
+					res.data.email,
+					res.data.name,
+					res.data.id
+				);
 			})
 			.catch((res) => {
 				auth.logout();
