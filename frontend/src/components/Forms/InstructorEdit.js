@@ -63,6 +63,9 @@ export default function InstructorUpdate(props) {
   const [instructorList, setInstructorList] = useState([]);
   const [instructor, setInstructor] = React.useState("");
 
+  //check from where the component is called
+  const state = props.location.state;
+
   useEffect(() => {
     getInstructors();
   }, []);
@@ -127,7 +130,7 @@ export default function InstructorUpdate(props) {
 
   return (
     <div className={classes.root}>
-      <Appbar />
+      <Appbar title={state} />
       <Drawer />
       <main className={classes.content}>
         <Toolbar />

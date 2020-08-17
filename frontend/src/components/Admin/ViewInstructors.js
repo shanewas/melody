@@ -80,6 +80,7 @@ export default function ViewInstructors(props) {
         },
       })
       .then((res) => {
+        res.data.reverse();
         setInstructorList(res.data);
       });
   }
@@ -93,6 +94,7 @@ export default function ViewInstructors(props) {
         },
       })
       .then((res) => {
+        res.data.reverse();
         setInstructorList(res.data);
       });
   }
@@ -229,7 +231,10 @@ export default function ViewInstructors(props) {
                       <Button
                         size="small"
                         onClick={() => {
-                          featureInstructor(instructor._id, instructor.featured);
+                          featureInstructor(
+                            instructor._id,
+                            instructor.featured
+                          );
                         }}
                       >
                         {instructor.featured ? "un-feature" : "feature"}

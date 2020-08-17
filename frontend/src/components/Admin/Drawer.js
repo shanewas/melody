@@ -53,7 +53,7 @@ const DrawerCustom = (props) => {
     {
       text: "Add Course",
       icon: <PostAdd />,
-      onClick: () => history.push("/courseupload"),
+      onClick: () => history.push("/courseupload", "Course Upload Panel"),
     },
     {
       text: "Edit Course",
@@ -63,12 +63,13 @@ const DrawerCustom = (props) => {
     {
       text: "Add Instructor",
       icon: <PersonAdd />,
-      onClick: () => history.push("/instructorupload"),
+      onClick: () =>
+        history.push("/instructorupload", "Instructor Upload Panel"),
     },
     {
       text: "Edit Instructor",
       icon: <EditOutlined />,
-      onClick: () => history.push("/instructoredit"),
+      onClick: () => history.push("/instructoredit", "Instructor Edit Panel"),
     },
   ];
   const drawerItemList2 = [

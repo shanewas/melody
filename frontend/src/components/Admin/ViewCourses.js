@@ -79,6 +79,7 @@ export default function ViewCourses(props) {
         },
       })
       .then((res) => {
+        res.data.reverse();
         setCourseList(res.data);
       });
   }
@@ -92,6 +93,7 @@ export default function ViewCourses(props) {
         },
       })
       .then((res) => {
+        res.data.reverse();
         setCourseList(res.data);
       });
   }

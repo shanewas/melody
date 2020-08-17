@@ -326,7 +326,10 @@ export default function VideoUploader(props) {
 
                   // onClick={() => handleAdd()}
                 >
-                  <CloudUpload style={{ color: theme.palette.primary.light }} />
+                  <CloudUpload
+                    style={{ color: theme.palette.primary.light }}
+                    onClick={handleSubmit}
+                  />
                 </Fab>
               </Grid>
             </Grid>
