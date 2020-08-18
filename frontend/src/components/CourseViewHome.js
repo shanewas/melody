@@ -11,12 +11,20 @@ import {
   CardContent,
   CardMedia,
   Card,
+  IconButton,
 } from "@material-ui/core";
 import Rating from "@material-ui/lab/Rating";
+import axios from "../api/Config";
 
-import { ChevronRight } from "@material-ui/icons";
+import {
+  ChevronRight,
+  AddShoppingCart,
+  ShopOutlined,
+  ShoppingCart,
+} from "@material-ui/icons";
 import { useHistory } from "react-router-dom";
 import Navbar from "./Navbar";
+import theme from "../theme";
 
 const useStyles = makeStyles((theme) => ({
   cardContent: {
@@ -63,17 +71,38 @@ export default function CourseViewHome(props) {
     history.push("/coursespage");
   }
 
+  function buyCourse(id) {
+    axios
+      .post(
+        "buy/",
+        {
+          user: localStorage.getItem("id"),
+          course: id,
+        },
+        {
+          headers: {
+            "auth-token": `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InNoYW5ld2FzYWhtZWRAZ21haWwuY29tIiwicGFzc3dvcmQiOiJQb3RhdG83MjYiLCJpYXQiOjE1OTU4NjA3MzYsImV4cCI6MTU5NTg2NDMzNn0.IRPW-1hioz4LZABZrmtYakjmDwORfKnzIWkwK3DzAXc`,
+          },
+        }
+      )
+      .then((res) => {
+        console.log("bought: " + res.data);
+      });
+  }
+
   return (
     <div>
       <main className={classes.content}>
         <Container maxWidth="xl">
-          <Typography
-            variant="h4"
-            component="h4"
-            className={classes.Typography}
-          >
-            {courseList.length} in-depth courses for you to subscribe
-          </Typography>
+          {!props.from && (
+            <Typography
+              variant="h4"
+              component="h4"
+              className={classes.Typography}
+            >
+              {courseList.length} in-depth courses for you to subscribe
+            </Typography>
+          )}
           <Grid container spacing={3}>
             {courseList.map((course) => (
               <Grid item key={course._id} xs={12} sm={6} md={4} lg={3} xl={2}>
@@ -109,32 +138,44 @@ export default function CourseViewHome(props) {
                       variant="body2"
                       align="left"
                     >{`Module: ${course.sublevel}`}</Typography>
-                    <Grid
-                      container
-                      direction="row"
-                      justify="flex-start"
-                      alignItems="flex-start"
-                    >
+                    <Grid container direction="row">
                       <Rating
                         name="read-only"
                         value={Math.floor(Math.random() * (5 - 2 + 1)) + 2}
                         readOnly
                       />
+
+                      {!props.from && (
+                        <Button
+                          variant="outlined"
+                          style={{
+                            marginLeft: theme.spacing(5),
+                            color: theme.palette.secondary.contrastText,
+                          }}
+                          onClick={() => {
+                            buyCourse(course._id);
+                          }}
+                        >
+                          Add to cart
+                        </Button>
+                      )}
                     </Grid>
                   </CardContent>
                 </Card>
               </Grid>
             ))}
           </Grid>
-          <Button
-            color="inherit"
-            variant="text"
-            endIcon={<ChevronRight />}
-            size="large"
-            className={classes.Button}
-          >
-            View all courses
-          </Button>
+          {!props.from && (
+            <Button
+              color="inherit"
+              variant="text"
+              endIcon={<ChevronRight />}
+              size="large"
+              className={classes.Button}
+            >
+              View all courses
+            </Button>
+          )}
         </Container>
       </main>
     </div>
