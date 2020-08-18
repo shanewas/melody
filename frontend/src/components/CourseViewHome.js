@@ -58,6 +58,17 @@ const useStyles = makeStyles((theme) => ({
       outline: "none",
     },
   },
+  Button1: {
+    textTransform: "none",
+
+    "&:hover": {
+      background: theme.palette.primary.dark,
+    },
+
+    "&:focus": {
+      outline: "none",
+    },
+  },
 }));
 
 export default function CourseViewHome(props) {
@@ -105,7 +116,7 @@ export default function CourseViewHome(props) {
           )}
           <Grid container spacing={3}>
             {courseList.map((course) => (
-              <Grid item key={course._id} xs={12} sm={6} md={4} lg={3} xl={2}>
+              <Grid item key={course._id} xs={12} sm={6} md={4} lg={2} xl={2}>
                 <Card className={classes.card}>
                   <CardMedia
                     className={classes.cardMedia}
@@ -115,13 +126,13 @@ export default function CourseViewHome(props) {
                   <CardContent className={classes.cardContent}>
                     <Typography
                       gutterBottom
-                      variant="h6"
+                      variant="body1"
                       component="h2"
                       align="left"
                     >
-                      {course.title}
+                      <Box fontWeight="fontWeightMedium">{course.title}</Box>
                     </Typography>
-                    <Typography variant="body1" align="left">
+                    <Typography variant="body2" align="left">
                       <Box fontWeight="fontWeightMedium" fontStyle="italic">
                         {course.subtitle}
                       </Box>
@@ -138,23 +149,26 @@ export default function CourseViewHome(props) {
                       variant="body2"
                       align="left"
                     >{`Module: ${course.sublevel}`}</Typography>
-                    <Grid container direction="row">
-                      {!props.from && (
-                        <Button
-                          variant="outlined"
-                          style={{
-                            marginLeft: theme.spacing(5),
-                            color: theme.palette.secondary.contrastText,
-                          }}
-                          onClick={() => {
-                            buyCourse(course._id);
-                          }}
-                        >
-                          Add to cart
-                        </Button>
-                      )}
-                    </Grid>
                   </CardContent>
+                  <Grid container direction="row" justify="flex-end">
+                    {!props.from && (
+                      <Button
+                        variant="contained"
+                        style={{
+                          color: theme.palette.primary.light,
+                          backgroundColor: theme.palette.secondary.contrastText,
+                        }}
+                        // endIcon={<ShoppingCart />}
+                        className={classes.Button1}
+                        size="small"
+                        onClick={() => {
+                          buyCourse(course._id);
+                        }}
+                      >
+                        Add to cart
+                      </Button>
+                    )}
+                  </Grid>
                 </Card>
               </Grid>
             ))}

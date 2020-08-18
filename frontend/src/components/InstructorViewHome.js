@@ -74,7 +74,7 @@ export default function InstructorViewHome(props) {
                 xs={12}
                 sm={6}
                 md={4}
-                lg={3}
+                lg={2}
                 xl={2}
               >
                 <Card className={classes.card}>
