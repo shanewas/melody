@@ -22,6 +22,7 @@ import {
   AccountCircle,
   ShoppingCart,
   CastForEducation,
+  ExitToApp,
 } from "@material-ui/icons";
 import MenuIcon from "@material-ui/icons/Menu";
 import theme from "../theme";
@@ -210,6 +211,7 @@ export default function Navbar(props) {
     { title: "My Classroom", icon: <CastForEducation /> },
     { title: "My Profile", icon: <AccountCircle /> },
     { title: "My Messages", icon: <Forum /> },
+    { title: "Logout", icon: <ExitToApp /> },
   ];
 
   const categoryList = [
@@ -338,16 +340,18 @@ export default function Navbar(props) {
               Cart
             </Button>
           </div>
-          <div className={classes.sectionDesktop}>
-            <Button
-              color="inherit"
-              variant="text"
-              className={classes.button}
-              onClick={loginControl}
-            >
-              {auth.isAuthenticated() ? "Logout" : "Login"}
-            </Button>
-          </div>
+          {auth.isAuthenticated() !== true && (
+            <div className={classes.sectionDesktop}>
+              <Button
+                color="inherit"
+                variant="text"
+                className={classes.button}
+                onClick={loginControl}
+              >
+                Login
+              </Button>
+            </div>
+          )}
           {auth.isAuthenticated() === true && (
             <div className={classes.sectionDesktop}>
               <Button

@@ -38,7 +38,7 @@ function App() {
   const [video, setVideo] = useState("");
   const [courseList, setCourseList] = useState([]);
   const [instructorList, setInstructorList] = useState([]);
-
+  const [analytics, setAnalytics] = useState([]);
   const [res, setRes] = useState("");
 
   useEffect(() => {
@@ -46,7 +46,8 @@ function App() {
     getIntroVideo();
     getCourses();
     getInstructors();
-  }, []);
+    getAnalytics();
+  }, [courseList, instructorList]);
 
   //get the 2 videos in Home Page
   function getIntroVideo() {
@@ -63,6 +64,26 @@ function App() {
       })
       .catch((error) => {
         console.log(error);
+      });
+  }
+
+  //get analytics for the site
+  function getAnalytics() {
+    instance
+      .get("analytics/", {
+        headers: {
+          "auth-token": `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InNoYW5ld2FzYWhtZWRAZ21haWwuY29tIiwicGFzc3dvcmQiOiJQb3RhdG83MjYiLCJpYXQiOjE1OTU4NjA3MzYsImV4cCI6MTU5NTg2NDMzNn0.IRPW-1hioz4LZABZrmtYakjmDwORfKnzIWkwK3DzAXc`,
+          "Content-type": "multipart/form-data",
+        },
+      })
+      .then((res) => {
+        console.log(
+          "analytics fetched in admin: " + JSON.stringify(res.data[0])
+        );
+        setAnalytics(res.data[0]);
+      })
+      .catch((err) => {
+        console.log(err);
       });
   }
 
@@ -83,7 +104,7 @@ function App() {
   //get all courses from server later it will be list all featured courses
   function getCourses() {
     instance
-      .get("course/", {
+      .get("course/featured/", {
         headers: {
           "auth-token": `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InNoYW5ld2FzYWhtZWRAZ21haWwuY29tIiwicGFzc3dvcmQiOiJQb3RhdG83MjYiLCJpYXQiOjE1OTU4NjA3MzYsImV4cCI6MTU5NTg2NDMzNn0.IRPW-1hioz4LZABZrmtYakjmDwORfKnzIWkwK3DzAXc`,
         },
@@ -98,7 +119,7 @@ function App() {
   //get all instructor list from server later it will be list of all featured instructors
   function getInstructors() {
     instance
-      .get("instructor/", {
+      .get("instructor/featured/", {
         headers: {
           "auth-token": `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InNoYW5ld2FzYWhtZWRAZ21haWwuY29tIiwicGFzc3dvcmQiOiJQb3RhdG83MjYiLCJpYXQiOjE1OTU4NjA3MzYsImV4cCI6MTU5NTg2NDMzNn0.IRPW-1hioz4LZABZrmtYakjmDwORfKnzIWkwK3DzAXc`,
         },
@@ -129,7 +150,7 @@ function App() {
         </Grid>
         {/* courselist */}
         <Grid item xs={12}>
-          <CourseViewHome courses={courseList} />
+          <CourseViewHome courses={courseList} totalCourse={analytics.course}/>
         </Grid>
         <Grid item xs={12}>
           <Divider />

@@ -111,7 +111,7 @@ export default function CourseViewHome(props) {
               component="h4"
               className={classes.Typography}
             >
-              {courseList.length} in-depth courses for you to subscribe
+              {props.totalCourse} in-depth courses for you to subscribe
             </Typography>
           )}
           <Grid container spacing={3}>
