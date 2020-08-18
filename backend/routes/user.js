@@ -3,10 +3,12 @@ const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 const multer = require("multer");
 const path = require("path");
+const Mongoose = require("mongoose");
 const User = require("../models/User.model");
 const { authentication, apiAuth } = require("../middleware/authentication");
 const { registerValidation, loginValidation } = require("../validation");
 const Analytics = require("../models/Analytics.model");
+const Course = require("../models/Course.model");
 
 const storage = multer.diskStorage({
 	destination: function (req, file, cb) {
@@ -58,6 +60,36 @@ router.route("/_ga/:token").get((req, res) => {
 		.catch((err) => res.status(400).json("Error: " + err));
 });
 
+//GET all user course
+router
+	.use(apiAuth)
+	.route("/course")
+	.post((req, res) => {
+		const id = Mongoose.Types.ObjectId(req.body["id"]);
+		User.find({ _id: id })
+			.then((doc) => {
+				if (doc) {
+					const course_id = new Array();
+					for (let index = 0; index < doc[0]["course"].length; index++) {
+						course_id.push(doc[0]["course"][index][0]);
+					}
+					Course.find({
+						_id: {
+							$in: course_id,
+						},
+					})
+						.then((docs) => {
+							res.status(200).json(docs);
+						})
+						.catch((err) => res.status(400).json("Error: " + err));
+				} else {
+					res.status(404).json(doc);
+				}
+			})
+			.catch((err) => res.status(400).json("Error: " + err));
+	});
+
+//LOGIN
 router.route(`/login`).post((req, res) => {
 	const email = req.body.email;
 	const password = req.body.password;
