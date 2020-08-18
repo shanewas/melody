@@ -153,7 +153,7 @@ function App() {
             Meet our Instructors
           </Typography>
         </Grid>
-        <Grid item xs={6} className={classes.Carousel}>
+        <Grid item xs={8} className={classes.Carousel}>
           <InstructorCarousel />
         </Grid>
         <Grid item xs={12}>

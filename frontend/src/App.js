@@ -17,6 +17,7 @@ import NotFound from "./components/NotFound";
 import InstructorUploader from "./components/Forms/InstructorUploader";
 import InstructorEdit from "./components/Forms/InstructorEdit";
 import AdminPanel from "./components/Admin/AdminPanel";
+import StudentPanel from "./components/Student/StudentPanel";
 import ViewCourse from "./components/Admin/ViewCourses";
 import ViewInstructors from "./components/Admin/ViewInstructors";
 
@@ -37,10 +38,13 @@ export default function App() {
         <Route exact path="/courseupload" component={CourseUploader} />
         <Route exact path="/instructorupload" component={InstructorUploader} />
         <Route exact path="/instructoredit" component={InstructorEdit} />
-        <Route exact path="/admin" component={AdminPanel} />
 
+        <Route exact path="/admin" component={AdminPanel} />
         <Route exact path="/admin/viewcourse" component={ViewCourse} />
         <Route exact path="/admin/viewinstructor" component={ViewInstructors} />
+
+        <Route exact path="/studentpanel" component={StudentPanel} />
+
         <Route exact path="/test" component={ViewCourse} />
 
         {/* <Route exact path="/coursedata" component={CourseData} /> */}
