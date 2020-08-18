@@ -139,12 +139,6 @@ export default function CourseViewHome(props) {
                       align="left"
                     >{`Module: ${course.sublevel}`}</Typography>
                     <Grid container direction="row">
-                      <Rating
-                        name="read-only"
-                        value={Math.floor(Math.random() * (5 - 2 + 1)) + 2}
-                        readOnly
-                      />
-
                       {!props.from && (
                         <Button
                           variant="outlined"
