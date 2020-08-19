@@ -70,6 +70,7 @@ export default function InstructorView(props) {
           className={classes.large}
         />
       </Grid>
+      instructor.map
       <Grid item className={classes.gridItem}>
         <Grid container direction="column">
           <Grid item>

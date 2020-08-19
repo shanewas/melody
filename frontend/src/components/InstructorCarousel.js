@@ -59,16 +59,20 @@ export default function InstructorCarousel() {
 
   useEffect(() => {
     getInstructorData();
-  });
+  }, [instructor]);
 
   function getInstructorData() {
     axios
-      .get("instructor/", {})
+      .get("instructor/", {
+        headers: {
+          "auth-token": `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InNoYW5ld2FzYWhtZWRAZ21haWwuY29tIiwicGFzc3dvcmQiOiJQb3RhdG83MjYiLCJpYXQiOjE1OTU4NjA3MzYsImV4cCI6MTU5NTg2NDMzNn0.IRPW-1hioz4LZABZrmtYakjmDwORfKnzIWkwK3DzAXc`,
+        },
+      })
       .then((res) => {
         const data = res.data;
 
         // setState({ video: url });
-        setInstructor(data[data.length - 2]);
+        setInstructor(data);
         console.log("instructor carousel: " + data);
       })
       .catch((error) => {
@@ -110,103 +114,42 @@ export default function InstructorCarousel() {
         )
       }
     >
-      <div>
-        <img
-          alt=""
-          src="https://www.masterclass.com/course-images/images/11345/original/1592437234-TH_cinematic_12x5.jpg?width=500&dpr=2"
-        />
-        <Grid
-          container
-          direction="column"
-          className="legend"
-          spacing={theme.spacing(0.3)}
-          lg={12}
-          style={{ backgroundColor: "rgba(255,255,255,.0)" }}
-        >
-          <Grid item lg={12}>
-            <Typography variant="h4">Tony Hawk</Typography>
+      {instructor.map((instructor) => (
+        <div>
+          <img
+            alt=""
+            src={"http://162.0.231.67/" + instructor.photo}
+            height="500"
+          />
+          <Grid
+            container
+            direction="column"
+            className="legend"
+            spacing={theme.spacing(0.3)}
+            lg={12}
+            style={{ backgroundColor: "rgba(0,0,0,.30)" }}
+          >
+            <Grid item lg={12}>
+              <Typography variant="h4">{instructor.name}</Typography>
+            </Grid>
+            <Grid item lg={12}>
+              <Typography variant="subtitle1">
+                Teaches Keyboard/Piano
+              </Typography>
+            </Grid>
+            <Grid item lg={12}>
+              <Button
+                variant="contained"
+                color="primary"
+                style={{ ...buttonStyles }}
+                size="small"
+              >
+                Details
+              </Button>
+            </Grid>
           </Grid>
-          <Grid item lg={12}>
-            <Typography variant="subtitle1">Teaches Guitar</Typography>
-          </Grid>
-          <Grid item lg={12}>
-            <Button
-              variant="contained"
-              color="primary"
-              style={{ ...buttonStyles }}
-              size="small"
-            >
-              Details
-            </Button>
-          </Grid>
-        </Grid>
-      </div>
-
-      <div>
-        <img
-          alt=""
-          src="https://www.masterclass.com/course-images/images/7746/original/1576544221-CV_cinematic_12x5.jpg?width=500&dpr=2"
-        />
-        <Grid
-          container
-          direction="column"
-          className="legend"
-          spacing={theme.spacing(0.3)}
-          lg={12}
-          style={{ backgroundColor: "rgba(255,255,255,.0)" }}
-        >
-          <Grid item lg={12}>
-            <Typography variant="h4">Chris Voss</Typography>
-          </Grid>
-          <Grid item lg={12}>
-            <Typography variant="subtitle1">Teaches Guitar</Typography>
-          </Grid>
-          <Grid item lg={12}>
-            <Button
-              variant="contained"
-              color="primary"
-              style={{ ...buttonStyles }}
-              size="small"
-            >
-              Details
-            </Button>
-          </Grid>
-        </Grid>
-      </div>
-
-      <div>
-        {console.log(instructor.photo)}
-        <img
-          alt=""
-          src={"http://162.0.231.67/" + instructor.photo}
-          height="500"
-        />
-        <Grid
-          container
-          direction="column"
-          className="legend"
-          spacing={theme.spacing(0.3)}
-          lg={12}
-          style={{ backgroundColor: "rgba(255,255,255,.0)" }}
-        >
-          <Grid item lg={12}>
-            <Typography variant="h4">{instructor.name}</Typography>
-          </Grid>
-          <Grid item lg={12}>
-            <Typography variant="subtitle1">Teaches Keyboard/Piano</Typography>
-          </Grid>
-          <Grid item lg={12}>
-            <Button
-              variant="contained"
-              color="primary"
-              style={{ ...buttonStyles }}
-              size="small"
-            >
-              Details
-            </Button>
-          </Grid>
-        </Grid>
-      </div>
+        </div>
+      ))}
     </Carousel>
   );
 }
