@@ -25,6 +25,7 @@ import {
 import { useHistory } from "react-router-dom";
 import Navbar from "./Navbar";
 import theme from "../theme";
+import Dialog from "./Home/LearnMoreDialog";
 
 const useStyles = makeStyles((theme) => ({
   cardContent: {
@@ -152,21 +153,22 @@ export default function CourseViewHome(props) {
                   </CardContent>
                   <Grid container direction="row" justify="flex-end">
                     {!props.from && (
-                      <Button
-                        variant="contained"
-                        style={{
-                          color: theme.palette.primary.light,
-                          backgroundColor: theme.palette.secondary.contrastText,
-                        }}
-                        // endIcon={<ShoppingCart />}
-                        className={classes.Button1}
-                        size="small"
-                        onClick={() => {
-                          buyCourse(course._id);
-                        }}
-                      >
-                        Add to cart
-                      </Button>
+                      // <Button
+                      //   variant="contained"
+                      //   style={{
+                      //     color: theme.palette.primary.light,
+                      //     backgroundColor: theme.palette.secondary.contrastText,
+                      //   }}
+                      //   // endIcon={<ShoppingCart />}
+                      //   className={classes.Button1}
+                      //   size="small"
+                      //   onClick={() => {
+                      //     buyCourse(course._id);
+                      //   }}
+                      // >
+                      //   Add to cart
+                      // </Button>
+                      <Dialog courseToView={course} buyfunction={buyCourse}/>
                     )}
                   </Grid>
                 </Card>

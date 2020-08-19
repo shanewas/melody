@@ -150,7 +150,7 @@ function App() {
         </Grid>
         {/* courselist */}
         <Grid item xs={12}>
-          <CourseViewHome courses={courseList} totalCourse={analytics.course}/>
+          <CourseViewHome courses={courseList} totalCourse={analytics.course} />
         </Grid>
         <Grid item xs={12}>
           <Divider />
