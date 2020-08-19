@@ -64,7 +64,7 @@ export default function ViewCourses(props) {
         setButtonText("Un-feature");
         break;
     }
-  }, [props.location.state, courseList, buttonText]);
+  }, [props.location.state, buttonText, state]);
 
   //get all courses list from server
   function getCourses() {
