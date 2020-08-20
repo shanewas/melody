@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
   CssBaseline,
   Grid,
@@ -12,6 +12,7 @@ import {
   CardMedia,
   Card,
   IconButton,
+  Snackbar,
 } from "@material-ui/core";
 import Rating from "@material-ui/lab/Rating";
 import axios from "../api/Config";
@@ -26,6 +27,11 @@ import { useHistory } from "react-router-dom";
 import Navbar from "./Navbar";
 import theme from "../theme";
 import Dialog from "./Home/LearnMoreDialog";
+import MuiAlert from "@material-ui/lab/Alert";
+
+function Alert(props) {
+  return <MuiAlert elevation={6} variant="filled" {...props} />;
+}
 
 const useStyles = makeStyles((theme) => ({
   cardContent: {
@@ -70,18 +76,41 @@ const useStyles = makeStyles((theme) => ({
       outline: "none",
     },
   },
+  Snackbar: {
+    width: "100%",
+    "& > * + *": {
+      marginTop: theme.spacing(2),
+    },
+  },
 }));
 
 export default function CourseViewHome(props) {
   const classes = useStyles();
 
   const courseList = props.courses;
-  console.log("course list inside CourseViewHome: " + courseList.length);
+
+  const [open, setOpen] = React.useState(props.open);
+
+  const handleClick = () => {
+    setOpen(true);
+  };
+
+  const handleClose = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+
+    setOpen(false);
+  };
 
   const history = useHistory();
   function navigateToCourse() {
     history.push("/coursespage");
   }
+
+  useEffect(() => {
+    console.log("course list inside CourseViewHome: " + courseList.length);
+  }, [courseList]);
 
   function buyCourse(id) {
     axios
@@ -99,6 +128,7 @@ export default function CourseViewHome(props) {
       )
       .then((res) => {
         console.log("bought: " + res.data);
+        setOpen(true);
       });
   }
 
@@ -168,7 +198,7 @@ export default function CourseViewHome(props) {
                       // >
                       //   Add to cart
                       // </Button>
-                      <Dialog courseToView={course} buyfunction={buyCourse}/>
+                      <Dialog courseToView={course} buyfunction={buyCourse} />
                     )}
                   </Grid>
                 </Card>
@@ -188,6 +218,16 @@ export default function CourseViewHome(props) {
           )}
         </Container>
       </main>
+      <div className={classes.Snackbar}>
+      {/* <Button variant="outlined" onClick={handleClick}>
+        Open success snackbar
+      </Button> */}
+      <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
+        <Alert onClose={handleClose} severity="success">
+          Course Purchased Successfully!
+        </Alert>
+      </Snackbar>
+    </div>
     </div>
   );
 }

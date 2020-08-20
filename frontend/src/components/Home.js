@@ -47,7 +47,7 @@ function App() {
     getCourses();
     getInstructors();
     getAnalytics();
-  }, [courseList, instructorList]);
+  }, []);
 
   //get the 2 videos in Home Page
   function getIntroVideo() {

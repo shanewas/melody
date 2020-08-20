@@ -59,7 +59,7 @@ export default function InstructorCarousel() {
 
   useEffect(() => {
     getInstructorData();
-  }, [instructor]);
+  }, []);
 
   function getInstructorData() {
     axios

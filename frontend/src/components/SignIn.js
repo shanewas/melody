@@ -95,7 +95,8 @@ export default function SignIn() {
 					res.data.v_token,
 					res.data.email,
 					res.data.name,
-					res.data.id
+					res.data.id,
+					res.data.course,
 				);
 			})
 			.catch((res) => {

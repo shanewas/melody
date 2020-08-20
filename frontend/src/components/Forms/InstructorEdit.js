@@ -101,7 +101,9 @@ export default function InstructorUpdate(props) {
       if (data.photo !== undefined) {
         formData.append("photo", data.photo[0]);
       }
-
+      if (data.name !== undefined) {
+        formData.append("name", data.name);
+      }
       console.log(...formData);
 
       uploadInstructor(formData, e);
@@ -157,7 +159,7 @@ export default function InstructorUpdate(props) {
                 variant="outlined"
                 className={classes.label}
                 onChange={handleInstructorChange}
-                label="Name"
+                label="Select Instructor"
                 value={instructor}
                 fullWidth
                 InputProps={{
@@ -176,6 +178,19 @@ export default function InstructorUpdate(props) {
                   </MenuItem>
                 ))}
               </TextField>
+
+              <TextField
+                name="name"
+                type="text"
+                variant="outlined"
+                className={classes.label}
+                label="Name"
+                fullWidth
+                InputProps={{
+                  className: classes.input,
+                }}
+                inputRef={register}
+              />
 
               <TextField
                 name="bio"

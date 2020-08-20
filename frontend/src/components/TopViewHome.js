@@ -70,7 +70,7 @@ export default function SimplePaper() {
       className={classes.root}
       spacing={theme.spacing(1)}
     >
-      <Grid item xs={12} md={4}>
+      <Grid item xs={12} md={6}>
         <Grid item>
           <Typography
             variant="h2"
@@ -102,7 +102,7 @@ export default function SimplePaper() {
           </Button>
         </Grid>
       </Grid>
-      <Grid item xs={12} md={8}>
+      <Grid item xs={12} md={6}>
         <VideoPlayer url={"http://162.0.231.67/" + video} />
       </Grid>
     </Grid>

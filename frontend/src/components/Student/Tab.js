@@ -80,7 +80,7 @@ export default function ScrollableTabsButtonAuto() {
   useEffect(() => {
     getUserDetails();
     getUserCourses();
-  }, []);
+  }, [user,userCourses]);
 
   function getUserDetails() {
     const url = "user/" + localStorage.getItem("id");

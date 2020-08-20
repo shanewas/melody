@@ -86,6 +86,11 @@ export default function CustomizedDialogs(props) {
     setOpen(false);
   };
 
+  const buy = () => {
+    props.buyfunction(course._id);
+    setOpen(false);
+  };
+
   return (
     <div>
       <Grid
@@ -113,8 +118,8 @@ export default function CustomizedDialogs(props) {
         <Grid item>
           {" "}
           <IconButton
-            onClick={()=>{
-              props.buyfunction(course._id);
+            onClick={() => {
+              // props.buyfunction(course._id);
             }}
             style={{
               color: theme.palette.primary.light,
@@ -194,7 +199,7 @@ export default function CustomizedDialogs(props) {
         </DialogContent>
         <DialogActions>
           <Button
-            onClick={handleClose}
+            onClick={buy}
             size="small"
             style={{
               color: theme.palette.primary.light,
@@ -203,7 +208,7 @@ export default function CustomizedDialogs(props) {
             }}
             className={classes.Button1}
           >
-            Add to Cart
+            Buy
           </Button>
         </DialogActions>
       </Dialog>

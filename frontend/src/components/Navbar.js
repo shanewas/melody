@@ -197,6 +197,12 @@ export default function Navbar(props) {
       case "My Classroom":
         history.push("/studentpanel");
         break;
+      case "Logout":
+        if (auth.isAuthenticated()) {
+          auth.logout();
+          history.push("/");
+        }
+        break;
     }
   }
 
@@ -361,9 +367,9 @@ export default function Navbar(props) {
                 onClick={handleUsersClick}
                 endIcon={<ExpandMore />}
               >
-                {auth.isAuthenticated()
+                {localStorage.getItem("name")
                   ? localStorage.getItem("name")
-                  : "Login"}
+                  : ""}
               </Button>
               <StyledMenu
                 id="customized-menu"

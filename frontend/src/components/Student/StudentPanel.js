@@ -27,9 +27,9 @@ export default function StudentPanel() {
         alignItems="center"
         className={classes.Grid}
       >
-        {/* <Grid item xs={12}>
-          <CourseView courses={userCourses} />
-        </Grid> */}
+        <Grid item xs={12}>
+          {/* <CourseView courses={localStorage.getItem("course")} /> */}
+        </Grid>
         <Grid item xs={12}>
           <Tab />
         </Grid>
