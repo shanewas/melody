@@ -11,7 +11,7 @@ import Signup from "./components/SignUp";
 import CourseView from "./components/CourseView";
 import InstructorPage from "./components/InstructorPage";
 import CoursesPage from "./components/CoursesPage";
-import CourseUploader from "./components/CourseUploader";
+import CourseUploader from "./components/Forms/CourseUploader";
 import { ProtectedRoute } from "./routes/protected.route";
 import NotFound from "./components/NotFound";
 import InstructorUploader from "./components/Forms/InstructorUploader";
@@ -20,6 +20,7 @@ import AdminPanel from "./components/Admin/AdminPanel";
 import StudentPanel from "./components/Student/StudentPanel";
 import ViewCourse from "./components/Admin/ViewCourses";
 import ViewInstructors from "./components/Admin/ViewInstructors";
+import CourseList from "./components/Course/CourseList";
 
 // import CourseData from "./data/CoursesData";
 
@@ -45,7 +46,7 @@ export default function App() {
 
         <Route exact path="/studentpanel" component={StudentPanel} />
 
-        <Route exact path="/test" component={ViewCourse} />
+        <Route exact path="/test" component={CourseList} />
 
         {/* <Route exact path="/coursedata" component={CourseData} /> */}
         <Route path="*" component={NotFound} />

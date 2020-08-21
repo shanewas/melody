@@ -13,6 +13,7 @@ import {
   Card,
   IconButton,
   Snackbar,
+  Toolbar,
 } from "@material-ui/core";
 import Rating from "@material-ui/lab/Rating";
 import axios from "../api/Config";
@@ -136,6 +137,12 @@ export default function CourseViewHome(props) {
     <div>
       <main className={classes.content}>
         <Container maxWidth="xl">
+          {props.from === "CourseList" && (
+            <div className="App">
+              <Navbar />
+              <Toolbar style={{ marginBottom: theme.spacing(5) }} />
+            </div>
+          )}
           {!props.from && (
             <Typography
               variant="h4"
@@ -219,15 +226,15 @@ export default function CourseViewHome(props) {
         </Container>
       </main>
       <div className={classes.Snackbar}>
-      {/* <Button variant="outlined" onClick={handleClick}>
+        {/* <Button variant="outlined" onClick={handleClick}>
         Open success snackbar
       </Button> */}
-      <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
-        <Alert onClose={handleClose} severity="success">
-          Course Purchased Successfully!
-        </Alert>
-      </Snackbar>
-    </div>
+        <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
+          <Alert onClose={handleClose} severity="success">
+            Course Purchased Successfully!
+          </Alert>
+        </Snackbar>
+      </div>
     </div>
   );
 }

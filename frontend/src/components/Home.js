@@ -112,7 +112,7 @@ function App() {
       .then((res, err) => {
         const courseList = res.data;
         setCourseList(courseList);
-        console.log("course list fetched in home: " + err);
+        console.log("course list fetched in home: " + res.data.length);
       });
   }
 
