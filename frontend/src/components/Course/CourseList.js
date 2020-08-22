@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Grid } from "@material-ui/core";
+
 import CourseViewHome from "../CourseViewHome";
 import axios from "../../api/Config";
 
@@ -24,7 +24,7 @@ export default function CourseList() {
   }
   return (
     <div>
-      <CourseViewHome courses={courses} from="CourseList"/>
+      <CourseViewHome courses={courses} from="CourseList" />
     </div>
   );
 }

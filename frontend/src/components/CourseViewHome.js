@@ -15,6 +15,7 @@ import {
   Snackbar,
   Toolbar,
   CardActionArea,
+  TextField,
 } from "@material-ui/core";
 import Rating from "@material-ui/lab/Rating";
 import axios from "../api/Config";
@@ -62,6 +63,10 @@ const useStyles = makeStyles((theme) => ({
     marginBottom: theme.spacing(8),
     color: theme.palette.secondary.contrastText,
   },
+  Typography1: {
+    marginBottom: theme.spacing(3),
+    color: theme.palette.secondary.contrastText,
+  },
   Button: {
     marginTop: theme.spacing(4),
     color: theme.palette.secondary.contrastText,
@@ -79,6 +84,7 @@ const useStyles = makeStyles((theme) => ({
     borderColor: theme.palette.secondary.contrastText,
     marginBottom: theme.spacing(5),
     "&:hover": {
+      borderColor: theme.palette.primary.dark,
       color: theme.palette.primary.dark,
     },
 
@@ -155,9 +161,13 @@ export default function CourseViewHome(props) {
               <Toolbar style={{ marginBottom: theme.spacing(2) }} />
               <Grid container direction="row">
                 <Grid item>
-                  <Typography variant="h5" className={classes.Button1}>
+                  <Button
+                    variant="outlined"
+                    className={classes.Button1}
+                    endIcon={<FilterList />}
+                  >
                     Filter by
-                  </Typography>
+                  </Button>
                 </Grid>
               </Grid>
             </div>
@@ -172,6 +182,11 @@ export default function CourseViewHome(props) {
             </Typography>
           )}
 
+          {/* {props.from === "CourseList" && (
+            <Typography variant="h6" className={classes.Typography1}>
+              {props.totalCourse} All Courses
+            </Typography>
+          )} */}
           <Grid container spacing={3}>
             {courseList.map((course) => (
               <Grid item key={course._id} xs={12} sm={6} md={4} lg={2} xl={2}>

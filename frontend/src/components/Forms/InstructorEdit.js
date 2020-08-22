@@ -94,14 +94,14 @@ export default function InstructorUpdate(props) {
   function updateInstructor(data, e) {
     const formData = new FormData();
 
-    if (instructor !== undefined) {
-      if (data.bio !== undefined) {
+    if (instructor !== "") {
+      if (data.bio !== "") {
         formData.append("bio", data.bio);
       }
-      if (data.photo !== undefined) {
+      if (data.photo !== "") {
         formData.append("photo", data.photo[0]);
       }
-      if (data.name !== undefined) {
+      if (data.name !== "") {
         formData.append("name", data.name);
       }
       console.log(...formData);
@@ -225,9 +225,7 @@ export default function InstructorUpdate(props) {
                 InputProps={{
                   className: classes.input,
                 }}
-                // inputRef={register({
-                //   required: true,
-                // })}
+                inputRef={register}
               />
 
               <Button

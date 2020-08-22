@@ -26,6 +26,14 @@ const useStyles = makeStyles((theme) => ({
     [theme.breakpoints.up("md")]: {
       marginTop: theme.spacing(14),
     },
+    "&:hover": {
+      background: theme.palette.primary.dark,
+      color:theme.palette.primary.light
+    },
+
+    "&:focus": {
+      outline: "none",
+    },
   },
   TypographyTitle: {
     color: theme.palette.secondary.contrastText,
