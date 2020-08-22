@@ -126,11 +126,9 @@ router.route("/:documentId").get((req, res) => {
 //UPDATE by ID
 router.route("/:documentId").put((req, res) => {
 	const id = req.params.documentId;
-	Document.findByIdAndUpdate(
-		id,
-		{ $set: req.body },
-		{ useFindAndModify: false }
-	)
+	var query = req.body;
+	if (req.file) query["file"] = req.file.path;
+	Document.findByIdAndUpdate(id, { $set: query }, { useFindAndModify: false })
 		.then((doc) => {
 			if (doc) {
 				res.status(200).json(`Document Updated Successfully!`);

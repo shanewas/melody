@@ -206,7 +206,9 @@ router.route("/:courseId").get((req, res) => {
 //UPDATE by ID
 router.route("/:courseId").put((req, res) => {
 	const id = req.params.courseId;
-	Course.findByIdAndUpdate(id, { $set: req.body }, { useFindAndModify: false })
+	var query = req.body;
+	if (req.file) query["thumbnail"] = req.file.path;
+	Course.findByIdAndUpdate(id, { $set: query }, { useFindAndModify: false })
 		.then((doc) => {
 			if (doc) {
 				res.status(200).json(`Course Updated Successfully!`);
