@@ -14,6 +14,7 @@ import {
   IconButton,
   Snackbar,
   Toolbar,
+  CardActionArea,
 } from "@material-ui/core";
 import Rating from "@material-ui/lab/Rating";
 import axios from "../api/Config";
@@ -23,6 +24,7 @@ import {
   AddShoppingCart,
   ShopOutlined,
   ShoppingCart,
+  FilterList,
 } from "@material-ui/icons";
 import { useHistory } from "react-router-dom";
 import Navbar from "./Navbar";
@@ -42,6 +44,9 @@ const useStyles = makeStyles((theme) => ({
     height: "100%",
     display: "flex",
     flexDirection: "column",
+    "&:focus": {
+      outline: "none",
+    },
   },
   cardMedia: {
     paddingTop: "56.25%", // 16:9
@@ -61,16 +66,20 @@ const useStyles = makeStyles((theme) => ({
     marginTop: theme.spacing(4),
     color: theme.palette.secondary.contrastText,
     textTransform: "none",
+    "&:hover": {
+      color: theme.palette.primary.dark,
+    },
 
     "&:focus": {
       outline: "none",
     },
   },
   Button1: {
-    textTransform: "none",
-
+    color: theme.palette.secondary.contrastText,
+    borderColor: theme.palette.secondary.contrastText,
+    marginBottom: theme.spacing(5),
     "&:hover": {
-      background: theme.palette.primary.dark,
+      color: theme.palette.primary.dark,
     },
 
     "&:focus": {
@@ -105,8 +114,11 @@ export default function CourseViewHome(props) {
   };
 
   const history = useHistory();
-  function navigateToCourse() {
-    history.push("/coursespage");
+  function navigateToCourse(course) {
+    history.push("/course", course);
+  }
+  function navigateToCourseList() {
+    history.push("/course/all");
   }
 
   useEffect(() => {
@@ -140,10 +152,17 @@ export default function CourseViewHome(props) {
           {props.from === "CourseList" && (
             <div className="App">
               <Navbar />
-              <Toolbar style={{ marginBottom: theme.spacing(5) }} />
+              <Toolbar style={{ marginBottom: theme.spacing(2) }} />
+              <Grid container direction="row">
+                <Grid item>
+                  <Typography variant="h5" className={classes.Button1}>
+                    Filter by
+                  </Typography>
+                </Grid>
+              </Grid>
             </div>
           )}
-          {!props.from && (
+          {props.from === "Home" && (
             <Typography
               variant="h4"
               component="h4"
@@ -152,73 +171,72 @@ export default function CourseViewHome(props) {
               {props.totalCourse} in-depth courses for you to subscribe
             </Typography>
           )}
+
           <Grid container spacing={3}>
             {courseList.map((course) => (
               <Grid item key={course._id} xs={12} sm={6} md={4} lg={2} xl={2}>
-                <Card className={classes.card}>
-                  <CardMedia
-                    className={classes.cardMedia}
-                    image={"http://162.0.231.67/" + course.thumbnail}
-                    title="Image title"
-                  />
-                  <CardContent className={classes.cardContent}>
-                    <Typography
-                      gutterBottom
-                      variant="body1"
-                      component="h2"
-                      align="left"
+                <CardActionArea className={classes.card}>
+                  <Card className={classes.card}>
+                    <div
+                      onClick={() => {
+                        navigateToCourse(course);
+                      }}
+                      className={classes.card}
                     >
-                      <Box fontWeight="fontWeightMedium">{course.title}</Box>
-                    </Typography>
-                    <Typography variant="body2" align="left">
-                      <Box fontWeight="fontWeightMedium" fontStyle="italic">
-                        {course.subtitle}
-                      </Box>
-                    </Typography>
-                    <Typography
-                      variant="body2"
-                      align="left"
-                    >{`Category: ${course.catagory}`}</Typography>
-                    <Typography
-                      variant="body2"
-                      align="left"
-                    >{`Level: ${course.level}`}</Typography>
-                    <Typography
-                      variant="body2"
-                      align="left"
-                    >{`Module: ${course.sublevel}`}</Typography>
-                  </CardContent>
-                  <Grid container direction="row" justify="flex-end">
-                    {!props.from && (
-                      // <Button
-                      //   variant="contained"
-                      //   style={{
-                      //     color: theme.palette.primary.light,
-                      //     backgroundColor: theme.palette.secondary.contrastText,
-                      //   }}
-                      //   // endIcon={<ShoppingCart />}
-                      //   className={classes.Button1}
-                      //   size="small"
-                      //   onClick={() => {
-                      //     buyCourse(course._id);
-                      //   }}
-                      // >
-                      //   Add to cart
-                      // </Button>
-                      <Dialog courseToView={course} buyfunction={buyCourse} />
+                      <CardMedia
+                        className={classes.cardMedia}
+                        image={"http://162.0.231.67/" + course.thumbnail}
+                        title="Image title"
+                      />
+                      <CardContent className={classes.cardContent}>
+                        <Typography
+                          gutterBottom
+                          variant="body1"
+                          component="h2"
+                          align="left"
+                        >
+                          <Box fontWeight="fontWeightMedium">
+                            {course.title}
+                          </Box>
+                        </Typography>
+                        <Typography variant="body2" align="left">
+                          <Box fontWeight="fontWeightMedium" fontStyle="italic">
+                            {course.subtitle}
+                          </Box>
+                        </Typography>
+                        <Typography
+                          variant="body2"
+                          align="left"
+                        >{`Category: ${course.catagory}`}</Typography>
+                        <Typography
+                          variant="body2"
+                          align="left"
+                        >{`Level: ${course.level}`}</Typography>
+                        <Typography
+                          variant="body2"
+                          align="left"
+                        >{`Module: ${course.sublevel}`}</Typography>
+                      </CardContent>
+                    </div>
+                    {props.from !== "studentpanel" && (
+                      <Grid container direction="row" justify="flex-end">
+                        <Dialog courseToView={course} buyfunction={buyCourse} />
+                      </Grid>
                     )}
-                  </Grid>
-                </Card>
+                  </Card>
+                </CardActionArea>
               </Grid>
             ))}
           </Grid>
-          {!props.from && (
+
+          {props.from === "Home" && (
             <Button
               color="inherit"
               variant="text"
               endIcon={<ChevronRight />}
               size="large"
               className={classes.Button}
+              onClick={navigateToCourseList}
             >
               View all courses
             </Button>

@@ -12,7 +12,7 @@ import {
   Box,
   Card,
   CardMedia,
-  Paper,
+  Fab,
   Grid,
   makeStyles,
 } from "@material-ui/core";
@@ -103,7 +103,7 @@ export default function CustomizedDialogs(props) {
         }}
       >
         <Grid item>
-          <IconButton
+          <Fab
             onClick={handleClickOpen}
             style={{
               color: theme.palette.primary.light,
@@ -113,11 +113,11 @@ export default function CustomizedDialogs(props) {
             className={classes.Button1}
           >
             <Search />
-          </IconButton>
+          </Fab>
         </Grid>
         <Grid item>
           {" "}
-          <IconButton
+          <Fab
             onClick={() => {
               // props.buyfunction(course._id);
             }}
@@ -129,7 +129,7 @@ export default function CustomizedDialogs(props) {
             className={classes.Button1}
           >
             <ShoppingCart />
-          </IconButton>
+          </Fab>
         </Grid>
       </Grid>
 

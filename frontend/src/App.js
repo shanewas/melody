@@ -10,7 +10,7 @@ import Login from "./components/SignIn";
 import Signup from "./components/SignUp";
 import CourseView from "./components/CourseView";
 import InstructorPage from "./components/InstructorPage";
-import CoursesPage from "./components/CoursesPage";
+import CoursesPage from "./components/CourseView";
 import CourseUploader from "./components/Forms/CourseUploader";
 import { ProtectedRoute } from "./routes/protected.route";
 import NotFound from "./components/NotFound";
@@ -32,9 +32,11 @@ export default function App() {
         <Route exact path="/login" component={Login} />
         <Route exact path="/signup" component={Signup} />
         {/* <ProtectedRoute exact path='/course' component={CourseView} /> */}
-        <Route exact path="/course" component={CourseView} />
+
+        <Route exact path="/course" component={CoursesPage} />
+        <Route exact path="/course/all" component={CourseList} />
         <Route exact path="/instructor" component={InstructorPage} />
-        <ProtectedRoute exact path="/coursespage" component={CoursesPage} />
+
         {/* <ProtectedRoute exact path="/courseupload" component={CourseUploader} /> */}
         <Route exact path="/courseupload" component={CourseUploader} />
         <Route exact path="/instructorupload" component={InstructorUploader} />
