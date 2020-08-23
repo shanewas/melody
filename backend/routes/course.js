@@ -104,7 +104,7 @@ router.route("/addVideo").post((req, res) => {
 
 	Course.findByIdAndUpdate(
 		{ _id: course },
-		{ $push: { video: video } },
+		{ $addToSet: { video: video } },
 		{ useFindAndModify: false }
 	).then((doc) => {
 		if (doc) {
