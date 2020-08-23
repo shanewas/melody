@@ -38,7 +38,7 @@ function App() {
   const [video, setVideo] = useState("");
   const [courseList, setCourseList] = useState([]);
   const [instructorList, setInstructorList] = useState([]);
-
+  const [analytics, setAnalytics] = useState([]);
   const [res, setRes] = useState("");
 
   useEffect(() => {
@@ -46,6 +46,7 @@ function App() {
     getIntroVideo();
     getCourses();
     getInstructors();
+    getAnalytics();
   }, []);
 
   //get the 2 videos in Home Page
@@ -66,6 +67,26 @@ function App() {
       });
   }
 
+  //get analytics for the site
+  function getAnalytics() {
+    instance
+      .get("analytics/", {
+        headers: {
+          "auth-token": `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InNoYW5ld2FzYWhtZWRAZ21haWwuY29tIiwicGFzc3dvcmQiOiJQb3RhdG83MjYiLCJpYXQiOjE1OTU4NjA3MzYsImV4cCI6MTU5NTg2NDMzNn0.IRPW-1hioz4LZABZrmtYakjmDwORfKnzIWkwK3DzAXc`,
+          "Content-type": "multipart/form-data",
+        },
+      })
+      .then((res) => {
+        console.log(
+          "analytics fetched in admin: " + JSON.stringify(res.data[0])
+        );
+        setAnalytics(res.data[0]);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+
   // //login
   // function login() {
   //   instance
@@ -83,7 +104,7 @@ function App() {
   //get all courses from server later it will be list all featured courses
   function getCourses() {
     instance
-      .get("course/", {
+      .get("course/featured/", {
         headers: {
           "auth-token": `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InNoYW5ld2FzYWhtZWRAZ21haWwuY29tIiwicGFzc3dvcmQiOiJQb3RhdG83MjYiLCJpYXQiOjE1OTU4NjA3MzYsImV4cCI6MTU5NTg2NDMzNn0.IRPW-1hioz4LZABZrmtYakjmDwORfKnzIWkwK3DzAXc`,
         },
@@ -91,14 +112,14 @@ function App() {
       .then((res, err) => {
         const courseList = res.data;
         setCourseList(courseList);
-        console.log("course list fetched in home: " + err);
+        console.log("course list fetched in home: " + res.data.length);
       });
   }
 
   //get all instructor list from server later it will be list of all featured instructors
   function getInstructors() {
     instance
-      .get("instructor/", {
+      .get("instructor/featured/", {
         headers: {
           "auth-token": `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InNoYW5ld2FzYWhtZWRAZ21haWwuY29tIiwicGFzc3dvcmQiOiJQb3RhdG83MjYiLCJpYXQiOjE1OTU4NjA3MzYsImV4cCI6MTU5NTg2NDMzNn0.IRPW-1hioz4LZABZrmtYakjmDwORfKnzIWkwK3DzAXc`,
         },
@@ -129,11 +150,17 @@ function App() {
         </Grid>
         {/* courselist */}
         <Grid item xs={12}>
-          <CourseViewHome courses={courseList} />
+          <CourseViewHome courses={courseList} totalCourse={analytics.course} from="Home"/>
+        </Grid>
+        <Grid item xs={12}>
+          <Divider />
         </Grid>
         {/* video player mid page */}
-        <Grid item xs={6}>
+        <Grid item xs={12}>
           <VideoPlayer url={"http://162.0.231.67/" + video} />
+        </Grid>
+        <Grid item xs={12}>
+          <Divider />
         </Grid>
         {/* instructorList */}
         <Grid item xs={12}>
@@ -147,8 +174,11 @@ function App() {
             Meet our Instructors
           </Typography>
         </Grid>
-        <Grid item xs={6} className={classes.Carousel}>
+        <Grid item xs={8} className={classes.Carousel}>
           <InstructorCarousel />
+        </Grid>
+        <Grid item xs={12}>
+          <Divider />
         </Grid>
         <Grid item xs={8}>
           <Info
@@ -156,16 +186,25 @@ function App() {
             numberOfInstructors={instructorList.length}
           />
         </Grid>
+        <Grid item xs={12}>
+          <Divider />
+        </Grid>
         <Grid item lg={12}>
           <Typography variant="h4" className={classes.Typography}>
             Our Student's Feedback
           </Typography>
         </Grid>
-        <Grid item lg={4}>
+        <Grid item lg={6}>
           <StudentFeedbackCarousel />
         </Grid>
         <Grid item xs={12}>
+          <Divider />
+        </Grid>
+        <Grid item xs={12}>
           <FAQView />
+        </Grid>
+        <Grid item xs={12}>
+          <Divider />
         </Grid>
         <Grid item xs={12}>
           <ContactUsForm />

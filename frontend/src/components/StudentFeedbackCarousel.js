@@ -24,9 +24,8 @@ const useStyles = makeStyles({
     height: 300,
   },
   root: {
-    paddingBottom: theme.spacing(3),
     // paddingTop: theme.spacing(3),
-    backgroundColor: theme.palette.primary.main,
+    background: theme.palette.primary.main,
   },
   Button: {
     background: theme.palette.secondary.contrastText,
@@ -130,7 +129,7 @@ export default function StudentFeedback() {
 
           <CardActions>
             <Button
-              size="small"
+              size="large"
               variant="contained"
               fullWidth="true"
               className={classes.Button}
@@ -169,9 +168,9 @@ export default function StudentFeedback() {
               </Grid>
             </Grid>
           </CardActionArea>
-          <CardActions>
+          <CardActions >
             <Button
-              size="small"
+              size="large"
               variant="contained"
               fullWidth="true"
               className={classes.Button}

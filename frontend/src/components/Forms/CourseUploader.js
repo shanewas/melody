@@ -15,13 +15,13 @@ import {
   CssBaseline,
 } from "@material-ui/core";
 import { CloudUpload, Delete, Add } from "@material-ui/icons";
-import theme from "../theme";
-import axios from "../api/Config";
-import Topnav from "./Navbar";
+import theme from "../../theme";
+import axios from "../../api/Config";
+import Topnav from ".././Navbar";
 import VideoUploader from "./VideoUploader";
 import { useForm } from "react-hook-form";
-import Appbar from "./Admin/Appbar";
-import Drawer from "./Admin/Drawer";
+import Appbar from ".././Admin/Appbar";
+import Drawer from ".././Admin/Drawer";
 
 const useStyles = makeStyles((theme) => ({
   Container: {
@@ -143,7 +143,7 @@ const modules = [
   },
 ];
 
-export default function CourseUploader() {
+export default function CourseUploader(props) {
   const classes = useStyles();
 
   const [category, setCategory] = React.useState("");
@@ -156,6 +156,9 @@ export default function CourseUploader() {
 
   //for video
   const [fields, setFields] = useState([{ value: null }]);
+
+  //check from where the component is called
+  const state = props.location.state;
 
   //array of all uploaded video ids
   let videoIdArray = [];
@@ -272,7 +275,7 @@ export default function CourseUploader() {
     >
       <div className={classes.root}>
         <CssBaseline />
-        <Appbar />
+        <Appbar title={state} />
         <Drawer />
         <main className={classes.content}>
           <Toolbar />
@@ -284,7 +287,7 @@ export default function CourseUploader() {
                 padding: theme.spacing(5, 0, 5, 0),
                 marginLeft: theme.spacing(10),
               }}
-              align="center"
+              align="left"
             >
               Add New Course
             </Typography>

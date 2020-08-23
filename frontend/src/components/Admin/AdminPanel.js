@@ -204,7 +204,7 @@ export default function AdminPanel() {
   return (
     <div className={classes.root}>
       <CssBaseline />
-      <Appbar />
+      <Appbar title="Admin Dashboard" />
       <Drawer />
       <main className={classes.content}>
         <Toolbar />
@@ -477,7 +477,7 @@ export default function AdminPanel() {
               </div>
             </Paper>
           </Grid>
-          <Grid item xs={6}>
+          <Grid item xs={12}>
             <Paper className={classes.Paper}>
               <Typography
                 variant="h5"
@@ -485,7 +485,7 @@ export default function AdminPanel() {
               >
                 Sales Report
               </Typography>
-              <div className={classes.root1}>
+              <div>
                 <SalesChart />
               </div>
             </Paper>

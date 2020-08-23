@@ -61,6 +61,9 @@ export default function InstructorUploader(props) {
   const classes = useStyles();
   const { register, handleSubmit, errors } = useForm();
 
+  //check from where the component is called
+  const state = props.location.state;
+
   function addInstructor(data, e) {
     console.log(data);
 
@@ -91,7 +94,7 @@ export default function InstructorUploader(props) {
 
   return (
     <div className={classes.root}>
-      <Appbar />
+      <Appbar title={state} />
       <Drawer />
       <main className={classes.content}>
         <Toolbar />

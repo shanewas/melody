@@ -1,10 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import {
-  CssBaseline,
-  Grid,
-  Typography,
-  Container,
   makeStyles,
   withStyles,
   Menu,
@@ -18,22 +14,22 @@ import {
   Avatar,
   IconButton,
   Fade,
-  Divider,
 } from "@material-ui/core";
 import {
   ExpandMore,
-  ArrowForwardIos,
+  Forum,
   ArrowBackIos,
   AccountCircle,
   ShoppingCart,
+  CastForEducation,
+  ExitToApp,
 } from "@material-ui/icons";
 import MenuIcon from "@material-ui/icons/Menu";
 import theme from "../theme";
 
 import logo from "../assets/images/logo.png";
 import logoShort from "../assets/images/short_logo.png";
-import CoursesCategories from "../data/CourseCategoryData";
-import MusiciansList from "../data/MusiciansListData";
+
 import axios from "../api/Config";
 import auth from "../routes/auth";
 import { positions } from "@material-ui/system";
@@ -45,7 +41,6 @@ const useStyles = makeStyles((theme) => ({
     flexGrow: 1,
     width: "100%",
     margin: "0px",
-    // background: theme.palette.secondary.main,
   },
   logo: {
     flexGrow: 1,
@@ -84,7 +79,6 @@ const useStyles = makeStyles((theme) => ({
 
 const StyledMenuItem = withStyles((theme) => ({
   root: {
-    color: theme.palette.background.paper,
     "&:hover": {
       //you want this to be the same as the backgroundColor above
       backgroundColor: theme.palette.secondary.contrastText,
@@ -98,55 +92,13 @@ const StyledMenuItem = withStyles((theme) => ({
 
 //Courses Menu
 const StyledMenu = withStyles({
-  paper: {
-    background: theme.palette.secondary.main,
-  },
+  paper: {},
 })((props) => (
   <Menu
     getContentAnchorEl={null}
     anchorOrigin={{
       vertical: "bottom",
       horizontal: "center",
-    }}
-    transformOrigin={{
-      vertical: "top",
-      horizontal: "center",
-    }}
-    {...props}
-  />
-));
-
-//Musicians Menu
-const StyledMenuMusicians = withStyles({
-  paper: {
-    background: theme.palette.secondary.main,
-  },
-})((props) => (
-  <Menu
-    getContentAnchorEl={null}
-    anchorOrigin={{
-      vertical: "bottom",
-      horizontal: "left",
-    }}
-    transformOrigin={{
-      vertical: "top",
-      horizontal: "center",
-    }}
-    {...props}
-  />
-));
-
-//Mobile view menu
-const StyledMenuMobile = withStyles({
-  paper: {
-    background: theme.palette.secondary.main,
-  },
-})((props) => (
-  <Menu
-    getContentAnchorEl={null}
-    anchorOrigin={{
-      vertical: "bottom",
-      horizontal: "left",
     }}
     transformOrigin={{
       vertical: "top",
@@ -160,6 +112,7 @@ export default function Navbar(props) {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mucisiansAnchorEl, setMucisiansAnchorEl] = React.useState(null);
+  const [userAnchorEl, setUserAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
   const [instructorList, setInstructorList] = useState([]);
 
@@ -201,8 +154,17 @@ export default function Navbar(props) {
     setMucisiansAnchorEl(event.currentTarget);
   };
 
+  //User menu click handlers
+  const handleUsersClick = (event) => {
+    setUserAnchorEl(event.currentTarget);
+  };
+
   const handleMusiciansClose = () => {
     setMucisiansAnchorEl(null);
+  };
+
+  const handleUsersClose = () => {
+    setUserAnchorEl(null);
   };
 
   //Mobile menu click handlers
@@ -214,6 +176,12 @@ export default function Navbar(props) {
     setMobileMoreAnchorEl(null);
   };
 
+  // function setAuth(){
+  //   if(auth.isAuthenticated){
+
+  //   }
+  // }
+
   const history = useHistory();
   function loginControl() {
     if (auth.isAuthenticated()) {
@@ -224,12 +192,65 @@ export default function Navbar(props) {
     }
   }
 
+  function navigateToUser(userSection) {
+    switch (userSection) {
+      case "My Classroom":
+        history.push("/studentpanel");
+        break;
+      case "Logout":
+        if (auth.isAuthenticated()) {
+          auth.logout();
+          history.push("/");
+        }
+        break;
+    }
+  }
+
   function navigateToCourse() {
     history.push("/coursespage");
   }
   function navigateToHome() {
     history.push("/");
   }
+
+  const userList = [
+    { title: "My Classroom", icon: <CastForEducation /> },
+    { title: "My Profile", icon: <AccountCircle /> },
+    { title: "My Messages", icon: <Forum /> },
+    { title: "Logout", icon: <ExitToApp /> },
+  ];
+
+  const categoryList = [
+    {
+      primary: "Guitar",
+      alt: "Guitar",
+      src:
+        "https://i1.pngguru.com/preview/844/649/188/button-ui-2-apple-paid-pro-guitar-icon-png-clipart.jpg",
+    },
+    {
+      primary: "Acoustic Fingerstyle guitar",
+      alt: "Acoustic Fingerstyle guitar",
+      src: "https://image.flaticon.com/icons/png/512/176/176540.png",
+    },
+    {
+      primary: "Drums",
+      alt: "Drums",
+      src:
+        "https://imageog.flaticon.com/icons/png/512/1803/1803943.png?size=1200x630f&pad=10,10,10,10&ext=png&bg=FFFFFFFF",
+    },
+    {
+      primary: "Piano/Keyboard",
+      alt: "Piano/Keyboard",
+      src:
+        "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRxbm59tHjLaXC1joj-gB2Mid9SXnZ7KZTX3A&usqp=CAU",
+    },
+    {
+      primary: "Sound Engineering",
+      alt: "Sound Engineering",
+      src:
+        "https://imageog.flaticon.com/icons/png/512/2198/2198024.png?size=1200x630f&pad=10,10,10,10&ext=png&bg=FFFFFFFF",
+    },
+  ];
 
   return (
     <div className={classes.root}>
@@ -271,7 +292,7 @@ export default function Navbar(props) {
                 },
               }}
             >
-              {CoursesCategories.map((courseCategory, index) => (
+              {categoryList.map((courseCategory, index) => (
                 <StyledMenuItem alignItems="center" onClick={navigateToCourse}>
                   <ListItemAvatar>
                     <Avatar alt={courseCategory.alt} src={courseCategory.src} />
@@ -292,7 +313,7 @@ export default function Navbar(props) {
               Musicians
             </Button>
 
-            <StyledMenuMusicians
+            <StyledMenu
               id="customized-menu"
               anchorEl={mucisiansAnchorEl}
               keepMounted
@@ -318,23 +339,65 @@ export default function Navbar(props) {
                   <ListItemText primary={instructor.name} />
                 </StyledMenuItem>
               ))}
-            </StyledMenuMusicians>
+            </StyledMenu>
           </div>
           <div className={classes.sectionDesktop}>
             <Button color="inherit" variant="text" className={classes.button}>
               Cart
             </Button>
           </div>
-          <div className={classes.sectionDesktop}>
-            <Button
-              color="inherit"
-              variant="text"
-              className={classes.button}
-              onClick={loginControl}
-            >
-              {auth.isAuthenticated() ? localStorage.getItem("email") : "Login"}
-            </Button>
-          </div>
+          {auth.isAuthenticated() !== true && (
+            <div className={classes.sectionDesktop}>
+              <Button
+                color="inherit"
+                variant="text"
+                className={classes.button}
+                onClick={loginControl}
+              >
+                Login
+              </Button>
+            </div>
+          )}
+          {auth.isAuthenticated() === true && (
+            <div className={classes.sectionDesktop}>
+              <Button
+                color="inherit"
+                variant="text"
+                className={classes.button}
+                onClick={handleUsersClick}
+                endIcon={<ExpandMore />}
+              >
+                {localStorage.getItem("name")
+                  ? localStorage.getItem("name")
+                  : ""}
+              </Button>
+              <StyledMenu
+                id="customized-menu"
+                anchorEl={userAnchorEl}
+                keepMounted
+                open={Boolean(userAnchorEl)}
+                onClose={handleUsersClose}
+                TransitionComponent={Fade}
+                //setting menu height and width
+                PaperProps={{
+                  style: {
+                    maxHeight: ITEM_HEIGHT * 4.5,
+                  },
+                }}
+              >
+                {userList.map((userListItem, index) => (
+                  <StyledMenuItem
+                    alignItems="center"
+                    onClick={() => navigateToUser(userListItem.title)}
+                  >
+                    <ListItemIcon>{userListItem.icon}</ListItemIcon>
+                    <ListItemText primary={userListItem.title} />
+                  </StyledMenuItem>
+                ))}
+              </StyledMenu>
+            </div>
+          )}
+
           <div className={classes.sectionMobile}>
             <IconButton
               aria-label="show more"
@@ -346,7 +409,7 @@ export default function Navbar(props) {
             >
               <MenuIcon />
             </IconButton>
-            <StyledMenuMobile
+            <StyledMenu
               id="customized-menu"
               anchorEl={mobileMoreAnchorEl}
               keepMounted
@@ -372,7 +435,7 @@ export default function Navbar(props) {
                 </ListItemIcon>
                 <ListItemText primary="Browse" />
               </StyledMenuItem>
-            </StyledMenuMobile>
+            </StyledMenu>
           </div>
         </Toolbar>
       </AppBar>

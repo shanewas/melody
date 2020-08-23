@@ -14,7 +14,6 @@ import { useForm } from "react-hook-form";
 
 const useStyles = makeStyles((theme) => ({
   Typography: {
-    marginTop: theme.spacing(10),
     color: theme.palette.secondary.contrastText,
   },
   label: {

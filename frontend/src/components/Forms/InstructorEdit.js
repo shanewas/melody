@@ -63,6 +63,9 @@ export default function InstructorUpdate(props) {
   const [instructorList, setInstructorList] = useState([]);
   const [instructor, setInstructor] = React.useState("");
 
+  //check from where the component is called
+  const state = props.location.state;
+
   useEffect(() => {
     getInstructors();
   }, []);
@@ -98,7 +101,9 @@ export default function InstructorUpdate(props) {
       if (data.photo !== undefined) {
         formData.append("photo", data.photo[0]);
       }
-
+      if (data.name !== undefined) {
+        formData.append("name", data.name);
+      }
       console.log(...formData);
 
       uploadInstructor(formData, e);
@@ -127,7 +132,7 @@ export default function InstructorUpdate(props) {
 
   return (
     <div className={classes.root}>
-      <Appbar />
+      <Appbar title={state} />
       <Drawer />
       <main className={classes.content}>
         <Toolbar />
@@ -154,7 +159,7 @@ export default function InstructorUpdate(props) {
                 variant="outlined"
                 className={classes.label}
                 onChange={handleInstructorChange}
-                label="Name"
+                label="Select Instructor"
                 value={instructor}
                 fullWidth
                 InputProps={{
@@ -173,6 +178,19 @@ export default function InstructorUpdate(props) {
                   </MenuItem>
                 ))}
               </TextField>
+
+              <TextField
+                name="name"
+                type="text"
+                variant="outlined"
+                className={classes.label}
+                label="Name"
+                fullWidth
+                InputProps={{
+                  className: classes.input,
+                }}
+                inputRef={register}
+              />
 
               <TextField
                 name="bio"

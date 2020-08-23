@@ -139,7 +139,7 @@ export default function CourseVIew(props) {
   }, []);
 
   function getCourseData() {
-    console.log("state data inside: "+state);
+    console.log("state data inside: " + state);
     setCourse(state);
   }
 
@@ -176,7 +176,9 @@ export default function CourseVIew(props) {
 
   return (
     <div style={{ background: theme.palette.background.default }}>
-      <Topnav />
+      <div className="App">
+        <Topnav />
+      </div>
       <Grid contaianer className={classes.Container}>
         <Grid container direction="row" lg={12}>
           <Grid item lg={12} sm={12}>
