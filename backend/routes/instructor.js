@@ -182,11 +182,9 @@ router.route("/:instructorId").get((req, res) => {
 //UPDATE by ID
 router.route("/:instructorId").put((req, res) => {
 	const id = req.params.instructorId;
-	Instructor.findByIdAndUpdate(
-		id,
-		{ $set: req.body },
-		{ useFindAndModify: false }
-	)
+	var query = req.body;
+	if (req.file) query["photo"] = req.file.path;
+	Instructor.findByIdAndUpdate(id, { $set: query }, { useFindAndModify: false })
 		.then((doc) => {
 			if (doc) {
 				res.status(200).json(`Instructor Updated Successfully!`);

@@ -127,7 +127,9 @@ router.route("/:videoId").get((req, res) => {
 //UPDATE by ID
 router.route("/:videoId").put((req, res) => {
 	const id = req.params.videoId;
-	Video.findByIdAndUpdate(id, { $set: req.body }, { useFindAndModify: false })
+	var query = req.body;
+	if (req.file) query["file"] = req.file.path;
+	Video.findByIdAndUpdate(id, { $set: query }, { useFindAndModify: false })
 		.then((doc) => {
 			if (doc) {
 				res.status(200).json(`Video Updated Successfully!`);
