@@ -7,6 +7,7 @@ var InstructorSchema = new Schema(
 		photo: { type: String },
 		bio: { type: String },
 		earnings: { type: String },
+		teaches: { type: String },
 		course: [{ type: Schema.Types.ObjectId }],
 		document: [{ type: Schema.Types.ObjectId }],
 		video: [
