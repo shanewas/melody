@@ -12,6 +12,7 @@ import CourseView from "./components/CourseView";
 import InstructorPage from "./components/InstructorPage";
 import CoursesPage from "./components/CourseView";
 import CourseUploader from "./components/Forms/CourseUploader";
+import VideoUploader from "./components/Forms/VideoUploader";
 import { ProtectedRoute } from "./routes/protected.route";
 import NotFound from "./components/NotFound";
 import InstructorUploader from "./components/Forms/InstructorUploader";
@@ -40,6 +41,8 @@ export default function App() {
         {/* <ProtectedRoute exact path="/courseupload" component={CourseUploader} /> */}
         <Route exact path="/courseupload" component={CourseUploader} />
         <Route exact path="/instructorupload" component={InstructorUploader} />
+        <Route exact path="/videoupload" component={VideoUploader} />
+
         <Route exact path="/instructoredit" component={InstructorEdit} />
 
         <Route exact path="/admin" component={AdminPanel} />

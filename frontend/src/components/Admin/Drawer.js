@@ -20,6 +20,7 @@ import {
   Stars,
   EditOutlined,
   Dashboard,
+  VideoLibrary,
 } from "@material-ui/icons";
 import ListIcon from "@material-ui/icons/List";
 import theme from "../../theme";
@@ -70,6 +71,11 @@ const DrawerCustom = (props) => {
       text: "Edit Instructor",
       icon: <EditOutlined />,
       onClick: () => history.push("/instructoredit", "Instructor Edit Panel"),
+    },
+    {
+      text: "Add Video",
+      icon: <VideoLibrary />,
+      onClick: () => history.push("/videoupload", "Video Upload Panel"),
     },
   ];
   const drawerItemList2 = [

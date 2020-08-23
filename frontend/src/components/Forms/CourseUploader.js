@@ -13,8 +13,10 @@ import {
   Divider,
   Toolbar,
   CssBaseline,
+  Snackbar,
 } from "@material-ui/core";
 import { CloudUpload, Delete, Add } from "@material-ui/icons";
+import MuiAlert from "@material-ui/lab/Alert";
 import theme from "../../theme";
 import axios from "../../api/Config";
 import Topnav from ".././Navbar";
@@ -143,6 +145,10 @@ const modules = [
   },
 ];
 
+function Alert(props) {
+  return <MuiAlert elevation={6} variant="filled" {...props} />;
+}
+
 export default function CourseUploader(props) {
   const classes = useStyles();
 
@@ -156,6 +162,8 @@ export default function CourseUploader(props) {
 
   //for video
   const [fields, setFields] = useState([{ value: null }]);
+
+  const [open, setOpen] = React.useState(props.open);
 
   //check from where the component is called
   const state = props.location.state;
@@ -182,6 +190,10 @@ export default function CourseUploader(props) {
     formData.append("desc", data.description);
 
     for (var pair of formData.entries()) console.log(pair[0] + ", " + pair[1]);
+
+    console.log("array inside upload course = " + videoIdArray);
+
+    // formData.append("video", videoIdArray);
 
     uploadCourse(formData, e);
   }
@@ -233,6 +245,13 @@ export default function CourseUploader(props) {
     setInstructor(event.target.value);
   };
 
+  const handleClose = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+
+    setOpen(false);
+  };
   useEffect(() => {
     getInstructors();
   }, []);
@@ -263,7 +282,10 @@ export default function CourseUploader(props) {
   //callback function send to VideoUploader to upload videoIdArray
   const setVideoId = (videoId) => {
     videoIdArray.push(videoId);
-    console.log("stored response for video upload request: " + videoIdArray);
+    console.log(
+      "stored response for video upload request in CourseUploader: " +
+        videoIdArray
+    );
     console.log("number of videos uploaded: " + videoIdArray.length);
   };
 
@@ -513,24 +535,6 @@ export default function CourseUploader(props) {
                     inputRef={register({ required: true })}
                   />
                 </Grid>
-
-                <Grid item container direction="column">
-                  <Grid item>
-                    <Typography
-                      variant="h5"
-                      align="center"
-                      style={{
-                        color: theme.palette.secondary.contrastText,
-                        padding: theme.spacing(5, 0, 5, 0),
-                      }}
-                    >
-                      Add New Lessons
-                    </Typography>
-                  </Grid>
-                  <Grid item lg={12}>
-                    <VideoUploader videoIdCallback={setVideoId} />
-                  </Grid>
-                </Grid>
               </Grid>
               <Button
                 variant="contained"
@@ -543,6 +547,12 @@ export default function CourseUploader(props) {
                 Upload Course
               </Button>
             </form>
+
+            <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
+              <Alert onClose={handleClose} severity="success">
+                Course Purchased Successfully!
+              </Alert>
+            </Snackbar>
           </Paper>
         </main>
       </div>
