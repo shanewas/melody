@@ -192,6 +192,10 @@ export default function Navbar(props) {
     }
   }
 
+  function goToAdminDash(){
+    history.push("/admin");
+  }
+
   function navigateToUser(userSection) {
     switch (userSection) {
       case "My Classroom":
@@ -269,6 +273,14 @@ export default function Navbar(props) {
             <img src={logoShort} alt="MethodMelody" height="auto" width="40" />
           </div>
           <div className={classes.sectionDesktop}>
+            <Button
+              color="inherit"
+              variant="text"
+              onClick={goToAdminDash}
+              className={classes.button}
+            >
+              Admin
+            </Button>
             <Button
               color="inherit"
               variant="text"
