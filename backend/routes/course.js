@@ -97,6 +97,24 @@ router
 			.catch((err) => res.status(400).json("Error: " + err));
 	});
 
+//BUY
+router.route("/addVideo").post((req, res) => {
+	const course = Mongoose.Types.ObjectId(req.body.course);
+	const video = Mongoose.Types.ObjectId(req.body.video);
+
+	Course.findByIdAndUpdate(
+		{ _id: course },
+		{ $push: { video: video } },
+		{ useFindAndModify: false }
+	).then((doc) => {
+		if (doc) {
+			res.status(200).json(`Video added successfully to ${doc.title}!`);
+		} else {
+			res.status(404).json(`Video adding Failed!`);
+		}
+	});
+});
+
 router.route("/search").get((req, res) => {
 	var query = {};
 	for (var key in req.query) {
