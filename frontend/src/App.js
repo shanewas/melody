@@ -16,6 +16,7 @@ import VideoUploader from "./components/Forms/VideoUploader";
 import { ProtectedRoute } from "./routes/protected.route";
 import NotFound from "./components/NotFound";
 import InstructorUploader from "./components/Forms/InstructorUploader";
+import CourseEdit from "./components/Forms/CourseEdit";
 import InstructorEdit from "./components/Forms/InstructorEdit";
 import AdminPanel from "./components/Admin/AdminPanel";
 import StudentPanel from "./components/Student/StudentPanel";
@@ -43,6 +44,7 @@ export default function App() {
         <Route exact path="/instructorupload" component={InstructorUploader} />
         <Route exact path="/videoupload" component={VideoUploader} />
 
+        <Route exact path="/courseedit" component={CourseEdit} />
         <Route exact path="/instructoredit" component={InstructorEdit} />
 
         <Route exact path="/admin" component={AdminPanel} />

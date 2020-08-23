@@ -59,7 +59,7 @@ const DrawerCustom = (props) => {
     {
       text: "Edit Course",
       icon: <EditOutlined />,
-      // onClick: () => history.push("/courseedit"),
+      onClick: () => history.push("/courseedit", "Course Edit Panel"),
     },
     {
       text: "Add Instructor",
