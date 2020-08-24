@@ -23,6 +23,7 @@ import StudentPanel from "./components/Student/StudentPanel";
 import ViewCourse from "./components/Admin/ViewCourses";
 import ViewInstructors from "./components/Admin/ViewInstructors";
 import CourseList from "./components/Course/CourseList";
+import InstructorList from "./components/Instructor/InstructorList";
 
 // import CourseData from "./data/CoursesData";
 
@@ -38,7 +39,7 @@ export default function App() {
         <Route exact path="/course" component={CoursesPage} />
         <Route exact path="/course/all" component={CourseList} />
         <Route exact path="/instructor" component={InstructorPage} />
-
+        <Route exact path="/instructor/all" component={InstructorList} />
         {/* <ProtectedRoute exact path="/courseupload" component={CourseUploader} /> */}
         <Route exact path="/courseupload" component={CourseUploader} />
         <Route exact path="/instructorupload" component={InstructorUploader} />

@@ -8,10 +8,15 @@ import {
   Button,
   CardContent,
   CardMedia,
+  Toolbar,
 } from "@material-ui/core";
 import Link from "@material-ui/core/Link";
 import CardThumbnailInstructor from "./CardThumbnailInstructor";
-import { ChevronRight } from "@material-ui/icons";
+import { ChevronRight, FilterList } from "@material-ui/icons";
+import { useHistory } from "react-router-dom";
+import InstructorList from "./Instructor/InstructorList";
+import theme from "../theme";
+import Navbar from "./Navbar";
 
 const useStyles = makeStyles((theme) => ({
   card: {
@@ -36,6 +41,21 @@ const useStyles = makeStyles((theme) => ({
     marginTop: theme.spacing(4),
     color: theme.palette.secondary.contrastText,
     textTransform: "none",
+    "&:hover": {
+      color: theme.palette.primary.dark,
+    },
+    "&:focus": {
+      outline: "none",
+    },
+  },
+  Button1: {
+    color: theme.palette.secondary.contrastText,
+    borderColor: theme.palette.secondary.contrastText,
+    marginBottom: theme.spacing(5),
+    "&:hover": {
+      borderColor: theme.palette.primary.dark,
+      color: theme.palette.primary.dark,
+    },
 
     "&:focus": {
       outline: "none",
@@ -55,17 +75,42 @@ export default function InstructorViewHome(props) {
     "instructor list inside InstructorViewHome: " + instructorList.length
   );
 
+  const history = useHistory();
+  function navigateToInstructorList() {
+    console.log("cliked on button");
+    history.push("/instructor/all");
+  }
+
   return (
     <div className={classes.root}>
       <main className={classes.content}>
         <Container maxWidth="xl">
-          <Typography
-            variant="h4"
-            component="h4"
-            className={classes.Typography}
-          >
-            Learn from the Best of the Best
-          </Typography>
+          {props.from === "instructorList" && (
+            <div className="App">
+              <Navbar />
+              <Toolbar style={{ marginBottom: theme.spacing(2) }} />
+              <Grid container direction="row">
+                <Grid item>
+                  <Button
+                    variant="outlined"
+                    className={classes.Button1}
+                    endIcon={<FilterList />}
+                  >
+                    Filter by
+                  </Button>
+                </Grid>
+              </Grid>
+            </div>
+          )}
+          {props.from === "Home" && (
+            <Typography
+              variant="h4"
+              component="h4"
+              className={classes.Typography}
+            >
+              Learn from the Best of the Best
+            </Typography>
+          )}
           <Grid container spacing={3}>
             {instructorList.map((instructor) => (
               <Grid
@@ -97,15 +142,18 @@ export default function InstructorViewHome(props) {
               </Grid>
             ))}
           </Grid>
-          <Button
-            color="inherit"
-            variant="text"
-            endIcon={<ChevronRight />}
-            size="large"
-            className={classes.Button}
-          >
-            View all instructors
-          </Button>
+          {props.from === "Home" && (
+            <Button
+              color="inherit"
+              variant="text"
+              endIcon={<ChevronRight />}
+              size="large"
+              className={classes.Button}
+              onClick={navigateToInstructorList}
+            >
+              View all instructors
+            </Button>
+          )}
         </Container>
       </main>
     </div>
