@@ -192,7 +192,7 @@ export default function Navbar(props) {
     }
   }
 
-  function goToAdminDash(){
+  function goToAdminDash() {
     history.push("/admin");
   }
 
@@ -210,8 +210,8 @@ export default function Navbar(props) {
     }
   }
 
-  function navigateToCourse() {
-    history.push("/coursespage");
+  function navigateToCourse(course) {
+    history.push("/course/all", course);
   }
   function navigateToHome() {
     history.push("/");
@@ -232,7 +232,7 @@ export default function Navbar(props) {
         "https://i1.pngguru.com/preview/844/649/188/button-ui-2-apple-paid-pro-guitar-icon-png-clipart.jpg",
     },
     {
-      primary: "Acoustic Fingerstyle guitar",
+      primary: "Acoustic Fingerstyle Guitar",
       alt: "Acoustic Fingerstyle guitar",
       src: "https://image.flaticon.com/icons/png/512/176/176540.png",
     },
@@ -305,7 +305,12 @@ export default function Navbar(props) {
               }}
             >
               {categoryList.map((courseCategory, index) => (
-                <StyledMenuItem alignItems="center" onClick={navigateToCourse}>
+                <StyledMenuItem
+                  alignItems="center"
+                  onClick={() => {
+                    navigateToCourse(courseCategory.primary);
+                  }}
+                >
                   <ListItemAvatar>
                     <Avatar alt={courseCategory.alt} src={courseCategory.src} />
                   </ListItemAvatar>
