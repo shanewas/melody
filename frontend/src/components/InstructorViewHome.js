@@ -9,6 +9,7 @@ import {
   CardContent,
   CardMedia,
   Toolbar,
+  CardActionArea,
 } from "@material-ui/core";
 import Link from "@material-ui/core/Link";
 import CardThumbnailInstructor from "./CardThumbnailInstructor";
@@ -23,6 +24,9 @@ const useStyles = makeStyles((theme) => ({
     height: "100%",
     display: "flex",
     flexDirection: "column",
+    "&:focus": {
+      outline: "none",
+    },
   },
   cardMedia: {
     paddingTop: "56.25%", // 16:9
@@ -30,7 +34,11 @@ const useStyles = makeStyles((theme) => ({
   cardContent: {
     flexGrow: 1,
   },
-
+  cardAction: {
+    "&:focus": {
+      outline: "none",
+    },
+  },
   root: {
     display: "flex",
   },
@@ -80,6 +88,9 @@ export default function InstructorViewHome(props) {
     console.log("cliked on button");
     history.push("/instructor/all");
   }
+  function navigateToInstructor(instructor) {
+    history.push("/instructor", instructor);
+  }
 
   return (
     <div className={classes.root}>
@@ -122,22 +133,29 @@ export default function InstructorViewHome(props) {
                 lg={2}
                 xl={2}
               >
-                <Card className={classes.card}>
-                  <CardMedia
-                    className={classes.cardMedia}
-                    image={"http://162.0.231.67/" + instructor.photo}
-                    title="Image title"
-                  />
-                  <CardContent className={classes.cardContent}>
-                    <Typography
-                      gutterBottom
-                      variant="h6"
-                      component="h2"
-                      align="left"
-                    >
-                      {instructor.name}
-                    </Typography>
-                  </CardContent>
+                <Card
+                  className={classes.card}
+                  onClick={() => {
+                    navigateToInstructor(instructor);
+                  }}
+                >
+                  <CardActionArea className={classes.cardAction}>
+                    <CardMedia
+                      className={classes.cardMedia}
+                      image={"http://162.0.231.67/" + instructor.photo}
+                      title="Image title"
+                    />
+                    <CardContent className={classes.cardContent}>
+                      <Typography
+                        gutterBottom
+                        variant="h6"
+                        component="h2"
+                        align="left"
+                      >
+                        {instructor.name}
+                      </Typography>
+                    </CardContent>
+                  </CardActionArea>
                 </Card>
               </Grid>
             ))}
