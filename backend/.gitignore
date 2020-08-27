@@ -14,6 +14,8 @@ package-lock.json
 /build
 .env
 
+*.tmp*
+
 # misc
 .DS_Store
 .env.local

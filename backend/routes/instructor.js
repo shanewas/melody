@@ -5,6 +5,7 @@ const Mongoose = require("mongoose");
 const Instructor = require("../models/Instructor.model");
 const Analytics = require("../models/Analytics.model");
 const Featured = require("../models/Featured.model");
+const { exec } = require("child_process");
 
 const storage = multer.diskStorage({
 	destination: function (req, file, cb) {
@@ -99,6 +100,49 @@ router.route("/unfeatured").get((req, res) => {
 	Instructor.find({ featured: false })
 		.then((unfeatured) => res.status(200).json(unfeatured))
 		.catch((err) => res.status(400).json("Error: " + err));
+});
+
+//unpublished
+router.route("/unpublished").get((req, res) => {
+	Instructor.find({ published: false })
+		.then((unpublished) => res.status(200).json(unpublished))
+		.catch((err) => res.status(400).json("Error: " + err));
+});
+
+//published
+router.route("/publishing_status").post((req, res) => {
+	const publish = req.body.publish;
+	const unpublish = req.body.unpublish;
+	try {
+		for (let index = 0; index < publish.length; index++) {
+			const id = Mongoose.Types.ObjectId(publish[index]);
+			Instructor.findByIdAndUpdate(
+				id,
+				{ $set: { published: true } },
+				{ useFindAndModify: false }
+			)
+				.exec()
+				.catch((err) => { throw err });
+			if (index + 1 === publish.length) {
+				res.status(200).json(`Instructor Published Successfully!`);
+			}
+		}
+		for (let index = 0; index < unpublish.length; index++) {
+			const id = Mongoose.Types.ObjectId(unpublish[index]);
+			Instructor.findByIdAndUpdate(
+				id,
+				{ $set: { published: false } },
+				{ useFindAndModify: false }
+			)
+				.exec()
+				.catch((err) => { throw err });
+			if (index + 1 === unpublish.length) {
+				res.status(200).json(`Instructor UnPublished Successfully!`);
+			};
+		}
+	} catch (err) {
+		res.status(400).json("Error: " + err);
+	}
 });
 
 //POST add featured

@@ -143,6 +143,49 @@ router.route("/unfeatured").get((req, res) => {
 		.catch((err) => res.status(400).json("Error: " + err));
 });
 
+//unpublished
+router.route("/unpublished").get((req, res) => {
+	Course.find({ published: false })
+		.then((unpublished) => res.status(200).json(unpublished))
+		.catch((err) => res.status(400).json("Error: " + err));
+});
+
+//published
+router.route("/publishing_status").post((req, res) => {
+	const publish = req.body.publish;
+	const unpublish = req.body.unpublish;
+	try {
+		for (let index = 0; index < publish.length; index++) {
+			const id = Mongoose.Types.ObjectId(publish[index]);
+			Course.findByIdAndUpdate(
+				id,
+				{ $set: { published: true } },
+				{ useFindAndModify: false }
+			)
+				.exec()
+				.catch((err) => { throw err });
+			if (index + 1 === publish.length) {
+				res.status(200).json(`Course Published Successfully!`);
+			}
+		}
+		for (let index = 0; index < unpublish.length; index++) {
+			const id = Mongoose.Types.ObjectId(unpublish[index]);
+			Course.findByIdAndUpdate(
+				id,
+				{ $set: { published: false } },
+				{ useFindAndModify: false }
+			)
+				.exec()
+				.catch((err) => { throw err });
+			if (index + 1 === unpublish.length) {
+				res.status(200).json(`Course UnPublished Successfully!`);
+			};
+		}
+	} catch (err) {
+		res.status(400).json("Error: " + err);
+	}
+});
+
 //POST add featured
 router.route("/featured/add").post((req, res) => {
 	const featured = req.body["featured"];
