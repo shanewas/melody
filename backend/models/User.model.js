@@ -4,6 +4,7 @@ var Schema = mongoose.Schema;
 
 var UserSchema = new Schema(
 	{
+		type: { type: Number, default: 4 },
 		name: { type: String },
 		photo: { type: String },
 		age: { type: String },
