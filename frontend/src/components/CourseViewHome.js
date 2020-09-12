@@ -61,32 +61,21 @@ const useStyles = makeStyles((theme) => ({
   },
   Typography: {
     marginBottom: theme.spacing(8),
-    color: theme.palette.secondary.contrastText,
   },
   Typography1: {
     marginBottom: theme.spacing(3),
-    color: theme.palette.secondary.contrastText,
   },
   Button: {
     marginTop: theme.spacing(4),
-    color: theme.palette.secondary.contrastText,
+
     textTransform: "none",
-    "&:hover": {
-      color: theme.palette.primary.dark,
-    },
 
     "&:focus": {
       outline: "none",
     },
   },
   Button1: {
-    color: theme.palette.secondary.contrastText,
-    borderColor: theme.palette.secondary.contrastText,
     marginBottom: theme.spacing(5),
-    "&:hover": {
-      borderColor: theme.palette.primary.dark,
-      color: theme.palette.primary.dark,
-    },
 
     "&:focus": {
       outline: "none",
@@ -153,6 +142,7 @@ export default function CourseViewHome(props) {
 
   return (
     <div>
+      <CssBaseline />
       <main className={classes.content}>
         <Container maxWidth="xl">
           {props.from === "CourseList" && (
@@ -162,6 +152,7 @@ export default function CourseViewHome(props) {
               <Grid container direction="row">
                 <Grid item>
                   <Button
+                    color="inherit"
                     variant="outlined"
                     className={classes.Button1}
                     endIcon={<FilterList />}
@@ -243,7 +234,6 @@ export default function CourseViewHome(props) {
               </Grid>
             ))}
           </Grid>
-
           {props.from === "Home" && (
             <Button
               color="inherit"

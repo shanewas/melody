@@ -25,6 +25,8 @@ import ViewInstructors from "./components/Admin/ViewInstructors";
 import CourseList from "./components/Course/CourseList";
 import InstructorList from "./components/Instructor/InstructorList";
 
+import Card from "./components/Course/Card";
+
 // import CourseData from "./data/CoursesData";
 
 export default function App() {
@@ -54,7 +56,7 @@ export default function App() {
 
         <Route exact path="/studentpanel" component={StudentPanel} />
 
-        <Route exact path="/test" component={CourseList} />
+        <Route exact path="/test" component={Card} />
 
         {/* <Route exact path="/coursedata" component={CourseData} /> */}
         <Route path="*" component={NotFound} />

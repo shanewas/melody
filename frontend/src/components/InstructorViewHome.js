@@ -10,6 +10,7 @@ import {
   CardMedia,
   Toolbar,
   CardActionArea,
+  CssBaseline,
 } from "@material-ui/core";
 import Link from "@material-ui/core/Link";
 import CardThumbnailInstructor from "./CardThumbnailInstructor";
@@ -47,23 +48,15 @@ const useStyles = makeStyles((theme) => ({
   },
   Button: {
     marginTop: theme.spacing(4),
-    color: theme.palette.secondary.contrastText,
+
     textTransform: "none",
-    "&:hover": {
-      color: theme.palette.primary.dark,
-    },
+
     "&:focus": {
       outline: "none",
     },
   },
   Button1: {
-    color: theme.palette.secondary.contrastText,
-    borderColor: theme.palette.secondary.contrastText,
     marginBottom: theme.spacing(5),
-    "&:hover": {
-      borderColor: theme.palette.primary.dark,
-      color: theme.palette.primary.dark,
-    },
 
     "&:focus": {
       outline: "none",
@@ -94,6 +87,7 @@ export default function InstructorViewHome(props) {
 
   return (
     <div className={classes.root}>
+      <CssBaseline />
       <main className={classes.content}>
         <Container maxWidth="xl">
           {props.from === "instructorList" && (
@@ -103,6 +97,7 @@ export default function InstructorViewHome(props) {
               <Grid container direction="row">
                 <Grid item>
                   <Button
+                    color="inherit"
                     variant="outlined"
                     className={classes.Button1}
                     endIcon={<FilterList />}

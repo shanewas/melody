@@ -16,15 +16,13 @@ const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
   },
-  Typography: {
-    color: theme.palette.text.secondary,
-  },
-  TypographyTitle:{
+
+  TypographyTitle: {
     color: theme.palette.secondary.contrastText,
   },
-  SocialIconColor:{
-    color: theme.palette.text.secondary
-  }
+  SocialIconColor: {
+    color: theme.palette.text.secondary,
+  },
 }));
 
 export default function ButtonAppBar() {
@@ -41,11 +39,7 @@ export default function ButtonAppBar() {
       <Grid item lg={4} md={4} xs={12}>
         <Grid container direction="column" spacing={3} alignContent="center">
           <Grid item>
-            <Typography
-              variant="subtitle2"
-              align="left"
-              className={classes.TypographyTitle}
-            >
+            <Typography variant="subtitle2" align="left">
               Explore
             </Typography>
           </Grid>
@@ -57,9 +51,7 @@ export default function ButtonAppBar() {
               alignItems="center"
             >
               <Link color="inherit" size="small">
-                <Typography variant="body2" className={classes.Typography}>
-                  Classes
-                </Typography>
+                <Typography variant="body2">Classes</Typography>
               </Link>
             </Grid>
           </Grid>
@@ -71,9 +63,7 @@ export default function ButtonAppBar() {
               alignItems="center"
             >
               <Link color="inherit" size="small">
-                <Typography variant="body2" className={classes.Typography}>
-                  Metholdmelody Live
-                </Typography>
+                <Typography variant="body2">Metholdmelody Live</Typography>
               </Link>
             </Grid>
           </Grid>
@@ -85,9 +75,7 @@ export default function ButtonAppBar() {
               alignItems="center"
             >
               <Link color="inherit" size="small">
-                <Typography variant="body2" className={classes.Typography}>
-                  Articles
-                </Typography>
+                <Typography variant="body2">Articles</Typography>
               </Link>
             </Grid>
           </Grid>
@@ -99,9 +87,7 @@ export default function ButtonAppBar() {
               alignItems="center"
             >
               <Link color="inherit" size="small">
-                <Typography variant="body2" className={classes.Typography}>
-                  Sitemap
-                </Typography>
+                <Typography variant="body2">Sitemap</Typography>
               </Link>
             </Grid>
           </Grid>
@@ -111,11 +97,7 @@ export default function ButtonAppBar() {
       <Grid item lg={4} md={4} xs={12}>
         <Grid container direction="column" spacing={3} alignContent="center">
           <Grid item>
-            <Typography
-              variant="subtitle2"
-              align="left"
-              className={classes.TypographyTitle}
-            >
+            <Typography variant="subtitle2" align="left">
               About
             </Typography>
           </Grid>
@@ -127,7 +109,7 @@ export default function ButtonAppBar() {
               alignItems="center"
             >
               <Link color="inherit" size="small">
-                <Typography variant="body2" className={classes.Typography}>
+                <Typography variant="body2">
                   Diversity, Equity and Inclusion
                 </Typography>
               </Link>
@@ -141,9 +123,7 @@ export default function ButtonAppBar() {
               alignItems="center"
             >
               <Link color="inherit" size="small">
-                <Typography variant="body2" className={classes.Typography}>
-                  Privacy
-                </Typography>
+                <Typography variant="body2">Privacy</Typography>
               </Link>
             </Grid>
           </Grid>
@@ -155,9 +135,7 @@ export default function ButtonAppBar() {
               alignItems="center"
             >
               <Link color="inherit" size="small">
-                <Typography variant="body2" className={classes.Typography}>
-                  Terms
-                </Typography>
+                <Typography variant="body2">Terms</Typography>
               </Link>
             </Grid>
           </Grid>
@@ -169,9 +147,7 @@ export default function ButtonAppBar() {
               alignItems="center"
             >
               <Link color="inherit" size="small">
-                <Typography variant="body2" className={classes.Typography}>
-                  Support
-                </Typography>
+                <Typography variant="body2">Support</Typography>
               </Link>
             </Grid>
           </Grid>
@@ -180,11 +156,7 @@ export default function ButtonAppBar() {
       <Grid item lg={4} md={4} xs={12}>
         <Grid container direction="column" spacing={3} alignContent="center">
           <Grid item>
-            <Typography
-              variant="subtitle2"
-              align="left"
-              className={classes.TypographyTitle}
-            >
+            <Typography variant="subtitle2" align="left">
               Social
             </Typography>
           </Grid>
@@ -195,11 +167,9 @@ export default function ButtonAppBar() {
               justify="flex-start"
               alignItems="center"
             >
-              <Twitter fontSize="small" className={classes.SocialIconColor}/>
+              <Twitter fontSize="small" />
               <Link color="inherit" size="small">
-                <Typography variant="body2" className={classes.Typography}>
-                  Twitter
-                </Typography>
+                <Typography variant="body2">Twitter</Typography>
               </Link>
             </Grid>
           </Grid>
@@ -210,11 +180,9 @@ export default function ButtonAppBar() {
               justify="flex-start"
               alignItems="center"
             >
-              <Instagram fontSize="small" className={classes.SocialIconColor}/>
+              <Instagram fontSize="small" />
               <Link color="inherit" size="small">
-                <Typography variant="body2" className={classes.Typography}>
-                  Instagram
-                </Typography>
+                <Typography variant="body2">Instagram</Typography>
               </Link>
             </Grid>
           </Grid>
@@ -225,11 +193,9 @@ export default function ButtonAppBar() {
               justify="flex-start"
               alignItems="center"
             >
-              <Facebook fontSize="small" className={classes.SocialIconColor}/>
+              <Facebook fontSize="small" />
               <Link color="inherit" size="small">
-                <Typography variant="body2" className={classes.Typography}>
-                  Facebook
-                </Typography>
+                <Typography variant="body2">Facebook</Typography>
               </Link>
             </Grid>
           </Grid>
@@ -240,11 +206,9 @@ export default function ButtonAppBar() {
               justify="flex-start"
               alignItems="center"
             >
-              <LinkedIn fontSize="small" className={classes.SocialIconColor}/>
+              <LinkedIn fontSize="small" />
               <Link color="inherit" size="small">
-                <Typography variant="body2" className={classes.Typography}>
-                  LinkedIn
-                </Typography>
+                <Typography variant="body2">LinkedIn</Typography>
               </Link>
             </Grid>
           </Grid>

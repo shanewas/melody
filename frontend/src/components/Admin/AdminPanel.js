@@ -211,7 +211,6 @@ export default function AdminPanel() {
         <Grid
           container
           direction="row"
-          style={{ backgroundColor: theme.palette.primary.main }}
         >
           <Grid
             item

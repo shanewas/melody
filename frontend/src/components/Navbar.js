@@ -49,7 +49,6 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   button: {
-    color: theme.palette.secondary.contrastText,
     "&:focus": {
       outline: "none",
     },
@@ -81,11 +80,7 @@ const StyledMenuItem = withStyles((theme) => ({
   root: {
     "&:hover": {
       //you want this to be the same as the backgroundColor above
-      backgroundColor: theme.palette.secondary.contrastText,
-      color: theme.palette.common.white,
-      "& .MuiListItemIcon-root, & .MuiListItemText-primary": {
-        color: theme.palette.common.white,
-      },
+      // backgroundColor: theme.palette.secondary.main,
     },
   },
 }))(MenuItem);
@@ -218,10 +213,28 @@ export default function Navbar(props) {
   }
 
   const userList = [
-    { title: "My Classroom", icon: <CastForEducation /> },
-    { title: "My Profile", icon: <AccountCircle /> },
-    { title: "My Messages", icon: <Forum /> },
-    { title: "Logout", icon: <ExitToApp /> },
+    {
+      title: "My Classroom",
+      icon: (
+        <CastForEducation
+          style={{ color: theme.palette.primary.contrastText }}
+        />
+      ),
+    },
+    {
+      title: "My Profile",
+      icon: (
+        <AccountCircle style={{ color: theme.palette.primary.contrastText }} />
+      ),
+    },
+    {
+      title: "My Messages",
+      icon: <Forum style={{ color: theme.palette.primary.contrastText }} />,
+    },
+    {
+      title: "Logout",
+      icon: <ExitToApp style={{ color: theme.palette.primary.contrastText }} />,
+    },
   ];
 
   const categoryList = [
@@ -258,7 +271,7 @@ export default function Navbar(props) {
 
   return (
     <div className={classes.root}>
-      <AppBar position="fixed" style={{ background: "#fff" }}>
+      <AppBar position="fixed">
         <Toolbar>
           <div className={classes.sectionLogoLeftDesktop}>
             <img

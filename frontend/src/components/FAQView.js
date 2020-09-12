@@ -11,9 +11,6 @@ const useStyles = makeStyles((theme) => ({
     marginTop: theme.spacing(5),
     color: theme.palette.secondary.contrastText,
   },
-  ExpansionPanel: {
-    color: theme.palette.primary.light,
-  },
 }));
 
 export default function FAQView() {

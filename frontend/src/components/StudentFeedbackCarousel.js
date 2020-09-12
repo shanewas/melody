@@ -126,17 +126,6 @@ export default function StudentFeedback() {
               </CardContent>
             </Grid>
           </Grid>
-
-          <CardActions>
-            <Button
-              size="large"
-              variant="contained"
-              fullWidth="true"
-              className={classes.Button}
-            >
-              Visit Course
-            </Button>
-          </CardActions>
         </Card>
       </div>
       <div className={classes.root}>
@@ -168,16 +157,6 @@ export default function StudentFeedback() {
               </Grid>
             </Grid>
           </CardActionArea>
-          <CardActions >
-            <Button
-              size="large"
-              variant="contained"
-              fullWidth="true"
-              className={classes.Button}
-            >
-              Visit Course
-            </Button>
-          </CardActions>
         </Card>
       </div>
     </Carousel>
