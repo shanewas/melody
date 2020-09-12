@@ -45,6 +45,8 @@ router
 		const photo = req.file.path;
 		const bio = req.body.bio;
 		const earnings = req.body.earnings;
+		const teaches = req.body.teaches;
+		const band = req.body.band;
 		const course = req.body.course;
 		const document = req.body.document;
 		const video = req.body.video;
@@ -53,6 +55,8 @@ router
 			photo,
 			bio,
 			earnings,
+			teaches,
+			band,
 			course,
 			document,
 			video,
