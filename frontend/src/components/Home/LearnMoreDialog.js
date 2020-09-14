@@ -105,14 +105,10 @@ export default function CustomizedDialogs(props) {
         <Grid item>
           <Fab
             onClick={handleClickOpen}
-            style={{
-              color: theme.palette.primary.light,
-              backgroundColor: theme.palette.secondary.contrastText,
-            }}
             size="small"
-            className={classes.Button1}
+            style={{ backgroundColor: theme.palette.secondary.main }}
           >
-            <Search />
+            <Search style={{ color: theme.palette.primary.contrastText }} />
           </Fab>
         </Grid>
         <Grid item>
@@ -121,14 +117,12 @@ export default function CustomizedDialogs(props) {
             onClick={() => {
               // props.buyfunction(course._id);
             }}
-            style={{
-              color: theme.palette.primary.light,
-              backgroundColor: theme.palette.secondary.contrastText,
-            }}
             size="small"
-            className={classes.Button1}
+            style={{ backgroundColor: theme.palette.secondary.main }}
           >
-            <ShoppingCart />
+            <ShoppingCart
+              style={{ color: theme.palette.primary.contrastText }}
+            />
           </Fab>
         </Grid>
       </Grid>

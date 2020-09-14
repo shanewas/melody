@@ -16,6 +16,7 @@ import {
   Toolbar,
   CardActionArea,
   TextField,
+  ButtonGroup,
 } from "@material-ui/core";
 import Rating from "@material-ui/lab/Rating";
 import axios from "../api/Config";
@@ -61,32 +62,21 @@ const useStyles = makeStyles((theme) => ({
   },
   Typography: {
     marginBottom: theme.spacing(8),
-    color: theme.palette.secondary.contrastText,
   },
   Typography1: {
     marginBottom: theme.spacing(3),
-    color: theme.palette.secondary.contrastText,
   },
   Button: {
     marginTop: theme.spacing(4),
-    color: theme.palette.secondary.contrastText,
+
     textTransform: "none",
-    "&:hover": {
-      color: theme.palette.primary.dark,
-    },
 
     "&:focus": {
       outline: "none",
     },
   },
   Button1: {
-    color: theme.palette.secondary.contrastText,
-    borderColor: theme.palette.secondary.contrastText,
     marginBottom: theme.spacing(5),
-    "&:hover": {
-      borderColor: theme.palette.primary.dark,
-      color: theme.palette.primary.dark,
-    },
 
     "&:focus": {
       outline: "none",
@@ -153,6 +143,7 @@ export default function CourseViewHome(props) {
 
   return (
     <div>
+      <CssBaseline />
       <main className={classes.content}>
         <Container maxWidth="xl">
           {props.from === "CourseList" && (
@@ -162,12 +153,27 @@ export default function CourseViewHome(props) {
               <Grid container direction="row">
                 <Grid item>
                   <Button
+                    color="inherit"
                     variant="outlined"
                     className={classes.Button1}
                     endIcon={<FilterList />}
                   >
                     Filter by
                   </Button>
+                </Grid>
+                <Grid item>
+                  <ButtonGroup
+                    size="large"
+                    style={{ color: theme.palette.primary.contrastText }}
+                    fullWidth="true"
+                    variant="outlined"
+                    aria-label="large outlined primary button group"
+                  >
+                    <Button>Category</Button>
+                    <Button>Level</Button>
+                    <Button>Module</Button>
+                    <Button>Instructor</Button>
+                  </ButtonGroup>
                 </Grid>
               </Grid>
             </div>
@@ -179,6 +185,41 @@ export default function CourseViewHome(props) {
               className={classes.Typography}
             >
               {props.totalCourse} in-depth courses for you to subscribe
+            </Typography>
+          )}
+
+          {props.from === "All" && (
+            <Typography
+              variant="h4"
+              component="h4"
+              align="left"
+              style={{ margin: theme.spacing(5, 0, 5, 1) }}
+            >
+              {props.from} Courses
+            </Typography>
+          )}
+
+          {props.from === "Featured" && (
+            <Typography
+              variant="h4"
+              component="h4"
+              className={classes.Typography}
+              align="left"
+              style={{ margin: theme.spacing(5, 0, 5, 1) }}
+            >
+              {props.from} Courses
+            </Typography>
+          )}
+
+          {props.from === "Top Selling" && (
+            <Typography
+              variant="h4"
+              component="h4"
+              className={classes.Typography}
+              align="left"
+              style={{ margin: theme.spacing(5, 0, 5, 1) }}
+            >
+              {props.from} Courses
             </Typography>
           )}
 
@@ -243,7 +284,6 @@ export default function CourseViewHome(props) {
               </Grid>
             ))}
           </Grid>
-
           {props.from === "Home" && (
             <Button
               color="inherit"

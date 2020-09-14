@@ -47,20 +47,19 @@ const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
     width: "100%",
-    backgroundColor: theme.palette.background.paper,
   },
   Card: {},
   Tab: {
     padding: theme.spacing(1),
-    color: theme.palette.primary.light,
-    backgroundColor: theme.palette.secondary.contrastText,
+
+    backgroundColor: theme.palette.secondary.main,
     "&:active": {
       outline: "none",
     },
     "&:hover": {
       outline: "none",
     },
-    "&:active": {
+    '&focused': {
       outline: "none",
     },
   },
@@ -80,7 +79,7 @@ export default function ScrollableTabsButtonAuto() {
   useEffect(() => {
     getUserDetails();
     getUserCourses();
-  }, [user,userCourses]);
+  }, [user, userCourses]);
 
   function getUserDetails() {
     const url = "user/" + localStorage.getItem("id");

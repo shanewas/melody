@@ -3,9 +3,9 @@ import InstructorCarousel from "./InstructorCarousel";
 import "../App.css";
 import Navbar from "./Navbar";
 import FAQView from "./FAQView";
-import { Grid, Divider, makeStyles, Typography } from "@material-ui/core";
+import { Grid, Divider, makeStyles, Typography, Toolbar } from "@material-ui/core";
 
-import TopViewHome from "./TopViewHome";
+import CarouselHome from "./Home/Carousel";
 import InstructorViewHome from "./InstructorViewHome";
 import VideoPlayer from "./videoPlayer/VideoPlayer";
 import CourseViewHome from "./CourseViewHome";
@@ -23,12 +23,12 @@ const useStyles = makeStyles((theme) => ({
     margin: "0px",
   },
   Carousel: {
-    color: theme.palette.primary.light,
+    // color: theme.palette.primary.light,
     // marginTop: theme.spacing(8),
   },
   Typography: {
     // marginBottom: theme.spacing(4),
-    color: theme.palette.secondary.contrastText,
+    // color: theme.palette.secondary.contrastText,
   },
 }));
 
@@ -133,6 +133,9 @@ function App() {
 
   return (
     <div className="App">
+      <Navbar />
+      <Toolbar/>
+      <CarouselHome />
       <Grid
         container
         justify="center"
@@ -140,16 +143,8 @@ function App() {
         spacing={theme.spacing(1)}
         className={classes.Grid}
       >
-        {/* navbar */}
-        <Grid item xs={12}>
-          <Navbar />
-        </Grid>
-        {/* topview */}
-        <Grid item xs={12}>
-          <TopViewHome />
-        </Grid>
         {/* courselist */}
-        <Grid item xs={12}>
+        <Grid item xs={12} >
           <CourseViewHome
             courses={courseList}
             totalCourse={analytics.course}
@@ -170,7 +165,7 @@ function App() {
         <Grid item xs={12}>
           <InstructorViewHome instructors={instructorList} from="Home" />
         </Grid>
-        <Grid item xs={12}>
+        {/* <Grid item xs={12}>
           <Divider />
         </Grid>
         <Grid item xs={12}>
@@ -183,7 +178,7 @@ function App() {
         </Grid>
         <Grid item xs={12}>
           <Divider />
-        </Grid>
+        </Grid> */}
         <Grid item xs={8}>
           <Info
             numberOfCourse={courseList.length}

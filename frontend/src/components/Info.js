@@ -8,10 +8,9 @@ const useStyles = makeStyles((theme) => ({
     flexGrow: 1,
   },
   Card: {
-    color: theme.palette.text.secondary,
-    background: theme.palette.secondary.main,
-    padding:theme.spacing(1),
-    margin: theme.spacing(5)
+    background: theme.palette.primary.dark,
+    padding: theme.spacing(1),
+    margin: theme.spacing(5),
   },
 }));
 
@@ -26,7 +25,9 @@ export default function Info(props) {
         <Card className={classes.Card}>
           <CardContent>
             <Typography variant="h5">{numberOfCourse} Classes</Typography>
-            <Typography variant="subtitle1">From {numberOfInstructors} Instructors</Typography>
+            <Typography variant="subtitle1">
+              From {numberOfInstructors} Instructors
+            </Typography>
           </CardContent>
         </Card>
       </Grid>
@@ -48,4 +49,4 @@ export default function Info(props) {
       </Grid>
     </Grid>
   );
-};
+}
