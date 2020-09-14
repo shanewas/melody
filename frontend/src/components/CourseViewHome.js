@@ -173,6 +173,41 @@ export default function CourseViewHome(props) {
             </Typography>
           )}
 
+          {props.from === "All" && (
+            <Typography
+              variant="h4"
+              component="h4"
+              align="left"
+              style={{ margin: theme.spacing(5, 0, 5, 1) }}
+            >
+              {props.from} Courses
+            </Typography>
+          )}
+
+          {props.from === "Featured" && (
+            <Typography
+              variant="h4"
+              component="h4"
+              className={classes.Typography}
+              align="left"
+              style={{ margin: theme.spacing(5, 0, 5, 1) }}
+            >
+              {props.from} Courses
+            </Typography>
+          )}
+
+          {props.from === "Top Selling" && (
+            <Typography
+              variant="h4"
+              component="h4"
+              className={classes.Typography}
+              align="left"
+              style={{ margin: theme.spacing(5, 0, 5, 1) }}
+            >
+              {props.from} Courses
+            </Typography>
+          )}
+
           {/* {props.from === "CourseList" && (
             <Typography variant="h6" className={classes.Typography1}>
               {props.totalCourse} All Courses

@@ -18,7 +18,7 @@ const useStyles = makeStyles((theme) => ({
   },
 
   TypographyTitle: {
-    color: theme.palette.secondary.contrastText,
+    color: theme.palette.secondary.main,
   },
   SocialIconColor: {
     color: theme.palette.text.secondary,
@@ -39,7 +39,11 @@ export default function ButtonAppBar() {
       <Grid item lg={4} md={4} xs={12}>
         <Grid container direction="column" spacing={3} alignContent="center">
           <Grid item>
-            <Typography variant="subtitle2" align="left">
+            <Typography
+              variant="subtitle2"
+              align="left"
+              className={classes.TypographyTitle}
+            >
               Explore
             </Typography>
           </Grid>
@@ -97,7 +101,11 @@ export default function ButtonAppBar() {
       <Grid item lg={4} md={4} xs={12}>
         <Grid container direction="column" spacing={3} alignContent="center">
           <Grid item>
-            <Typography variant="subtitle2" align="left">
+            <Typography
+              variant="subtitle2"
+              align="left"
+              className={classes.TypographyTitle}
+            >
               About
             </Typography>
           </Grid>
@@ -156,7 +164,11 @@ export default function ButtonAppBar() {
       <Grid item lg={4} md={4} xs={12}>
         <Grid container direction="column" spacing={3} alignContent="center">
           <Grid item>
-            <Typography variant="subtitle2" align="left">
+            <Typography
+              variant="subtitle2"
+              align="left"
+              className={classes.TypographyTitle}
+            >
               Social
             </Typography>
           </Grid>

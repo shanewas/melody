@@ -99,7 +99,7 @@ export default function MCarousel() {
                   ...arrowStyles,
                   right: 10,
                   backgroundColor: "#00000000",
-                  color: "#b02020",
+                  color: theme.palette.secondary.main,
                 }}
                 className={classes.Fab}
               />
@@ -137,8 +137,9 @@ export default function MCarousel() {
       </Grid>
       <Grid item>
         <Button
-          style={{ backgroundColor: "#b02020", color: "#fff" }}
+          // style={{ backgroundColor: "#b02020", color: "#fff" }}
           size="large"
+          color="primary"
         >
           Let's Get Started
         </Button>

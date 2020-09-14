@@ -4,7 +4,6 @@ import { Typography, makeStyles, AppBar, Toolbar } from "@material-ui/core";
 const useStyles = makeStyles((theme) => ({
   appBar: {
     zIndex: theme.zIndex.drawer + 1,
-    background: theme.palette.primary.light,
     color: theme.palette.secondary.contrastText
   },
 }));

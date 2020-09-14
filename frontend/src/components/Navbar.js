@@ -57,6 +57,7 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   sectionLogoLeftDesktop: {
+    flexGrow:1,
     display: "none",
     [theme.breakpoints.up("md")]: {
       display: "flex",
@@ -282,9 +283,7 @@ export default function Navbar(props) {
               onClick={navigateToHome}
             />
           </div>
-          <div className={classes.logo}>
-            <img src={logoShort} alt="MethodMelody" height="auto" width="40" />
-          </div>
+
           <div className={classes.sectionDesktop}>
             <Button
               color="inherit"
