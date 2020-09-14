@@ -16,6 +16,7 @@ import {
   Toolbar,
   CardActionArea,
   TextField,
+  ButtonGroup,
 } from "@material-ui/core";
 import Rating from "@material-ui/lab/Rating";
 import axios from "../api/Config";
@@ -159,6 +160,20 @@ export default function CourseViewHome(props) {
                   >
                     Filter by
                   </Button>
+                </Grid>
+                <Grid item>
+                  <ButtonGroup
+                    size="large"
+                    style={{ color: theme.palette.primary.contrastText }}
+                    fullWidth="true"
+                    variant="outlined"
+                    aria-label="large outlined primary button group"
+                  >
+                    <Button>Category</Button>
+                    <Button>Level</Button>
+                    <Button>Module</Button>
+                    <Button>Instructor</Button>
+                  </ButtonGroup>
                 </Grid>
               </Grid>
             </div>
