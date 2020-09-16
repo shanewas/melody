@@ -50,6 +50,7 @@ router
 		const course = req.body.course;
 		const document = req.body.document;
 		const video = req.body.video;
+		const percentage = req.body.percentage;
 		const newInstructor = new Instructor({
 			name,
 			photo,
@@ -60,6 +61,7 @@ router
 			course,
 			document,
 			video,
+			percentage
 		});
 		newInstructor
 			.save()

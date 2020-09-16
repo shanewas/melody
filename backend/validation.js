@@ -3,7 +3,7 @@ const Joi = require("joi");
 const registerValidation = (data) => {
 	const signUpSchema = Joi.object({
 		name: Joi.string().min(6).required(),
-		age: Joi.string().min(3).required(),
+		age: Joi.string().min(1).required(),
 		phone: Joi.string().min(6).required(),
 		address: Joi.string().min(6).required(),
 		email: Joi.string().min(6).required().email(),
