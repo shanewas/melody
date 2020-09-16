@@ -4,8 +4,10 @@ var Schema = mongoose.Schema;
 var SoldSchema = new Schema(
     {
         courseId: { type: Schema.Types.ObjectId },
-        dateTime: { type: Date, default: Date.now },
-        ammount: { type: String },
+        dateTime: [{ type: String }],
+        ammount: [{ type: String }],
+        user: [{ type: Schema.Types.ObjectId }],
+        sold: { type: Number, default: 1 },
         instructor: { type: Schema.Types.ObjectId },
     },
     { timestamps: true }

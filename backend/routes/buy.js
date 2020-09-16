@@ -4,6 +4,7 @@ const User = require("../models/User.model");
 const Course = require("../models/Course.model");
 const Instructor = require("../models/Instructor.model");
 const Analytics = require("../models/Analytics.model");
+const Sold = require("../models/Sold.model");
 
 //BUY
 router.route("/").post((req, res) => {
@@ -26,7 +27,47 @@ router.route("/").post((req, res) => {
 	)
 		.then((doc) => {
 			if (doc) {
-				res.status(200).json(`User purchased new course successfully!`);
+				Course.findById(course).then((doc) => {
+					if (doc) {
+						const ammount = doc.price;
+						const instructor = doc.instructor;
+						Sold.findOneAndUpdate(
+							{ courseId: course },
+							{
+								$inc: { sold: 1 },
+								$push: {
+									dateTime: new Date().toISOString(),
+									ammount: ammount,
+									user: user
+								}
+							},
+							{ useFindAndModify: false }
+						)
+							.then((doc) => {
+								if (doc) {
+									res.status(200).json(`Sold Successfully!`);
+								} else {
+									const newSold = new Sold({
+										courseId: course,
+										user,
+										dateTime: new Date().toISOString(),
+										ammount,
+										instructor
+									});
+									newSold.save().then(() => {
+										res.status(200).json(`Sold Successfully!`);
+									}).catch((err) => {
+										throw err;
+									});
+								}
+							}).catch((err) => {
+								throw err;
+							});
+					} else {
+						res.status(404).json(`Sold Failed!`);
+					}
+				})
+				// res.status(200).json(`User purchased new course successfully!`);
 			} else {
 				res.status(404).json(`Course purchase Failed!`);
 			}
@@ -63,6 +104,7 @@ router.route("/").post((req, res) => {
 			}
 		})
 		.catch((err) => res.status(400).json("Error: " + err));
+
 });
 
 module.exports = router;
