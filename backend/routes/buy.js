@@ -27,78 +27,70 @@ router.route("/").post((req, res) => {
 	)
 		.then((doc) => {
 			if (doc) {
-				Course.findById(course).then((doc) => {
-					if (doc) {
-						const ammount = doc.price;
-						const instructor = doc.instructor;
-						Sold.findOneAndUpdate(
-							{ courseId: course },
-							{
-								$inc: { sold: 1 },
-								$push: {
-									dateTime: new Date().toISOString(),
-									ammount: ammount,
-									user: user
-								}
-							},
-							{ useFindAndModify: false }
-						)
-							.then((doc) => {
-								if (doc) {
-									res.status(200).json(`Sold Successfully!`);
-								} else {
-									const newSold = new Sold({
-										courseId: course,
-										user,
-										dateTime: new Date().toISOString(),
-										ammount,
-										instructor
-									});
-									newSold.save().then(() => {
-										res.status(200).json(`Sold Successfully!`);
-									}).catch((err) => {
-										throw err;
-									});
-								}
-							}).catch((err) => {
-								throw err;
-							});
-					} else {
-						res.status(404).json(`Sold Failed!`);
-					}
-				})
-				// res.status(200).json(`User purchased new course successfully!`);
-			} else {
-				res.status(404).json(`Course purchase Failed!`);
-			}
-		})
-		.catch((err) => res.status(400).json("Error: " + err));
+				Course.findByIdAndUpdate(
+					{ _id: course },
+					{ $inc: { sold: 1 } },
+					{ useFindAndModify: false }).then((doc) => {
+						if (doc) {
+							const ammount = Number(doc.price);
+							const instructor = doc.instructor;
 
-	Course.findByIdAndUpdate(
-		{ _id: course },
-		{ $inc: { sold: 1 } },
-		{ useFindAndModify: false }
-	)
-		.then((doc) => {
-			if (doc) {
-				Analytics.findByIdAndUpdate(
-					{ _id: "5f37f0b2c5e1655598887cb8" },
-					{ $inc: { sold: 1 } },
-					{ useFindAndModify: false }
-				)
-					.exec()
-					.catch((err) => {
-						throw err;
-					});
-				Instructor.findByIdAndUpdate(
-					{ _id: Mongoose.Types.ObjectId(doc["instructor"]) },
-					{ $inc: { sold: 1 } },
-					{ useFindAndModify: false }
-				)
-					.exec()
-					.catch((err) => {
-						throw err;
-					});
+							Analytics.findByIdAndUpdate(
+								{ _id: "5f37f0b2c5e1655598887cb8" },
+								{ $inc: { sold: 1 } },
+								{ useFindAndModify: false }
+							)
+								.exec()
+								.catch((err) => {
+									throw err;
+								});
+
+							Instructor.findByIdAndUpdate(
+								{ _id: instructor },
+								{ $inc: { sold: 1 } },
+								{ useFindAndModify: false })
+								.then((doc) => {
+									let instructor_earning = ammount - ((doc.percentage * ammount) / 100);
+									Instructor.findByIdAndUpdate(
+										{ _id: instructor },
+										{ $inc: { earnings: (doc.percentage * ammount) / 100 } },
+										{ useFindAndModify: false }).exec().catch((err) => { throw err });
+									Sold.findOneAndUpdate(
+										{ courseId: course },
+										{
+											$inc: { sold: 1, ammount: instructor_earning },
+											$push: {
+												dateTime: `${currentTime.getDate()}/${currentTime.getMonth()}/${currentTime.getFullYear()}`,
+												user: user
+											}
+										},
+										{ useFindAndModify: false }
+									)
+										.then((doc) => {
+											if (doc) {
+												res.status(200).json(`Course purchase Successfully!`);
+											} else {
+												const newSold = new Sold({
+													courseId: course,
+													user,
+													dateTime: `${currentTime.getDate()}/${currentTime.getMonth()}/${currentTime.getFullYear()}`,
+													ammount: instructor_earning,
+													instructor
+												});
+												newSold.save().then(() => {
+													res.status(200).json(`Course purchase Successfully!`);
+												}).catch((err) => {
+													throw err;
+												});
+											}
+										}).catch((err) => {
+											throw err;
+										});
+								});
+						} else {
+							res.status(404).json(`Course purchase Failed!`);
+						}
+					})
 			} else {
 				res.status(404).json(`Course purchase Failed!`);
 			}

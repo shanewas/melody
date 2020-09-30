@@ -6,7 +6,7 @@ var InstructorSchema = new Schema(
 		name: { type: String },
 		photo: { type: String },
 		bio: { type: String },
-		earnings: { type: String },
+		earnings: { type: Number, default: 0 },
 		teaches: [{ type: String }],
 		band: { type: String },
 		course: [{ type: Schema.Types.ObjectId }],
@@ -19,7 +19,7 @@ var InstructorSchema = new Schema(
 		sold: { type: Number, default: 0 },
 		featured: { type: Boolean, default: false },
 		published: { type: Boolean, default: true },
-		percentage: { type: Number }
+		percentage: { type: Number, default: 30 }
 	},
 	{ timestamps: true }
 );
