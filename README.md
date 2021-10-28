@@ -1,2 +1,2 @@
-# MethodMelody
-Method Melody (LMS)
+# Melody
+- A learning management system (LMS) for a client
