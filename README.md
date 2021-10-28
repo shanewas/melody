@@ -1,2 +1,2 @@
 # Melody
-- A learning management system (LMS) for a client
+- A learning management system
